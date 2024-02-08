@@ -13,6 +13,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        current: "currentColor",
+        background: "#101014",
     },
     keyframes: {
 
@@ -22,14 +25,6 @@ const config: Config = {
       },
 
     },
-    colors: {
-      current: "currentColor",
-      background: "#101014",
-      white: {},
-      black: {},
-      warning: {},
-      danger: {},
-      info: {},
     }
   },
   plugins: [],
