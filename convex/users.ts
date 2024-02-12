@@ -1,4 +1,12 @@
-import { mutation } from "./_generated/server";
+import { Doc } from "./_generated/dataModel";
+import { mutation, query } from "./_generated/server";
+
+/**
+ * Get all users data
+ */
+export const list = query(async (ctx): Promise<Doc<"users">[]> => {
+  return await ctx.db.query("users").collect();
+});
 
 /**
  * Insert or update the user in a Convex table then return the document's ID.
