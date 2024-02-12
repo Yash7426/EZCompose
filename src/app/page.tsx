@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Navbar from "./components/header";
 
 export default function Home() {
   return (
@@ -108,6 +109,10 @@ export default function Home() {
           </p>
         </a>
       </div>
+      <div>
+        <Navbar/>
+      </div>
+
     </main>
   );
 }

@@ -1,7 +1,13 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from "react";
+import { useUserContext } from "@/contexts/user-context";
 // import { useUser } from "../../Component/auth/useUser";
 
 interface IuserDetailsContext{
+userDetails:IuserDetails|null;
+setUserDetails: Dispatch<SetStateAction<IuserDetails | null>>;
+setEditorState: Dispatch<SetStateAction<{}>>
+editorState: IeditorState;
+
 
 }
 
@@ -9,33 +15,32 @@ const userDetailsPreview = createContext<IuserDetailsContext>({} as IuserDetails
 
 const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
 
-    const initialUserDetails:IuserDetailsContext = {
+    const initialUserDetails:IuserDetails = {
         user: "",
         email: "",
         _id: "",
         pageId: "",
         websiteId: "",
-        id: ""
+        id: ""     
     }
-    const [user, setUserDeatils] = useState<IuserDetailsContext | null>(initialUserDetails)
+    const [userDetails, setUserDetails] = useState<IuserDetails | null>(initialUserDetails)
     const [editorState, setEditorState] = useState({})
+    const {user}= useUserContext();
 
-    // const userId = useUser();
+    useEffect(() => {
 
-    // useEffect(() => {
+        if (user ) {
+            setUserDetails({ ...user, user:user.username})
 
-    //     if (userId) {
-    //         setUserDeatils({ ...userId, user: userId.username })
+        }
+    }, [user])
 
-    //     }
-    // }, [userId])
-
-    // useEffect(() => {
-    //     
-    // }, [editorState])
+    useEffect(() => {
+        
+    }, [editorState])
 
     return (
-        <userDetailsPreview.Provider value={{ user, setUserDeatils, editorState, setEditorState }}>
+        <userDetailsPreview.Provider value={{ userDetails, setUserDetails, editorState, setEditorState }}>
             {children}
         </userDetailsPreview.Provider>
     )
