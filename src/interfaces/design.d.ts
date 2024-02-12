@@ -1,7 +1,9 @@
 type IdesignState = {
+  _id?:string;
   projectId?: null | string;
   projectAuthor?: string;
   pageUri?: string;
+  prevImgUri?:string;
   websiteSetting?: {
     siteName: string;
     favIco: string;
@@ -10,7 +12,7 @@ type IdesignState = {
   };
   published?: boolean;
   pageMode?: number;
-  settigMode: number;
+  settingMode?: number;
   isDropEnabled?: boolean;
   analyticsID?: string;
   dropIndex?: number;
@@ -18,6 +20,12 @@ type IdesignState = {
     font: string;
     weights: string[];
   }[];
-  elements?: any[];
-  pages?:Allow
+  elements?:IdesignState[];
+  pages?:Page[]
 };
+
+
+interface Page {
+  pageId: string;
+  pageName: string;
+}

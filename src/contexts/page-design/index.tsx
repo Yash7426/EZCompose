@@ -1,10 +1,13 @@
 import { useState, useRef, useContext, createContext, Dispatch, SetStateAction } from "react";
 // import { useUser } from "../../Component/auth/useUser";
 // import { useToken } from "../../Component/auth/useToken";
-// import axios from 'axios'
+import axios from 'axios'
 import * as htmlToImage from 'html-to-image';
 import { useEffect } from "react";
 import { useuserDetailsContext } from "@/contexts/user-details";
+import { useUserContext } from "../user-context";
+import { useToken } from "@/app/hooks/use-token";
+import { useRouter } from "next/router";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -13,6 +16,15 @@ interface IuserDetailsContext{
     setDesign: Dispatch<SetStateAction<IdesignState | null>>   
     webDesignState: IdesignState|null;
     setWebDesignState: Dispatch<SetStateAction<IdesignState | null>>
+    tokenTracker: string
+    setTokenTracker: Dispatch<SetStateAction<string>>
+    dropPosition: React.MutableRefObject<number>
+    publishWebPage: ()=>void
+    nodeLevel: React.MutableRefObject<any>
+    actElLayer: string
+    setELLayer: Dispatch<SetStateAction<string>>
+    removeWebPage: ()=>void
+    getWebPageImageAndSavePage: (type?: string) => Promise<void>
 }
 
 const pageDesignPreview = createContext<IuserDetailsContext>({} as IuserDetailsContext);
@@ -31,7 +43,7 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
         },
         published: false,
         pageMode: 1,
-        settigMode: -1,
+        settingMode: -1,
         isDropEnabled: true,
         analyticsID: "",
         dropIndex: 0,
@@ -48,7 +60,7 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
 
     // const navigate = useNavigate();
 
-    const UserDetailsState = useuserDetailsContext();
+    const {editorState, setEditorState,setUserDetails ,userDetails} = useuserDetailsContext();
 
 
     const dropPosition = useRef(0)
@@ -56,98 +68,99 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
 
     const activeElemLayer = useRef(null);
 
-
+const router=useRouter()
     const [design, setDesign] = useState<IdesignState | null>(InitialDeisgnState);
-    const [actElLayer, setELLayer] = useState("0,");
+    const [actElLayer, setELLayer] = useState<string>("0,");
     const [webDesignState, setWebDesignState] = useState<IdesignState|null>(null );
 
-    // const user = useUser();
-    // const [token,] = useToken();
+    const {user }= useUserContext();
+    const [token,] = useToken();
+// const token="";
+
+    const [tokenTracker, setTokenTracker] = useState<string>(token as string);
+
+    useEffect(() => {
+        if (user) {
+            let { id } = user;
+            if (id) setUserDetails({ ...user,user:user.username, _id: id, id: id })
+        }
+    }, [user])
+
+    useEffect(() => {
+
+        setTokenTracker(token as string);
+    }, [token])
 
 
-    // const [tokenTracker, setTokenTracker] = useState(token);
+    const saveWebPage = async (status:number, type:string,ImgUri?:string, ) => {
 
-    // useEffect(() => {
-    //     if (user) {
-    //         let { id } = user;
-    //         if (id) UserDetailsState.setUserDeatils({ ...UserDetailsState.user, _id: id, id: id })
-    //     }
+        if (status === 200 && design?.elements && design?.elements?.length > 0) {
+            setWebDesignState((prev)=>({ ...prev, prevImgUri: ImgUri }));
+            //update the website setting
+            await axios.post('/api/save-webprev/', {
+                id: user?.id,
+                websiteId: editorState?.websiteId,
+                imageUri: "" + ImgUri
+            }, {
+                headers: { Authorization: `Bearer ${tokenTracker}` }
+            })
+        }
 
-    // }, [user])
+        //go for regular saving of page
 
-    // useEffect(() => {
+        try {
+            const __design_data =design ;
+            if(__design_data !=null){
+                
+               if (type === "publish" ) {
+                                __design_data.published = !design?.published;
+                                setDesign({ ...design, published: !design?.published })
+                            }
+                delete __design_data['_id'];
+                __design_data.settingMode = -1;
+                
+                
+                            await axios.post('/api/save-webpage/', {
+                                id: user?.id,
+                                pageId: editorState.pageId,
+                                pageJso: __design_data
+                            }, {
+                                headers: { Authorization: `Bearer ${tokenTracker}` }
+                            }).then(() => {
+                                
+                                alert("Saved.")
+                
+                            }).catch(() => {
+                                alert("Can not save the webpage")
+                            })
+            }
 
-    //     setTokenTracker(token);
-    // }, [token])
+        } catch (e) {
 
-
-    // const saveWebPage = async (status, ImgUri, type) => {
-
-
-
-    //     if (status === 200 && design.elements.length > 0) {
-    //         setWebDesignState({ ...webDesignState, prevImgUri: ImgUri });
-    //         //update the website setting
-    //         // await axios.post('/api/save-webprev/', {
-    //         //     id: UserDetailsState.user.id,
-    //         //     websiteId: UserDetailsState.editorState.websiteId,
-    //         //     imageUri: "" + ImgUri
-    //         // }, {
-    //         //     headers: { Authorization: `Bearer ${tokenTracker}` }
-    //         // })
-    //     }
-
-    //     //go for regular saving of page
-
-    //     try {
-    //         let __design_data = { ...design };
-    //         if (type === "publish") {
-    //             __design_data.published = !design.published;
-    //             setDesign({ ...design, published: !design.published })
-    //         }
-    //         delete __design_data['_id'];
-    //         __design_data.settigMode = -1;
-
-
-    //         // await axios.post('/api/save-webpage/', {
-    //         //     id: UserDetailsState.user.id,
-    //         //     pageId: UserDetailsState.editorState.pageId,
-    //         //     pageJso: __design_data
-    //         // }, {
-    //         //     headers: { Authorization: `Bearer ${tokenTracker}` }
-    //         // }).then(response => {
-    //         //     // 
-    //         //     alert("Saved.")
-
-    //         // }).catch(err => {
-    //         //     alert("Can not save the webpage")
-    //         // })
-
-    //     } catch (e) {
-
-    //         alert("Unable to save the webpage try again!");
-    //     }
-    // }
+            alert("Unable to save the webpage try again!");
+        }
+    }
 
     const removeWebPage = async () => {
         try {
 
-            // await axios.post('/api/remove-webpage/', {
-            //     id: UserDetailsState.user.id,
-            //     pageId: UserDetailsState.editorState.pageId,
-            //     webId: UserDetailsState.editorState.websiteId
-            // }, {
-            //     headers: { Authorization: `Bearer ${tokenTracker}` }
-            // }).then(response => {
-            //     // 
-            //     alert("Deleted.")
+            await axios.post('/api/remove-webpage/', {
+                id: user?.id,
+                pageId: editorState?.pageId,
+                webId: editorState?.websiteId
+            }, {
+                headers: { Authorization: `Bearer ${tokenTracker}` }
+            }).then(response => {
+                // 
+                alert("Deleted.")
 
-            //     UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: response.data.pageId });
-            //     // navigate(`/designer/${UserDetailsState.editorState.websiteId}/${response.data.pageID}/`)
+                setEditorState({ ...editorState, pageId: response.data.pageId });
+                router.push(`/designer/${editorState?.websiteId}/${response.data.pageId}/`);
 
-            // }).catch(err => {
-            //     alert("Can not delete the webpage")
-            // })
+            }).catch(() => {
+                console.error("Can not delete the webpage")
+                alert("Can not delete the webpage")
+            })
 
         } catch (e) {
 
@@ -155,32 +168,35 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
         }
     }
 
-    // const getWebPageImageAndSavePage = async (type = "save") => {
+    const getWebPageImageAndSavePage = async (type = "save") => {
 
-    //     try {
-    //         let sizes = document.querySelector('[data-prevpanel]').getBoundingClientRect();
+        try {
+            let prevPanel= document.querySelector('[data-prevpanel]');
+     if(prevPanel!=null){
+     await htmlToImage.toJpeg(prevPanel as HTMLElement, { quality: 0.95, width: prevPanel?.getBoundingClientRect()?.width, height: (205 / 280) * (prevPanel?.getBoundingClientRect()?.width ?? 200), canvasWidth: 280, canvasHeight: 205, backgroundColor: '#ffffff' })
 
-    //         await htmlToImage.toJpeg(document.querySelector('[data-prevpanel]'), { quality: 0.95, width: sizes.width, height: (205 / 280) * sizes.width, canvasWidth: 280, canvasHeight: 205, backgroundColor: '#ffffff' })
-    //             .then(function (dataUrl) {
-    //                 //
-    //                 saveWebPage(200, dataUrl, type)
-    //             }).catch(err => {
-    //                 saveWebPage(500, "")
-    //             })
-    //     } catch (e) {
+         .then(function (dataUrl) {
+        //
+        saveWebPage(200, type, dataUrl)
+    }).catch(err => {
+        saveWebPage(500, "")
+    })
+}
 
-    //         alert("Unable to save the webpage! Try again!");
-    //     }
-    // }
+        } catch (e) {
+
+            alert("Unable to save the webpage! Try again!");
+        }
+    }
 
 
     const publishWebPage = async () => {
 
-        // if (design.elements.length < 1) {
-        //     alert("Can not publish blank page. Add elements to publish.");
-        //     return;
-        // }
-        // getWebPageImageAndSavePage("publish");
+        if (design?.elements && design?.elements.length < 1) {
+            alert("Can not publish blank page. Add elements to publish.");
+            return;
+        }
+        getWebPageImageAndSavePage("publish");
 
     }
     // useEffect(() => {
@@ -188,8 +204,22 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
     // }, [design])
 
     return (
-        // , dropPosition, publishWebPage, nodeLevel, activeElemLayer, actElLayer, setELLayer,  removeWebPage 
-        <pageDesignPreview.Provider value={{ design, setDesign,webDesignState, setWebDesignState}}>
+   
+        <pageDesignPreview.Provider value={{
+             dropPosition,
+             publishWebPage,
+             nodeLevel,
+             design,
+             actElLayer,
+             setELLayer,
+             removeWebPage ,
+             setDesign,
+             tokenTracker,
+             setTokenTracker,
+             webDesignState,
+             setWebDesignState,
+             getWebPageImageAndSavePage
+             }}>
             {children}
         </pageDesignPreview.Provider>
     )

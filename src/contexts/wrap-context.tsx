@@ -3,7 +3,7 @@ import { CssSheetPreviewProvider } from './cssSheetPreview'
 import { UserDetailsProvider } from './user-details'
 import { PageDesignProvider } from './page-design'
 import { DragElemsProvider } from './DragElems'
-export default function wrapContexts({children}:{children: React.ReactNode}) {
+export default function WrapContexts({children}:{children: React.ReactNode}) {
     return (
         <>
             <CssSheetPreviewProvider>

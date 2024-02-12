@@ -9,3 +9,9 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+
+:root {
+  --primary-link: #333;
+  --primary-link-hover-background: #cfe2ff;
+  --secondary-highlighter: #f7f7f7;
+}

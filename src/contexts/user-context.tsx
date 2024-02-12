@@ -1,7 +1,10 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useToken } from "@/app/hooks/use-token";
+import React, { useContext, useEffect, useRef, useState } from "react"
+import { useuserDetailsContext } from "./user-details";
 
 interface IUserContext {
-
+user: Iuser;
+setUser:React.Dispatch<React.SetStateAction<Iuser>>
  
 
 }
@@ -35,11 +38,36 @@ const UserProvider = ({ children }: IUserProvider) => {
 //     }
 //   }, [session])
 
+const [token] = useToken();
+let {setUserDetails,userDetails} =useuserDetailsContext()
+
+const getPayloadFromToken = (token:string) => {
+  const encodedPayload = token.split('.')[1];
+  return JSON.parse(atob(encodedPayload));
+}
+
+
+const [user, setUser] = useState<Iuser>(() => {
+  if (!token) return null;
+
+  return getPayloadFromToken(token as string);
+})
+
+
+useEffect(() => {
+  if (!token) {
+      setUser(null)
+  } else {
+      let __userData = getPayloadFromToken(token as string);
+      setUser(__userData);
+
+      if (userDetails) setUserDetails({ ...userDetails, user: __userData.username, email: __userData.email, _id: __userData.id, id: __userData.id })
+  }
+}, [token]);
+
   return (
     <Context.Provider
-      value={{
- 
-      }}
+      value={{user, setUser}}
     >
       {children}
     </Context.Provider>
