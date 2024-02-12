@@ -1,4 +1,4 @@
-import { useToken } from "@/app/hooks/use-token";
+import { useToken } from "@/hooks/use-token";
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { useuserDetailsContext } from "./user-details";
 
