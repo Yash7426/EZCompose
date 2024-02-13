@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect } from 'react';
 import './userProjects.css';
 import { useUserContext } from '@/contexts/user-context';
-import { useToken } from '@/app/hooks/use-token';
+import { useToken } from '@/hooks/use-token';
 import Link from 'next/link';
 
 type IuserProject={

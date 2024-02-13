@@ -3,7 +3,7 @@ import axios from 'axios'
 import './new-website-modal.css';
 import { useRouter } from 'next/navigation';
 import { useUserContext } from '@/contexts/user-context';
-import { useToken } from '@/app/hooks/use-token';
+import { useToken } from '@/hooks/use-token';
 import { useuserDetailsContext } from '@/contexts/user-details';
 import { CgWebsite } from "react-icons/cg";
 

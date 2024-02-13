@@ -6,7 +6,7 @@ import * as htmlToImage from 'html-to-image';
 import { useEffect } from "react";
 import { useuserDetailsContext } from "@/contexts/user-details";
 import { useUserContext } from "../user-context";
-import { useToken } from "@/app/hooks/use-token";
+import { useToken } from "@/hooks/use-token";
 import { useRouter } from "next/router";
 
 // import { useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import React from 'react'
-import ManageWebsites from '../components/manage-websites'
+import ManageWebsites from '@/components/manage-websites'
 
 const index = () => {
   return (
