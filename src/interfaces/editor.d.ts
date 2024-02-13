@@ -1,4 +1,6 @@
+import { Id } from "../../convex/_generated/dataModel";
+
 type IeditorState = {
-    pageId?: string;
-    websiteId?: string;
-    };
+  pageId?: Id<"webpage">;
+  websiteId?: Id<"website">;
+};

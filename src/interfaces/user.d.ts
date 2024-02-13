@@ -1,18 +1,17 @@
+import { Id } from "../../convex/_generated/dataModel";
+
 type IuserDetails = {
-  user: string;
+  name: string;
   email: string;
-  _id: string;
-  pageId?: string;
-  websiteId?: string;
-  id: string;
+  _id: Id<"users">;
+  profileImage?: string;
+  tokenIdentifier: string;
 };
 
-
-type Iuser ={
-  username: string;
+type Iuser = {
+  name: string;
   email: string;
-  _id: string;
-  pageId?: string;
-  websiteId?: string;
-  id: string;
-}|null;
+  _id: Id<"users">;
+  profileImage?: string;
+  tokenIdentifier: string;
+} | null;

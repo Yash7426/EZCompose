@@ -1,31 +1,30 @@
+import { Id } from "../../convex/_generated/dataModel";
+
 type IdesignState = {
-  _id?:string;
-  projectId?: null | string;
-  projectAuthor?: string;
-  pageUri?: string;
-  prevImgUri?:string;
-  websiteSetting?: {
-    siteName: string;
-    favIco: string;
-    socialImage: string;
-    desc: string;
-  };
-  published?: boolean;
+  _id?: Id<"webpage">;
+  faviconUri?: string;
+  socialImage?: string;
+  description?: string;
+  websiteId?: null | Id<"website">;
+  author?: Id<"users">;
+  url?: string;
+  prevImageUri?: string;
+  title: string;
+  isPublished?: boolean;
   pageMode?: number;
   settingMode?: number;
   isDropEnabled?: boolean;
-  analyticsID?: string;
+  analyticsId?: string;
   dropIndex?: number;
   fonts?: {
     font: string;
     weights: string[];
   }[];
-  elements?:IdesignState[];
-  pages?:Page[]
+  elements?: {}[];
+  // pages?: Page[];
 };
 
-
 interface Page {
-  pageId: string;
+  _id: Id<"webpage">;
   pageName: string;
 }

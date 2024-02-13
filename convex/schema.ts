@@ -8,16 +8,20 @@ export default defineSchema({
     users: v.array(v.id("users")),
   }),
   webpage: defineTable({
+    faviconUri: v.optional(v.string()),
+    description: v.optional(v.string()),
+    socialImage: v.optional(v.string()),
     title: v.string(),
     author: v.id("users"),
     url: v.string(),
     isPublished: v.boolean(),
+    isDropEnabled: v.optional(v.boolean()),
     analyticsId: v.optional(v.string()),
     dropIndex: v.optional(v.int64()),
     fonts: v.array(
       v.object({
         font: v.string(),
-        weight: v.optional(v.int64()),
+        weight: v.optional(v.array(v.string())),
       })
     ),
     websiteId: v.id("website"),
