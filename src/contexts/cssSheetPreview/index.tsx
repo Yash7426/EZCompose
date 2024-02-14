@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 interface IcssSheetPreview{
-    
+  cssSheet:Allow
+  setCssSheet:Allow
 }
 interface IcssSheetProvider{
   children: React.ReactNode

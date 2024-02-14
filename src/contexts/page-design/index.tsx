@@ -18,7 +18,7 @@ interface IuserDetailsContext{
     setWebDesignState: Dispatch<SetStateAction<IdesignState | null>>
     tokenTracker: string
     setTokenTracker: Dispatch<SetStateAction<string>>
-    dropPosition: React.MutableRefObject<number>
+    dropPosition: React.MutableRefObject<number|null>
     publishWebPage: ()=>void
     nodeLevel: React.MutableRefObject<any>
     actElLayer: string

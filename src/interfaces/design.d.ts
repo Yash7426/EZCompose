@@ -1,3 +1,10 @@
+
+interface FontOption {
+  font: string;
+  weights: Variant[] |string[];
+}
+
+
 import { Id } from "../../convex/_generated/dataModel";
 
 type IdesignState = {
@@ -16,12 +23,9 @@ type IdesignState = {
   isDropEnabled?: boolean;
   analyticsId?: string;
   dropIndex?: number;
-  fonts?: {
-    font: string;
-    weights: string[];
-  }[];
-  elements?: {}[];
-  // pages?: Page[];
+  fonts?:FontOption[];
+  elements?:IdesignState[];
+  pages?:Page[]
 };
 
 interface Page {

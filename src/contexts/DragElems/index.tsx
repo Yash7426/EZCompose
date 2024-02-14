@@ -1,7 +1,8 @@
 import { useState, createContext, useContext } from "react";
 
 interface IdragElemsContext{
-
+    __dragElems:Allow
+    __setDragElems:Allow
 }
 
 const dragElemsContext = createContext<IdragElemsContext>({} as IdragElemsContext);
