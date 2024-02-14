@@ -1,20 +1,18 @@
 import { useEffect, useContext, useRef, useState } from 'react';
 import AppStyles from './designApp.module.css';
-// import Sidecolumn from './Sidecolumn/sidecolumn';
-// import PreviewPanel from './PreviewPanel/previewPanel';
-// import SettingPanel from './SettingPanel/settingPanel';
 
 import { FaGripLinesVertical } from "react-icons/fa";
 import axios from 'axios'
 
-
 import { usePageDesignContext } from '@/contexts/page-design';
-import { useUserContext } from '@/contexts/user-context';
-import { useToken } from '@/app/hooks/use-token';
 import { useuserDetailsContext } from '@/contexts/user-details';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import useStoreUserEffect from '@/app/useStoreUserEffect';
+import SettingPanel from '@/app/components/setting-panel';
+import { useToken } from '@/hooks/use-token';
+import SideColumn from '@/app/components/side-column';
+import PreviewPanel from '@/app/components/preview-panel';
 function DesignApp() {
 
     const __webpageParams = useSearchParams();
@@ -126,7 +124,7 @@ function DesignApp() {
                  className={AppStyles["options_menu"]} >
                     <div
                      className={AppStyles["options_menu_main"]}>
-                        {/* <Sidecolumn prevWid={prevWid} key={"sideCol"} /> */}
+                        <SideColumn prevWid={prevWid} key={"sideCol"} />
                     </div>
                     <div 
                     draggable 
@@ -137,9 +135,9 @@ function DesignApp() {
                      className={AppStyles["options_resizer"]}><FaGripLinesVertical /></div>
                 </aside>
                 <main className={AppStyles["preview_panel"]}>
-                    {/* <PreviewPanel /> */}
+                    <PreviewPanel/>
                 </main>
-                {/* <SettingPanel /> */}
+                <SettingPanel/>
             </div>
         </div>
     );
