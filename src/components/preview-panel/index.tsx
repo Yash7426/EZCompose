@@ -87,13 +87,14 @@ export default function PreviewPanel() {
     };
   }
 
-  const enableNewAdding = (e) => {
+  const enableNewAdding = (e: React.MouseEvent<HTMLElement>) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
 
-    pageDesignState.nodeLevel.current = e.target.getAttribute("data-path");
-    const targetPath = e.target.getAttribute("data-path");
+    pageDesignState.nodeLevel.current =
+      e.currentTarget.getAttribute("data-path");
+    const targetPath = e.currentTarget.getAttribute("data-path");
     if (targetPath) dragEnterSelector.current = targetPath;
-    //e.target.classList.add("temp_infocus");
+    // e.target.classList.add("temp_infocus");
     // }
   };
 
@@ -103,7 +104,7 @@ export default function PreviewPanel() {
     if (_msg) {
       _msg.classList.add("temp_add_here"); // Use add() method to add classes
       _msg.innerHTML = '<i class="las la-plus-circle"></i>';
-      _msg.onmouseenter = enableNewAdding; // Use onmouseenter instead of onMouseEnter
+       _msg.addEventListener("mouseenter", enableNewAdding as EventListener); // Use onmouseenter instead of onMouseEnter
     }
 
     removeGuides();
@@ -223,9 +224,11 @@ export default function PreviewPanel() {
       ...e.attributes,
       className: e.classList,
       "data-path": props.datapath,
-      onClick: (e:React.MouseEventHandler<HTMLDivElement>) => selectElementActive(e),
-      onDragEnter: (e) => enableNewAdding(e),
-      onKeyUp: (e) => handleContentEdit(e),
+      onClick: (e: React.MouseEvent<HTMLElement>) =>
+        selectElementActive(e),
+      onDragEnter: (e: React.MouseEvent<HTMLDivElement>) => enableNewAdding(e),
+      onKeyUp: (e: React.KeyboardEventHandler<HTMLDivElement>) =>
+        handleContentEdit(e),
       contentEditable: e.elemEditable,
       "data-optionstype": e.elementType,
       suppressContentEditableWarning: e.elemEditable,
@@ -269,7 +272,7 @@ export default function PreviewPanel() {
       return React.createElement(e.elemType, elProp, [parse(htmlCon)]);
     }
   };
-  const commonSelectionnProcedure = (_elm: HTMLDivElement) => {
+  const commonSelectionnProcedure = (_elm: HTMLElement) => {
     let elms = document.querySelectorAll(".temp_infocus");
 
     if (elms.length) {
@@ -426,11 +429,11 @@ export default function PreviewPanel() {
 
         if (_dp) {
           _dp = _dp.substring(0, _dp.length - 1);
-          _dp = _dp.split(",");
-          _dp = _dp.reduce((a, b) => (a += b));
-          _dp = _dp % colorPallets.length;
+          let _dp1 = _dp.split(",");
+          let _dp2 = _dp1.reduce((a, b) => (a += b));
+          let _dp3 = +_dp2 % colorPallets.length;
           // _elm.style.outline = "2px solid " + colorPallets[Math.floor(Math.random() * colorPallets.length)]
-          _elm.style.outline = "2px solid " + colorPallets[_dp];
+          _elm.style.outline = "2px solid " + colorPallets[_dp3];
         }
       } else {
         _elm.closest("[data-path]")?.classList.add("editable_infocus");
@@ -439,12 +442,12 @@ export default function PreviewPanel() {
 
         if (_dp) {
           _dp = _dp.substring(0, _dp.length - 1);
-          _dp = _dp.split(",");
-          _dp = _dp.reduce((a, b) => (a += b));
-          _dp = _dp % colorPallets.length;
+          let _dp2 = _dp.split(",");
+          let _dp3 = _dp2.reduce((a, b) => (a += b));
+          let _dp4 = +_dp3 % colorPallets.length;
           // _elm.style.outline = "2px solid " + colorPallets[Math.floor(Math.random() * colorPallets.length)]
           (_elm.closest("[data-path]") as HTMLElement).style.outline =
-            "2px solid " + colorPallets[_dp];
+            "2px solid " + colorPallets[_dp4];
         }
       }
     }
@@ -487,46 +490,54 @@ export default function PreviewPanel() {
      * This shows respective options for the element!
      */
     //make the optios visible on elemental click
-
-    elementalOptions.current.style.display = "block";
+    if (elementalOptions.current)
+      elementalOptions.current.style.display = "block";
     //now get element width
-    let optionsPanelWidth = elementalOptions.current.getBoundingClientRect();
-    let optionLeft =
-      optionsPanelWidth.right > window.innerWidth
-        ? window.innerWidth - optionsPanelWidth + "px"
-        : posLeft + 40;
-    elementalOptions.current.style.left =
-      scrlTop + posBottom - optionsPanelWidth.height < parentPosition.top
-        ? optionLeft + 40 + "px"
-        : optionLeft + "px";
-    elementalOptions.current.style.top =
-      scrlTop + posBottom - optionsPanelWidth.height < parentPosition.top
-        ? scrlTop + posBottom + boxPosition.height + "px"
-        : scrlTop + posBottom - optionsPanelWidth.height + "px";
-
-    elementalHeightResizer.current.style.display = "inline-block";
-    elementalHeightResizer.current.style.left =
-      optionsPanelWidth.right > window.innerWidth
-        ? window.innerWidth - optionsPanelWidth + "px"
-        : posLeft + 40 + "px";
-    elementalHeightResizer.current.style.top =
-      scrlTop + posBottom + boxPosition.height - 10 + "px";
+    let optionsPanelWidth = elementalOptions.current?.getBoundingClientRect();
+    if (optionsPanelWidth) {
+      let optionLeft =
+        optionsPanelWidth.right > window.innerWidth
+          ? window.innerWidth - +optionsPanelWidth + "px"
+          : posLeft + 40;
+      if (elementalOptions.current && parentPosition) {
+        elementalOptions.current.style.left =
+          scrlTop + posBottom - optionsPanelWidth.height < parentPosition.top
+            ? +optionLeft + 40 + "px"
+            : optionLeft + "px";
+        elementalOptions.current.style.top =
+          scrlTop + posBottom - optionsPanelWidth.height < parentPosition.top
+            ? scrlTop + posBottom + boxPosition.height + "px"
+            : scrlTop + posBottom - optionsPanelWidth.height + "px";
+      }
+    }
+    if (elementalHeightResizer.current) {
+      elementalHeightResizer.current.style.display = "inline-block";
+      if (optionsPanelWidth)
+        elementalHeightResizer.current.style.left =
+          optionsPanelWidth.right > window.innerWidth
+            ? window.innerWidth - +optionsPanelWidth + "px"
+            : posLeft + 40 + "px";
+      elementalHeightResizer.current.style.top =
+        scrlTop + posBottom + boxPosition.height - 10 + "px";
+    }
 
     let nodeP;
     if (_elm.hasAttribute("[data-path]")) {
       nodeP = _elm.getAttribute("data-path");
     } else {
-      nodeP = _elm.closest("[data-path]").getAttribute("data-path");
+      nodeP = _elm.closest("[data-path]")?.getAttribute("data-path");
     }
 
     //181
 
-    ElementNodeSelector.current = nodeP.substring(0, nodeP.length - 1);
-    pageDesignState.activeElemLayer.current = nodeP.substring(
-      0,
-      nodeP.length - 1
-    );
-    pageDesignState.setELLayer(nodeP.substring(0, nodeP.length - 1));
+    ElementNodeSelector.current = nodeP?.substring(0, nodeP.length - 1);
+    if(nodeP){
+      pageDesignState.activeElemLayer.current = nodeP.substring(
+        0,
+        nodeP.length - 1
+        );
+        pageDesignState.setELLayer(nodeP.substring(0, nodeP.length - 1));
+    } 
     // /layout_panel_options
   };
 
@@ -540,10 +551,10 @@ export default function PreviewPanel() {
     commonSelectionnProcedure(_elm);
   };
 
-  const selectElementActive = (e) => {
+  const selectElementActive = (e:React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    commonSelectionnProcedure(e.target);
+    commonSelectionnProcedure(e.currentTarget);
   };
 
   const moveElUp = () => {
@@ -1172,7 +1183,7 @@ export default function PreviewPanel() {
   };
 
   const showSettingsPanel = (
-    e: React.MouseEvent<HTMLLIElement>,
+    e: React.MouseEvent<HTMLElement>,
     name: string,
     type: string,
     selectText: boolean
@@ -1622,7 +1633,7 @@ export default function PreviewPanel() {
 
           <li className="actionListical small_btn_actionListical">
             <button
-              onClick={(e) => {
+              onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 showSettingsPanel(e, "Link", "hyperlink", true);
               }}
