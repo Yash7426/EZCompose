@@ -8,6 +8,7 @@ import { useuserDetailsContext } from "@/contexts/user-details";
 import { useUserContext } from "../user-context";
 import { useToken } from "@/hooks/use-token";
 import { useRouter } from "next/router";
+import { IdesignState } from "@/interfaces/design";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -113,8 +114,8 @@ const router=useRouter()
             if(__design_data !=null){
                 
                if (type === "publish" ) {
-                                __design_data.published = !design?.published;
-                                setDesign({ ...design, published: !design?.published })
+                                __design_data.isPublished = !design?.isPublished;
+                                setDesign({ ...design, isPublished: !design?.isPublished })
                             }
                 delete __design_data['_id'];
                 __design_data.settingMode = -1;
@@ -172,12 +173,20 @@ const router=useRouter()
 
         try {
             let prevPanel= document.querySelector('[data-prevpanel]');
-     if(prevPanel!=null){
-     await htmlToImage.toJpeg(prevPanel as HTMLElement, { quality: 0.95, width: prevPanel?.getBoundingClientRect()?.width, height: (205 / 280) * (prevPanel?.getBoundingClientRect()?.width ?? 200), canvasWidth: 280, canvasHeight: 205, backgroundColor: '#ffffff' })
+           if(prevPanel!=null){
+           await htmlToImage.toJpeg(prevPanel as HTMLElement,
+         { 
+            quality: 0.95,
+            width: prevPanel?.getBoundingClientRect()?.width, 
+            height: (205 / 280) * (prevPanel?.getBoundingClientRect()?.width ?? 200),
+            canvasWidth: 280,
+            canvasHeight: 205, 
+            backgroundColor: '#ffffff'
+         })
 
          .then(function (dataUrl) {
-        //
-        saveWebPage(200, type, dataUrl)
+        
+         saveWebPage(200, type, dataUrl)
     }).catch(err => {
         saveWebPage(500, "")
     })

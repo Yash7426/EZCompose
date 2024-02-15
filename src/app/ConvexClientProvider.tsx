@@ -7,7 +7,7 @@ import {
   Authenticated,
   Unauthenticated,
 } from "convex/react";
-import LoginPage from "@/components/auth/LoginPage";
+import LoginPage from "@/app/components/auth/LoginPage";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 

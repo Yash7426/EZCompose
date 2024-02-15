@@ -1,4 +1,4 @@
-import Button from "@/components/ui/button";
+import Button from "@/app/components/ui/button";
 import React from "react";
 import { LuFolderSearch } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
