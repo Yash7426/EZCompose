@@ -13,11 +13,13 @@ type IdesignState = {
   socialImage?: string;
   description?: string;
   websiteId?: null | Id<"website">;
-  author?: Id<"users">;
+  author?: Id<"users"> | null;
   url?: string;
   prevImageUri?: string;
-  title: string;
+  title?: string;
   isPublished?: boolean;
+  elementType?:"Header Layout"
+  elid?:string
   pageMode?: number;
   settingMode?: number;
   isDropEnabled?: boolean;
@@ -26,6 +28,8 @@ type IdesignState = {
   fonts?:FontOption[];
   elements?:IdesignState[];
   pages?:Page[]
+  styles?:Partial<React.CSSProperties>
+  enableDropping?:boolean
 };
 
 interface Page {

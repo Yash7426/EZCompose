@@ -227,3 +227,5 @@ if(node){
         </div >
     )
 }
+
+export default AlignItems;

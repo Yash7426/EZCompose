@@ -1,18 +1,17 @@
+"use client"
 import { useEffect, useContext, useRef, useState } from 'react';
 import AppStyles from './designApp.module.css';
-
 import { FaGripLinesVertical } from "react-icons/fa";
 import axios from 'axios'
-
 import { usePageDesignContext } from '@/contexts/page-design';
 import { useuserDetailsContext } from '@/contexts/user-details';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import useStoreUserEffect from '@/app/useStoreUserEffect';
-import SettingPanel from '@/app/components/setting-panel';
+import SettingPanel from '@/components/setting-panel';
 import { useToken } from '@/hooks/use-token';
-import SideColumn from '@/app/components/side-column';
-import PreviewPanel from '@/app/components/preview-panel';
+import SideColumn from '@/components/side-column';
+import PreviewPanel from '@/components/preview-panel';
 function DesignApp() {
 
     const __webpageParams = useSearchParams();

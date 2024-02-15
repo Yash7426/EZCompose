@@ -26,6 +26,7 @@ interface IuserDetailsContext{
     setELLayer: Dispatch<SetStateAction<string>>
     removeWebPage: ()=>void
     getWebPageImageAndSavePage: (type?: string) => Promise<void>
+    activeElemLayer: React.MutableRefObject<string | null>
 }
 
 const pageDesignPreview = createContext<IuserDetailsContext>({} as IuserDetailsContext);
@@ -33,20 +34,18 @@ const pageDesignPreview = createContext<IuserDetailsContext>({} as IuserDetailsC
 const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
 
     const InitialDeisgnState:IdesignState = {
-        projectId: null,
-        projectAuthor: "",
-        pageUri: "",
-        websiteSetting: {
-            siteName: "My Website",
-            favIco: "https://reactjs.org/favicon.ico",
-            socialImage: "",
-            desc: "Description for the webpage"
-        },
-        published: false,
+        websiteId: null,
+        author: null,
+        url: "",
+        title: "My Website",
+        faviconUri: "https://reactjs.org/faviconUrin.ico",
+        socialImage: "",
+        description: "descriptionription for the webpage",
+        isPublished: false,
         pageMode: 1,
         settingMode: -1,
         isDropEnabled: true,
-        analyticsID: "",
+        analyticsId: "",
         dropIndex: 0,
         fonts: [{
             "font": "Poppins",
@@ -67,7 +66,7 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
     const dropPosition = useRef(0)
     const nodeLevel = useRef(null)
 
-    const activeElemLayer = useRef(null);
+    const activeElemLayer = useRef<string|null>(null);
 
 const router=useRouter()
     const [design, setDesign] = useState<IdesignState | null>(InitialDeisgnState);
@@ -227,7 +226,8 @@ const router=useRouter()
              setTokenTracker,
              webDesignState,
              setWebDesignState,
-             getWebPageImageAndSavePage
+             getWebPageImageAndSavePage,
+             activeElemLayer
              }}>
             {children}
         </pageDesignPreview.Provider>

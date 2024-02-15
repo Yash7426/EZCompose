@@ -4,7 +4,8 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { usePageDesignContext } from '@/contexts/page-design';
 
-export default function GetNodeData(props:Allow) {
+export default function GetNodeData({currentlyActive,closePanel}:
+    {currentlyActive:Allow;closePanel:()=>void}) {
 
 
     let pageDesignState = usePageDesignContext();
@@ -59,7 +60,7 @@ export default function GetNodeData(props:Allow) {
     }
 
     const getCurrentNodeData = () => {
-        setCurrentNodeData((prev)=>({ ...prev, node: getNodeData(props.currentlyActive.current, 0, '')}));
+        setCurrentNodeData((prev)=>({ ...prev, node: getNodeData(currentlyActive.current, 0, '')}));
     }
 
     return (
