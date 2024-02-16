@@ -87,7 +87,7 @@ export default function PreviewPanel() {
     };
   }
 
-  const enableNewAdding = (e: React.MouseEvent<HTMLElement>) => {
+  const enableNewAdding = (e: React.MouseEvent) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
 
     pageDesignState.nodeLevel.current =
@@ -104,7 +104,9 @@ export default function PreviewPanel() {
     if (_msg) {
       _msg.classList.add("temp_add_here"); // Use add() method to add classes
       _msg.innerHTML = '<i class="las la-plus-circle"></i>';
-       _msg.addEventListener("mouseenter", enableNewAdding as EventListener); // Use onmouseenter instead of onMouseEnter
+      // _msg.onmouseenter = enableNewAdding; // Use onmouseenter instead of onMouseEnter
+      _msg.addEventListener("mouseenter", (e)=>enableNewAdding(e as unknown as React.MouseEvent)); // Use onmouseenter instead of onMouseEnter
+
     }
 
     removeGuides();
