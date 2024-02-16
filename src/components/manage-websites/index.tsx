@@ -24,7 +24,7 @@ const ManageWebsites=()=> {
                             <div className="row-container flex-row-welcome">
 
                                 <div className='welcomeLeft'>
-                                    <h1>Welcome back, {userDetails?.user|| "User"}!</h1>
+                                    <h1>Welcome back, {userDetails?.name|| "User"}!</h1>
                                     <p>Select one of your site, you want to edit</p>
                                 </div>
                                 <button className='newWebsiteBtn' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>

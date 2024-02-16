@@ -5,12 +5,13 @@ export default function GoogleAnalytics(props:Allow) {
 
     let pageDesignState = usePageDesignContext();
 
-    let [googleAnalyticsId, setGoogleAnalyticsId] = useState<string|undefined>(pageDesignState.design?.analyticsID )
+    let [googleAnalyticsId, setGoogleAnalyticsId] = useState<string|undefined>(pageDesignState.design?.analyticsId )
 
     const saveGoogleAnalytics = () => {
         const Check=googleAnalyticsId?.match("UA-[0-9]{8}-[0-9]{1}");
         if (googleAnalyticsId &&  Check!= null) {
-            pageDesignState.setDesign({ ...pageDesignState.design, analyticsID: Check });
+            // May be risk
+            pageDesignState.setDesign({ ...pageDesignState.design, analyticsId: Check[0] });
             alert("saved");
         } else {
             alert("Invalid analytics Id.")
