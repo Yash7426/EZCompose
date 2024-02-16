@@ -1,19 +1,22 @@
+"use client"
 import { useState, createContext, useContext } from "react";
 
 interface IdragElemsContext{
-    __dragElems:Allow
+    __dragElems:IdragElemsState;
     __setDragElems:Allow
 }
 
 const dragElemsContext = createContext<IdragElemsContext>({} as IdragElemsContext);
-
+type IdragElemsState={
+    customLayoutOptions:Array<Allow>
+}
 
 const DragElemsProvider = ({children}:{children: React.ReactNode}) => {
     const InitialDragElemsState = {
-        customLayoutOptions: []
+            customLayoutOptions: []
     }
 
-    const [__dragElems, __setDragElems] = useState(InitialDragElemsState);
+    const [__dragElems, __setDragElems] = useState<IdragElemsState>(InitialDragElemsState);
 
 
 

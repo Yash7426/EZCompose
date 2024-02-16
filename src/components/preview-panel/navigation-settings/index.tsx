@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { set, get } from "lodash";
-import './navigationSettings.css'
+import './navigation-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 
 interface ILinkElement {

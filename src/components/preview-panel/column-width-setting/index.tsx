@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { set, get } from "lodash";
-import './columnWidthSetting.css'
+import './column-width-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 import { FaPlusCircle } from "react-icons/fa";
 

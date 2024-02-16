@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Photo, Photos, PhotosWithTotalResults, createClient } from 'pexels';
 import { set, get } from "lodash";
-import './imageSetting.css';
+import './image-setting.css';
 import { usePageDesignContext } from '@/contexts/page-design';
 import { IoMdSearch } from "react-icons/io";
 enum DisplayUnit {

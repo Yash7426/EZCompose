@@ -4,10 +4,10 @@ import sideStyle from './side-column.module.css'
 /**
  * Sidepanel
  */
-import SideColumnLayout from './layout/sideColumnLayout'
-import HtmlElement from './elements/htmlElement';
-import ElementLayer from './layers/elementLayer';
 import { usePageDesignContext } from '@/contexts/page-design';
+import SideColumnLayout from './layouts';
+import HtmlElement from './html-elements';
+import ElementLayer from './layers';
 
 
 export default function SideColumn(props:Allow) {

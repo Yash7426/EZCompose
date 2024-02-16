@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { set, get } from "lodash";
-import './htmlElement.css'
+import './html-elements.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 
 export default function HtmlElement() {
-    const pageDesignState = usePageDesignContext())
+    const pageDesignState = usePageDesignContext()
     const htmlElems:ILinkElement[] = [
         {
             previmg: "/assets/images/elements/html/paragraph.png",

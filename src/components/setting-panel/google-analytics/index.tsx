@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import './googleAnalytics.css'
+import './google-analytics.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 export default function GoogleAnalytics(props:Allow) {
 

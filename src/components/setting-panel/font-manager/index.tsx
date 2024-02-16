@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import FontPicker from "font-picker-react";
-import './fontManager.css'
+import './font-manager.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 import { Variant } from '@samuelmeuli/font-manager';
 
