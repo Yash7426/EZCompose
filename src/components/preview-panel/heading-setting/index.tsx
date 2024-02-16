@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { set, get } from "lodash";
-import './headingSettings.css'
+import './heading-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 
 enum HeadingType{

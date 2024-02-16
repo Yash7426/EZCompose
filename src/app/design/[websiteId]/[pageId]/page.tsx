@@ -67,16 +67,16 @@ function DesignApp() {
     }, [])
 
     useEffect(() => {
-        if (UserDetailsState.editorState.pageId !== __webpageParams.get("pageId") || UserDetailsState.editorState.websiteId !== __webpageParams.get("websiteId")) {
+        if (UserDetailsState.editorState?.pageId !== __webpageParams.get("pageId") || UserDetailsState.editorState.websiteId !== __webpageParams.get("websiteId")) {
             UserDetailsState.setEditorState((prev)=>({ ...prev, ...__webpageParams }));
         }
     }, [__webpageParams])
 
     useEffect(() => {
-        if (UserDetailsState.editorState.websiteId && UserDetailsState.editorState.pageId)
+        if (UserDetailsState.editorState?.websiteId && UserDetailsState.editorState.pageId)
          setPageState(UserDetailsState.editorState.pageId, UserDetailsState.editorState.websiteId);
 
-    }, [UserDetailsState.editorState.websiteId, UserDetailsState.editorState.pageId])
+    }, [UserDetailsState.editorState?.websiteId, UserDetailsState.editorState?.pageId])
 
     const setPageState = async (pid:any, wid:any) => {
         let _pid = pid;

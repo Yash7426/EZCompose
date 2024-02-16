@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/app/ConvexClientProvider";
+import WrapContexts from "@/contexts/wrap-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        
+        <ConvexClientProvider>
+          <WrapContexts>
+          {children}
+          </WrapContexts>
+          </ConvexClientProvider>
       </body>
     </html>
   );

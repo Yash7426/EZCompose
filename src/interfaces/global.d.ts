@@ -1,17 +1,14 @@
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare type Allow<T = any> = T | null
 
 
-interface ILinkElement {
+ interface ILinkElement {
     previmg: string;
     elid: string;
     inHTML: string;
     desc: string;
-    attributes: {
-        href: string;
-        target: string;
-        linktype:IlinkType;
-    }|null;
+    attributes:IAttributeType |null;
 
     elementType: string;
     linktype?:IlinkType;
@@ -29,3 +26,4 @@ interface ILinkElement {
     // }[]
     elements: ILinkElement[]; // This property is occurring recursively
 }
+

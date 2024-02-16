@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { usePageDesignContext } from "@/contexts/page-design";
-import prvp from "./previewpanel.module.css";
-import "./commonPrev.css";
-import "./builderstyle.css";
+import prvp from "./preview-panel.module.css";
+import "./common-prev.css";
+import "./builder-style.css";
 import { useRef } from "react";
 import { set, get } from "lodash";
 
@@ -12,7 +12,7 @@ import { set, get } from "lodash";
 import AnimationOptionsPanel from "@/components/preview-panel/add-animation";
 import AddLink from "@/components/preview-panel/add-link";
 import RowWidth from "@/components/preview-panel/row-width";
-import EditSettings from "@/components/preview-panel/EditSettings";
+import EditSettings from "@/components/preview-panel/edit-settings";
 import AlignItems from "@/components/preview-panel/align-items";
 import HeadingSettings from "@/components/preview-panel/heading-setting";
 import ListSettings from "@/components/preview-panel/list-settings";

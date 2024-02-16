@@ -1,4 +1,3 @@
-import Button from "@/app/components/ui/button";
 import React from "react";
 import { LuFolderSearch } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
@@ -10,6 +9,7 @@ import { FaAngleDown } from "react-icons/fa";
 import { GoChevronDown } from "react-icons/go";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import Card from "@/components/preview-project-card"
+import Button from "@/components/ui/button";
 const SearchBar = () => {
   return (
     <div className="relative w-[400px]">

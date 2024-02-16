@@ -1,12 +1,16 @@
+"use client"
+
 import { useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from "react";
 import { useUserContext } from "@/contexts/user-context";
+import { IuserDetails } from "@/interfaces/user";
+import { IeditorState } from "@/interfaces/editor";
 // import { useUser } from "../../Component/auth/useUser";
 
 interface IuserDetailsContext{
 userDetails:IuserDetails|null;
 setUserDetails: Dispatch<SetStateAction<IuserDetails | null>>;
-setEditorState: Dispatch<SetStateAction<{}>>
-editorState: IeditorState;
+setEditorState: Dispatch<SetStateAction<IeditorState | null>>
+editorState: IeditorState|null;
 
 
 }
@@ -24,7 +28,7 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
         id: ""     
     }
     const [userDetails, setUserDetails] = useState<IuserDetails | null>(initialUserDetails)
-    const [editorState, setEditorState] = useState({})
+    const [editorState, setEditorState] = useState<IeditorState | null>(null)
     const {user}= useUserContext();
 
     useEffect(() => {

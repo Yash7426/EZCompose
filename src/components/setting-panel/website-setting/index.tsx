@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React from 'react'
 
 
 
-import './websiteSetting.css'
+import './website-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design'
 
 export default function WebsiteSettings(props:Allow) {

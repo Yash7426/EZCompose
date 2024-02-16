@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import './manageWebsites.css'
 import { useuserDetailsContext } from '@/contexts/user-details'
 import UserProjects from '../user-projects'
-import CreateNewWebsite from '../../app/components/create-new-website';
+import CreateNewWebsite from '../create-new-website'
 const ManageWebsites=()=> {
 
     const [mPr, setMPr] = useState({

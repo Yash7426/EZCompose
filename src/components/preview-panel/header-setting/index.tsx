@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { set, get } from "lodash";
-import './headerSettings.css';
+import './header-settings.css';
 import { usePageDesignContext } from '@/contexts/page-design';
 export default function HeaderSettings(props:Allow) {
 

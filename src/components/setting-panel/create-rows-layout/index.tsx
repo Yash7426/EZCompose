@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from 'react'
 import { useEffect } from 'react';
 import * as htmlToImage from 'html-to-image';
 
-import './createRowsLayout.css'
+import './create-rows-layout.css'
 import { useDragElemContext } from '@/contexts/DragElems';
 
 

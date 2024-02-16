@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react'
 import { set, get } from "lodash";
 import EmojiPicker from 'emoji-picker-react';
 
-import './listSettings.css'
+import './list-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 enum ListType{
     "ul",

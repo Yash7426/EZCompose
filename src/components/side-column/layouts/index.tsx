@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import '../elementalStyles.css';
+import '../elemental-styles.css';
 // import DirtyData from './dirtyData';
 // import { Set, Get } from "react-lodash"
 // import set from "lodash.set";
@@ -14,8 +14,8 @@ export default function SideColumnLayout() {
 
     const pageDesignState = usePageDesignContext()
     const dragElOptions = useDragElemContext()
-
-
+ const {__dragElems,__setDragElems}=dragElOptions
+console.log(dragElOptions)
 
     let layout = [
     {

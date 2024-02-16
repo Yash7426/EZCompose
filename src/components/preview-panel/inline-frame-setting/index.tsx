@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { set, get } from "lodash";
 
-import './iframeSettings.css'
+import './iframe-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 enum DisplayUnit {
     "px",
@@ -18,7 +18,7 @@ export default function InlineFrameSetting(props:Allow) {
         width: 200,
         height: 300,
         widthUnit: DisplayUnit.px,
-        heightUnit: DisplayUnit.px,
+        heightUnit: DisplayUnit.px, 
         allowtransparency: "true",
         gotDetails: false,
     })
