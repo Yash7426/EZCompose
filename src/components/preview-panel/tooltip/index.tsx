@@ -3,6 +3,7 @@ import { Tooltip } from 'react-lightweight-tooltip';
 
 export default function ToolTip(props:Allow) {
 
+    
     let tooltipStyles = {
         content: {
             backgroundColor: 'transparent',

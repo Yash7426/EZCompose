@@ -1,7 +1,7 @@
 import React, {useEffect } from 'react'
 import { useCssSheetPreviewContext } from '@/contexts/cssSheetPreview'
 
-export default function SetStyle(props:Allow) {
+export default function SetStyle() {
 
     let cssSheetPreviewState = useCssSheetPreviewContext();
 
