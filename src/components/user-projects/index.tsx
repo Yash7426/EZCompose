@@ -5,6 +5,7 @@ import './userProjects.css';
 import { useUserContext } from '@/contexts/user-context';
 import { useToken } from '@/hooks/use-token';
 import Link from 'next/link';
+import { Page } from '@/interfaces/design';
 
 type IuserProject={
     loadingProj: boolean;
@@ -89,7 +90,7 @@ const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
                             userProj.userProject.map((e, i) => {
                                 return (
                                     <div key={i} className="projectoption">
-                                        <Link href={`/designer/${e._id}/${e.pages[0].pageId}/`}>
+                                        <Link href={`/designer/${e._id}/${e.pages[0]._id}/`}>
                                             <div className='projimgshowcase'>
                                                 <img src={(e.prevImgUri) ? e.prevImgUri : "/assets/images/elements/html/dummyImage.jpg"} />
                                             </div>

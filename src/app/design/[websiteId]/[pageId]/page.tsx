@@ -5,17 +5,20 @@ import { FaGripLinesVertical } from "react-icons/fa";
 import axios from 'axios'
 import { usePageDesignContext } from '@/contexts/page-design';
 import { useuserDetailsContext } from '@/contexts/user-details';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import useStoreUserEffect from '@/app/useStoreUserEffect';
 import SettingPanel from '@/components/setting-panel';
 import { useToken } from '@/hooks/use-token';
 import SideColumn from '@/components/side-column';
 import PreviewPanel from '@/components/preview-panel';
-function DesignApp() {
+import { Id } from '../../../../../convex/_generated/dataModel';
+function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage">}}) {
 
-    const __webpageParams = useSearchParams();
-
+    const __webpageParams = {
+        websiteId: params.websiteId,
+        pageId: params.pageId
+    };
     const router = useRouter()
 
 
@@ -67,7 +70,7 @@ function DesignApp() {
     }, [])
 
     useEffect(() => {
-        if (UserDetailsState.editorState?.pageId !== __webpageParams.get("pageId") || UserDetailsState.editorState.websiteId !== __webpageParams.get("websiteId")) {
+        if (UserDetailsState.editorState?.pageId !== __webpageParams.pageId || UserDetailsState.editorState?.websiteId !== __webpageParams.websiteId) {
             UserDetailsState.setEditorState((prev)=>({ ...prev, ...__webpageParams }));
         }
     }, [__webpageParams])

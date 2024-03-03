@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios';
 import parse from 'html-react-parser';
-import SetStyle from '@/app/components/previewPage/setStyle';
+import SetStyle from '@/components/previewPage/setStyle';
 
 import '../previewPage/previewPage.css'
 import { useCssSheetPreviewContext } from '@/contexts/cssSheetPreview';

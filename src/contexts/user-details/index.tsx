@@ -12,7 +12,6 @@ setUserDetails: Dispatch<SetStateAction<IuserDetails | null>>;
 setEditorState: Dispatch<SetStateAction<IeditorState | null>>
 editorState: IeditorState|null;
 
-
 }
 
 const userDetailsPreview = createContext<IuserDetailsContext>({} as IuserDetailsContext);

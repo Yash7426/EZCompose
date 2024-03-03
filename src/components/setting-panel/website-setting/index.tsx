@@ -25,9 +25,9 @@ export default function WebsiteSettings(props:Allow) {
             </div>
             <div className='webSettingPanel'>
                 <div className="webSettingInner">
-                    <div className={(pageDesignState.design?.published) ? "websiteUnpublish" : "websitePublished"}>
-                        <span> This page is {(pageDesignState.design?.published) ? "Live" : "unpublished"} </span>
-                        <button onClick={pageDesignState.publishWebPage} className={(pageDesignState.design?.published) ? "unpublish" : ""}>{(pageDesignState.design?.published) ? "Unpublish" : "Publish"}</button>
+                    <div className={(pageDesignState.design?.isPublished) ? "websiteUnpublish" : "websitePublished"}>
+                        <span> This page is {(pageDesignState.design?.isPublished) ? "Live" : "unpublished"} </span>
+                        <button onClick={pageDesignState.publishWebPage} className={(pageDesignState.design?.isPublished) ? "unpublish" : ""}>{(pageDesignState.design?.isPublished) ? "Unpublish" : "Publish"}</button>
                     </div>
 
                     <div className='websiteSettingsPanelInner'>

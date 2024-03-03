@@ -6,7 +6,7 @@ import SetStyle from './setStyle';
 
 import './previewPage.css'
 import { useUserContext } from '@/contexts/user-context';
-import { useToken } from '@/app/hooks/use-token';
+import { useToken } from '@/hooks/use-token';
 import { useCssSheetPreviewContext } from '@/contexts/cssSheetPreview';
 import FontLoader from '../preview-panel/font-loader';
 export default function PreviewPage() {
