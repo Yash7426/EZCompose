@@ -13,6 +13,7 @@ import { useToken } from '@/hooks/use-token';
 import SideColumn from '@/components/side-column';
 import PreviewPanel from '@/components/preview-panel';
 import { Id } from '../../../../../convex/_generated/dataModel';
+import Navbar from '@/components/header';
 function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage">}}) {
 
     const __webpageParams = {
@@ -99,12 +100,12 @@ function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage
                     pageDesignState.setWebDesignState(response.data.webResult)
 
                 } else {
-                    router.push("/my-websites")
+                    // router.push("/my-websites")
                 }
 
 
             }).catch(() => {
-                router.push("/my-websites")
+                // router.push("/my-websites")
             })
 
         } catch (err) {
@@ -118,9 +119,9 @@ function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage
 
     return (
         <div className={AppStyles["app"]}>
-            {/* <div className={AppStyles["NavBar"]}>
+            <div className={AppStyles["NavBar"]}>
                 <Navbar />
-            </div> */}
+            </div>
             <div className={AppStyles["container"]}>
                 <aside style={sideWid}
                  className={AppStyles["options_menu"]} >

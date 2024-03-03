@@ -19,11 +19,12 @@ export default function ConvexClientProvider({
   return (
     <ClerkProvider publishableKey="pk_test_cHJvdWQtcm9vc3Rlci00MS5jbGVyay5hY2NvdW50cy5kZXYk">
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        {/* <Authenticated></Authenticated>
+        <Authenticated>
+          {children}
+        </Authenticated>
         <Unauthenticated>
           <LoginPage />
-        </Unauthenticated> */}
-        {children}
+        </Unauthenticated>
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );

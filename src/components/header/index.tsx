@@ -121,8 +121,8 @@ const Navbar: React.FC = () => {
             <ul className='selectPage'>
                 <div className='inList'>
                     {pages.map((page, index) => (
-                        <li key={index} className={editorState.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
-                            <Link className='pageOption' href={`/designer/${editorState.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
+                        <li key={index} className={editorState?.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
+                            <Link className='pageOption' href={`/designer/${editorState?.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
                                 {page.pageName}
                             </Link>
                         </li>
@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
             {(isPageDesign && webDesignState?.pages && webDesignState.pages.length > 0) && (
                 <div className={nvstyle["navbar_header_logo"]}>
                     <span className='pageSelectorSpan' onClick={() => selectPageList.current?.classList.toggle("show")}>
-                        {webDesignState.pages.map((page) => (editorState.pageId === page.pageId ? page.pageName : null))}
+                        {webDesignState.pages.map((page) => (editorState?.pageId === page.pageId ? page.pageName : null))}
                     </span>
                     <>
                         <button className='selectPage' onClick={() => selectPageList.current?.classList.toggle("show")}>

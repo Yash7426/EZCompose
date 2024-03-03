@@ -6,6 +6,10 @@ import { useUserContext } from '@/contexts/user-context';
 import { useToken } from '@/hooks/use-token';
 import Link from 'next/link';
 import { Page } from '@/interfaces/design';
+import { useQuery } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
+import useStoreUserEffect from '@/app/useStoreUserEffect';
+import { Id } from '../../../convex/_generated/dataModel';
 
 type IuserProject={
     loadingProj: boolean;
@@ -27,9 +31,9 @@ type UserProjectProps={
 const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
 
     // let navigate = useNavigate();
-    const {user} = useUserContext();
+    // const {user} = useUserContext();
     const [token] = useToken();
-
+    const userId = useStoreUserEffect();
   
 
     let [userProj, setUserProj] = useState<IuserProject>({
@@ -44,26 +48,31 @@ const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
         loadUserProject();
     }, []);
 
-
-
+    const websites =  useQuery(api.website.listuserSites,{
+        user:userId as Id<"users">
+    }) || []
+    
     const loadUserProject = async () => {
+        console.log("here")
         setUserProj((prev)=>({ ...prev, loadingProj: true }))
-
+        
         try {
 
-            await axios.post('/api/my-projects/', {
-                id:user?.id,
-                pageNum: userProj.currentPage,
-                perPage: userProj.perPage
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            }).then(response => {
-                setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: response.data.result, currentPage: userProj.currentPage + 1 }))
-            }).catch(() => {
-
-                setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
-            })
-
+            // await axios.post('/api/my-projects/', {
+            //     id:user?.id,
+            //     pageNum: userProj.currentPage,
+            //     perPage: userProj.perPage
+            // }, {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // }).then(response => {
+                    //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: response.data.result, currentPage: userProj.currentPage + 1 }))
+                    // }).catch(() => {
+                        
+                        //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
+                        // })
+                        console.log("websites=",websites);
+                        console.log(userId)
+            
         } catch (err) {
             console.error(err);
             setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
