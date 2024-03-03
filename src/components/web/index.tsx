@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios';
 import parse from 'html-react-parser';
-import SetStyle from '@/components/previewPage/setStyle';
 
 import '../previewPage/previewPage.css'
 import { useCssSheetPreviewContext } from '@/contexts/cssSheetPreview';
 import FontLoader from '../preview-panel/font-loader';
 import { useParams } from 'next/navigation';
+import SetStyle from '../previewPage/setStyle';
 export default function WebPage() {
 
     const __webpageParams = useParams();

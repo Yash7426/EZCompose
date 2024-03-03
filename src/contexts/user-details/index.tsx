@@ -21,8 +21,8 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
     const initialUserDetails:IuserDetails = {
         user: "",
         email: "",
-        _id: "",
-        pageId: "",
+        _id: null,
+        pageId:"" ,
         websiteId: "",
         id: ""     
     }
@@ -33,7 +33,7 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
     useEffect(() => {
 
         if (user ) {
-            setUserDetails({ ...user, user:user.username})
+            setUserDetails({ ...user, user:user.name})
 
         }
     }, [user])

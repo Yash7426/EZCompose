@@ -1,14 +1,13 @@
 import React from 'react'
 import { Tooltip } from 'react-lightweight-tooltip';
-
+import { TooltipStyles } from 'react-lightweight-tooltip';
 export default function ToolTip(props:Allow) {
-
     
-    let tooltipStyles = {
+    let tooltipStyles:TooltipStyles = {
         content: {
             backgroundColor: 'transparent',
             color: '#000',
-
+            
         },
         tooltip: {
             backgroundColor: 'white',
@@ -25,10 +24,16 @@ export default function ToolTip(props:Allow) {
         wrapper: {
             cursor: "pointer"
         },
-        gap:""
+        gap:{}
+        // gap:""
     }
-
+    
     return (
-        <Tooltip content={props.tooltipcontent} styles={tooltipStyles}><i className={props.iconclass}></i></Tooltip>
+        <>
+        <Tooltip 
+        content={props.tooltipcontent} 
+        styles={tooltipStyles}/>
+     
+        </>
     )
 }
