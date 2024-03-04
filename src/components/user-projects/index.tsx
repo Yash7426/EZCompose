@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react';
@@ -34,6 +35,10 @@ const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
     // const {user} = useUserContext();
     const [token] = useToken();
     const userId = useStoreUserEffect();
+    let websites:any = [];
+     websites =  useQuery(api.website.listuserSites,{
+        user:userId as Id<"users">
+    }) || []
   
 
     let [userProj, setUserProj] = useState<IuserProject>({
@@ -47,14 +52,11 @@ const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
     useEffect(() => {
         loadUserProject();
     }, []);
-
-    const websites =  useQuery(api.website.listuserSites,{
-        user:userId as Id<"users">
-    }) || []
     
     const loadUserProject = async () => {
         console.log("here")
         setUserProj((prev)=>({ ...prev, loadingProj: true }))
+        console.log("websites=",websites);
         
         try {
 
@@ -70,7 +72,6 @@ const UserProjects:React.FC<UserProjectProps>=({createNewWeb}) =>{
                         
                         //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
                         // })
-                        console.log("websites=",websites);
                         console.log(userId)
             
         } catch (err) {

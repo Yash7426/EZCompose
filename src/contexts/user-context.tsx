@@ -21,7 +21,7 @@ const UserProvider = ({ children }: IUserProvider) => {
 
 
 // TO_DO -> When user logs in we have to set the user data here .(sameple provided below)
-
+  
 //   useEffect(() => {
 //     if (session.data?.user?.name && session.status == "authenticated" && session !== undefined) {
 //       const loaddata = async () => {

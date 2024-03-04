@@ -138,6 +138,7 @@ function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage
                      className={AppStyles["options_resizer"]}><FaGripLinesVertical /></div>
                 </aside>
                 <main className={AppStyles["preview_panel"]}>
+                    
                     <PreviewPanel/>
                 </main>
                 <SettingPanel/>

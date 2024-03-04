@@ -124,8 +124,6 @@ const Navbar: React.FC = () => {
                     {pages.map((page, index) => (
                         <li key={index} className={editorState?.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
                             <Link className='pageOption' href={`/designer/${editorState?.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
-                        <li key={index} className={editorState?.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
-                            <Link className='pageOption' href={`/designer/${editorState?.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
                                 {page.pageName}
                             </Link>
                         </li>

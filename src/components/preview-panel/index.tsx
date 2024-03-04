@@ -99,6 +99,7 @@ export default function PreviewPanel() {
   };
 
   const updateInsertPosition = (e: React.DragEvent<HTMLElement>) => {
+    console.log("see now i am triggered")
     let _msg = document.createElement("div");
 
     if (_msg) {
@@ -159,6 +160,7 @@ export default function PreviewPanel() {
   };
 
   const removeGuides = () => {
+
     let _rem_elems = document.querySelectorAll(".temp_add_here");
     for (let j = 0; j < _rem_elems.length; j++) {
       _rem_elems[j].remove();
