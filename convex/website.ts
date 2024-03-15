@@ -5,6 +5,7 @@ import { Doc } from "./_generated/dataModel";
 export const listuserSites = query({
   args: { user: v.id("users") },
   handler: async (ctx, args): Promise<Doc<"website">[]> => {
+    console.log("W")
     const websites = await ctx.db.query("website").collect();
     const userWebsites = (websites ?? []).filter((website) => {
       const u = website.users.some((user) => user === args.user);
