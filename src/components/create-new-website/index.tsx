@@ -22,7 +22,7 @@ const CreateNewWebsite:React.FC<CreateNewWebsitetype>=({closeModal })=> {
         webName: "My Website"
     })
 
-
+    
     const createNewWebsite = async () => {
         try {
             if (newWebSetting.webName.length < 1) {
@@ -34,7 +34,7 @@ const CreateNewWebsite:React.FC<CreateNewWebsitetype>=({closeModal })=> {
             //remove special chars
             __webName = __webName.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
 
-            await axios.put(`/api/create-website/${user?.id}`, {
+            await axios.put(`/api/create-website/${user?._id}`, {
                 websiteName: __webName,
                 pages: []
             }, {
