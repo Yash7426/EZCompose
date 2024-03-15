@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext, useRef, MutableRefObject, RefObject } from 'react'
 import { set, get } from "lodash";
 import './navigation-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
@@ -15,7 +15,7 @@ interface ILinkElement {
     }|null;
 
     elementType: string;
-    linktype:IlinkType;
+    linktype?:IlinkType;
     classList: string;
     styles: {
         [key: string]: string;
@@ -42,8 +42,8 @@ export default function NavigationSettings(props:Allow) {
         navEl: []
     });
 
-    let dragPositionRef = useRef<number>(null)
-    let dragPositionStart = useRef<number>(null);
+    let dragPositionRef = useRef<number>(null) as MutableRefObject<number>
+    let dragPositionStart = useRef<number>(null) as MutableRefObject<number>
 
 
     useEffect(() => {
@@ -166,31 +166,31 @@ export default function NavigationSettings(props:Allow) {
         setLinksState(__linkState)
     }
 
-    const handleLinkAttributeChange = (e: React.ChangeEvent<HTMLInputElement>|  React.ChangeEventHandler<HTMLSelectElement> ) => {
+    const handleLinkAttributeChange = (e:( React.ChangeEvent<HTMLInputElement>| React.ChangeEvent<HTMLSelectElement>) ) => {
         let __linkState = { ...linksState };
-        let __attr=e.getAttribute("data-link-idx")
-        let __linkProp=e.target.getAttribute("data-link-prop")
-        if(__attr && __linkProp)
-        __linkState.navEl[+__attr].elements[0].attributes[+__linkProp] = e.target.value;
+        let __attr=e.currentTarget.getAttribute("data-link-idx")
+        let __linkProp=e.currentTarget.getAttribute("data-link-prop")
+        // @ts-expect-error
+        if(__attr && __linkProp) __linkState.navEl[+__attr].elements[0].attributes[+__linkProp] = e.currentTarget.value;
         setLinksState(__linkState)
     }
 
-    const handleLinkTypeChange = (e) => {
+    const handleLinkTypeChange = ( e: React.ChangeEvent<HTMLSelectElement>) => {
         let __linkState = { ...linksState };
         let __attr=e.target.getAttribute("data-link-idx")
-
-        __linkState.navEl[+__attr].elements[0].linktype = e.target.value;
+if(!__attr) return
+        __linkState.navEl[+__attr].elements[0].linktype = e.target.value as  unknown as IlinkType;
         setLinksState(__linkState)
     }
 
-    const getEmailDataFromLink = (uri:string) => {
+    const getEmailDataFromLink = (uri:string|undefined):string[] => {
 
-        if (uri.indexOf("mailto:") !== -1) {
+        if (uri?.indexOf("mailto:") !== -1) {
 
-            let uriN = uri.split("mailto:")[1];
+            let uriN = uri?.split("mailto:")[1];
 
-            if (uriN.indexOf("?subject=") !== -1) {
-                return (uriN.split("?subject="));
+            if (uriN?.indexOf("?subject=") !== -1) {
+                return (uriN?.split("?subject=")) as string[];
             }
 
             return [uriN, ""];
@@ -206,19 +206,24 @@ export default function NavigationSettings(props:Allow) {
         const __attr=e.target.getAttribute("data-link-idx")
         let _linkUri;
         if(__attr)
-         _linkUri = linksState.navEl[+__attr].elements[0].attributes.href;
+         _linkUri = linksState.navEl[+__attr].elements[0].attributes?.href;
         let _emailData = getEmailDataFromLink(_linkUri);
+    let __linkState = { ...linksState };
+        
+if(_emailData){
+    let _newLink;
+    if (type == "email") {
+        _newLink = `mailto:${e.target.value}?subject=${_emailData[1]}`
+    } else {
+        _newLink = `mailto:${_emailData[0]}?subject=${e.target.value}`
+    }
 
-        let _newLink;
-        if (type == "email") {
-            _newLink = `mailto:${e.target.value}?subject=${_emailData[1]}`
-        } else {
-            _newLink = `mailto:${_emailData[0]}?subject=${e.target.value}`
-        }
+    if(__attr){
+let x=__linkState.navEl[+__attr].elements[0].attributes
+        if(x) x["href"] = _newLink;
+    }
 
-        let __linkState = { ...linksState };
-        if(__attr)
-        __linkState.navEl[+__attr].elements[0].attributes["href"] = _newLink;
+}
         setLinksState(__linkState)
 
     }
@@ -254,8 +259,9 @@ export default function NavigationSettings(props:Allow) {
         setLinksState(__linkState);
     }
 
-    const arrangeElemsDragged = ( e: React.DragEvent<HTMLDivElement>) => {
-
+    const arrangeElemsDragged = () => {
+if(!dragPositionStart.current) return
+if(!dragPositionRef.current) return
         if (dragPositionStart.current > -1 && dragPositionRef.current > -1) {
             let __linkState = { ...linksState };
             /**
@@ -278,15 +284,21 @@ export default function NavigationSettings(props:Allow) {
         const __attrClosest=e.currentTarget.closest("[data-link-idx]")?.getAttribute("data-link-idx") 
 
         if (e.currentTarget.hasAttribute("data-is-dragel")) {
-          if(__attr)  dragPositionRef.current = +__attr;
+            if (__attr !== null) {
+                dragPositionRef.current = +__attr;
+            }
         } else {
-         if(__attrClosest) dragPositionRef.current = +__attrClosest;
+         if(__attrClosest) {
+            if (__attrClosest !== null) {
+                dragPositionRef.current = +__attrClosest;
+            }
+        }
         }
     }
  
-    const getPhoneFromLink = (uri:string) => {
-        if (uri.indexOf("tel:") !== -1) {
-            return uri.split("tel:")[1]
+    const getPhoneFromLink = (uri:string |undefined) => {
+        if (uri?.indexOf("tel:") !== -1) {
+            return uri?.split("tel:")[1]
         }
         return "";
     }
@@ -295,8 +307,10 @@ export default function NavigationSettings(props:Allow) {
         let _newLink = `tel:${e.target.value}`;
         let __linkState = { ...linksState };
         const __attr=e.target.getAttribute("data-link-idx")
-        if(__attr)
-        __linkState.navEl[+__attr].elements[0].attributes["href"] = _newLink;
+        if(__attr){
+            let x=__linkState.navEl[+__attr].elements[0].attributes
+            if(x) x["href"] = _newLink;
+        }
         setLinksState(__linkState)
     }
 
@@ -343,7 +357,7 @@ if(__nodeID)
                         linksState.navEl.map((e, i) => {
                             return (
                                 <div key={i} data-is-dragel draggable
-                                    onDragStart={(e) => { dragPositionStart.current = e.currentTarget?.getAttribute("data-link-idx"); }}
+                                    onDragStart={(e) => { dragPositionStart.current =+ e.currentTarget?.getAttribute("data-link-idx"); }}
                                     onDragEnter={updateDragEnterPosition}
                                     onDragEnd={arrangeElemsDragged}
                                     className='linkModify' data-link-idx={i} >
@@ -382,7 +396,7 @@ if(__nodeID)
                                             {
                                                 (e.elements[0].linktype === IlinkType.mail) && <>
                                                     <h5>Email to:</h5>
-                                                    <input type="text" onChange={(e) => updateEmailLink(e, "email")} data-link-idx={i} value={getEmailDataFromLink(e.elements[0].attributes?.href)[0]} />
+                                                    <input type="text" onChange={(e) => updateEmailLink(e, "email")} data-link-idx={i} value={getEmailDataFromLink(e.elements[0].attributes?.href)[0] }  />
 
                                                     <h5>Subject:</h5>
                                                     <input type="text" onChange={(e) => updateEmailLink(e, "subject")} data-link-idx={i} value={getEmailDataFromLink(e.elements[0].attributes?.href)[1]} />
@@ -403,7 +417,7 @@ if(__nodeID)
 
 
                                                 <h5>How you want to open the link?</h5>
-                                                <select onChange={handleLinkAttributeChange} data-link-prop="target" data-link-idx={i} >
+                                                <select onChange={(e)=>handleLinkAttributeChange} data-link-prop="target" data-link-idx={i} >
                                                     <option selected={(e.elements[0].attributes?.target === "_blank") ? true : false} value="_blank">Open in new tab</option>
                                                     <option selected={(e.elements[0].attributes?.target === "_self") ? true : false} value="_self">Open in same tab</option>
                                                 </select>

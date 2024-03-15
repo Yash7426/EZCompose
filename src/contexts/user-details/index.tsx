@@ -12,7 +12,6 @@ setUserDetails: Dispatch<SetStateAction<IuserDetails | null>>;
 setEditorState: Dispatch<SetStateAction<IeditorState | null>>
 editorState: IeditorState|null;
 
-
 }
 
 const userDetailsPreview = createContext<IuserDetailsContext>({} as IuserDetailsContext);
@@ -22,8 +21,8 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
     const initialUserDetails:IuserDetails = {
         user: "",
         email: "",
-        _id: "",
-        pageId: "",
+        _id: null,
+        pageId:"" ,
         websiteId: "",
         id: ""     
     }
@@ -34,7 +33,7 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
     useEffect(() => {
 
         if (user ) {
-            setUserDetails({ ...user, user:user.username})
+            setUserDetails({ ...user, user:user.name})
 
         }
     }, [user])

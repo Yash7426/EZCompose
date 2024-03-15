@@ -83,8 +83,8 @@ const router=useRouter()
 
     useEffect(() => {
         if (user) {
-            let { id } = user;
-            if (id) setUserDetails({ ...user,user:user.username, _id: id, id: id })
+            let { _id } = user;
+            if (_id) setUserDetails({ ...user,user:user.name, _id: _id,})
         }
     }, [user])
 
@@ -100,7 +100,7 @@ const router=useRouter()
             setWebDesignState((prev)=>({ ...prev, prevImgUri: ImgUri }));
             //update the website setting
             await axios.post('/api/save-webprev/', {
-                id: user?.id,
+                id: user?._id,
                 websiteId: editorState?.websiteId,
                 imageUri: "" + ImgUri
             }, {
@@ -123,7 +123,7 @@ const router=useRouter()
                 
                 
                             await axios.post('/api/save-webpage/', {
-                                id: user?.id,
+                                id: user?._id,
                                 pageId: editorState?.pageId,
                                 pageJso: __design_data
                             }, {
@@ -147,7 +147,7 @@ const router=useRouter()
         try {
 
             await axios.post('/api/remove-webpage/', {
-                id: user?.id,
+                id: user?._id,
                 pageId: editorState?.pageId,
                 webId: editorState?.websiteId
             }, {

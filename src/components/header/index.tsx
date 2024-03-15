@@ -12,6 +12,7 @@ import { FaAngleDown ,FaExternalLinkAlt} from "react-icons/fa";
 import { IoDesktopOutline } from "react-icons/io5";
 import { FaMobileAlt } from "react-icons/fa";
 import { Page } from '@/interfaces/design';
+import { Id } from '../../../convex/_generated/dataModel';
 
 const Navbar: React.FC = () => {
     const parentDropDownSlide = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ const Navbar: React.FC = () => {
     const {setEditorState,editorState} =useuserDetailsContext();
     
     const router=useRouter()
-    const isPageDesign = true;
+    const isPageDesign= true;
     // const isPageDesign = "useMatch("/designer/:projectId/:pageId")";
     // const isPageDesignEmpty = useMatch("/designer/:projectId/:pageId");
     const isPageDesignEmpty =true;
@@ -82,7 +83,7 @@ const Navbar: React.FC = () => {
         }
     }
 
-    const handlePageChange = (pageId: string) => {
+    const handlePageChange = (pageId: Id<"webpage">) => {
         setEditorState((prev)=>({ ...prev, pageId }))
     };
 
@@ -121,8 +122,8 @@ const Navbar: React.FC = () => {
             <ul className='selectPage'>
                 <div className='inList'>
                     {pages.map((page, index) => (
-                        <li key={index} className={editorState.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
-                            <Link className='pageOption' href={`/designer/${editorState.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
+                        <li key={index} className={editorState?.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
+                            <Link className='pageOption' href={`/designer/${editorState?.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
                                 {page.pageName}
                             </Link>
                         </li>
@@ -140,7 +141,7 @@ const Navbar: React.FC = () => {
             {(isPageDesign && webDesignState?.pages && webDesignState.pages.length > 0) && (
                 <div className={nvstyle["navbar_header_logo"]}>
                     <span className='pageSelectorSpan' onClick={() => selectPageList.current?.classList.toggle("show")}>
-                        {webDesignState.pages.map((page) => (editorState.pageId === page.pageId ? page.pageName : null))}
+                        {webDesignState.pages.map((page) => (editorState?.pageId === page?._id ? page.pageName : null))}
                     </span>
                     <>
                         <button className='selectPage' onClick={() => selectPageList.current?.classList.toggle("show")}>
@@ -199,8 +200,8 @@ const Navbar: React.FC = () => {
             {(!isPageDesign || !isPageDesignEmpty) && (
                 <>
                 <div className='user-web-link'>
-                    <span>{`http://${window.location.hostname}/web/${webDesignState?._id}${design?.pageUri}`}</span>
-                    <Link className='external-open'  href={(!design?.isPublished) ? `/preview/${editorState.websiteId}/${editorState.pageId}/` : `/web/${webDesignState?._id}${design?.pageUri}`}><FaExternalLinkAlt /></Link>
+                    <span>{`http://${window.location.hostname}/web/${webDesignState?._id}${design?.url}`}</span>
+                    <Link className='external-open'  href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}${design?.url}`}><FaExternalLinkAlt /></Link>
                 </div>
 
                 
@@ -213,7 +214,7 @@ const Navbar: React.FC = () => {
 
                 <div className={nvstyle["user_persistant_actions"]}>
                     <ul className={nvstyle["navbar_menu_level_one"]}>
-                        <li><Link className={nvstyle["highlight_btn_light_prev"]} href={(!design?.isPublished) ? `/preview/${editorState.websiteId}/${editorState.pageId}/` : `/web/${webDesignState?._id}${design.pageUri}`} target="_blank">{(!design?.isPublished) ? "Preview" : "Open"}</Link></li>
+                        <li><Link className={nvstyle["highlight_btn_light_prev"]} href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}${design.url}`} target="_blank">{(!design?.isPublished) ? "Preview" : "Open"}</Link></li>
                         <li><button className={nvstyle["highlight_btn_light"]} onClick={()=>getWebPageImageAndSavePage((!design?.isPublished) ? "Save" : "Update")}>{(!design?.isPublished) ? "Save" : "Update"}</button></li>
                         <li><button onClick={publishWebPage} className={nvstyle["highlight_btn"]}>{(!design?.isPublished) ? "Publish" : "UnPublish"}</button></li>
                     </ul>
@@ -223,7 +224,7 @@ const Navbar: React.FC = () => {
             <div className={nvstyle["navbar_user_details"]}>
                 <ul className={nvstyle["navbar_user_details"]}>
                     <li>
-                        <Link href='/' className={nvstyle["navbar_user_profile"]}>{user?.username ? user?.username.charAt(0).toUpperCase() : 'U'}</Link>
+                        <Link href='/' className={nvstyle["navbar_user_profile"]}>{user?.name ? user?.name.charAt(0).toUpperCase() : 'U'}</Link>
                         <ul>
                             <li><Link href='/my-websites'>My Websites</Link></li>
                             <li><div onClick={() => { localStorage.removeItem('token'); router.push("/") }}>Logout</div></li>

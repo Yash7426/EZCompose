@@ -14,8 +14,8 @@ export default function SideColumnLayout() {
 
     const pageDesignState = usePageDesignContext()
     const dragElOptions = useDragElemContext()
- const {__dragElems,__setDragElems}=dragElOptions
-console.log(dragElOptions)
+//  const {__dragElems,__setDragElems}=dragElOptions
+console.log("dragelem=",dragElOptions)
 
     let layout = [
     {
@@ -160,15 +160,14 @@ console.log(dragElOptions)
     const AddDroppedElement = (e: React.MouseEvent<HTMLDivElement, MouseEvent>| React.DragEvent<HTMLDivElement>) => {
         //lets get new context
         // let pageDesignStateNew = useContext(pageDesignContext)
-        if (pageDesignState.design?.isDropEnabled ,pageDesignState.design?.elements) {
 
+        if (pageDesignState.design?.isDropEnabled && pageDesignState.design?.elements) {
 
             //reset the insert position
             const __attr= e.currentTarget.closest(".item_drag")?.getAttribute("data-elementindex")
-
+            
             if (pageDesignState.nodeLevel.current === null) {
-
-
+                
                 let _elems = [];
                 let tempOptions = [...layoutOptions];
                 _elems = [...pageDesignState.design.elements];
@@ -176,13 +175,19 @@ console.log(dragElOptions)
                 //insert at index
 
                 //e.target.closest("").getAttribute("data-elementindex")
-             if(pageDesignState.dropPosition.current && __attr)
-                _elems.splice(pageDesignState.dropPosition.current, 0, JSON.parse(JSON.stringify(tempOptions[Number(__attr)])));
-
+                console.log("see drop position", pageDesignState.dropPosition.current)
+                // if(pageDesignState.dropPosition.current && __attr) {
+                if(pageDesignState.dropPosition.current!=undefined && pageDesignState.dropPosition.current!=null && __attr) {
+                    console.log("working hrere");
+                    
+                    _elems.splice(pageDesignState.dropPosition.current, 0, JSON.parse(JSON.stringify(tempOptions[Number(__attr)])));
+                }
                 // if (!pageDesignState.design.elements[pageDesignState.dropPosition.current].enableDropping) {
                 //     alert("Can not add sub element to this element");
                 //     return;
                 // }
+                // console.log("reached here->",_elems);
+                console.log(__attr);
 
                 pageDesignState.setDesign({ ...pageDesignState.design, elements: _elems });
                 pageDesignState.dropPosition.current = null;
@@ -196,7 +201,9 @@ console.log(dragElOptions)
             }
         }
     }
-
+    useEffect(()=>{
+        console.log(pageDesignState)
+    },[pageDesignState])
     return (
         <>
             <div className='custom-row'>

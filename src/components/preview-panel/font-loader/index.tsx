@@ -1,3 +1,4 @@
+import { FontOption } from '@/interfaces/design';
 import React, { useEffect } from 'react'
 import GoogleFontLoader from 'react-google-font-loader';
 

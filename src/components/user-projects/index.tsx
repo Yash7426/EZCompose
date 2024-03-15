@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -5,10 +6,10 @@ import "./userProjects.css";
 import { useUserContext } from "@/contexts/user-context";
 import { useToken } from "@/hooks/use-token";
 import Link from "next/link";
-import useStoreUserEffect from "@/app/useStoreUserEffect";
 import { Page } from "@/interfaces/design";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import useStoreUserEffect from "@/app/useStoreUserEffect";
 import { Id } from "../../../convex/_generated/dataModel";
 
 type IuserProject = {
@@ -29,11 +30,15 @@ type UserProjectProps = {
 };
 
 const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
-  const userId = useStoreUserEffect();
-  console.log(userId);
-
   // let navigate = useNavigate();
+  // const {user} = useUserContext();
   const [token] = useToken();
+  const userId = useStoreUserEffect();
+
+  const websites = useQuery(
+    api.website.listuserSites,
+    userId ? { user: userId as Id<"users"> } : "skip"
+  );
 
   let [userProj, setUserProj] = useState<IuserProject>({
     loadingProj: false,
@@ -42,22 +47,14 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     loadFailed: false,
     userProject: [],
   });
-  //   if(userId)
-  const website = useQuery(api.website.listuserSites, 
-    // user: "j97b4px98aj4bna7wvsb9236wd6n7ppk" as Id<"users">
-    userId ? { user: userId as Id<"users"> } : "skip",
-  );
 
-  console.log("first", website);
   useEffect(() => {
     loadUserProject();
   }, []);
 
   const loadUserProject = async () => {
     setUserProj((prev) => ({ ...prev, loadingProj: true }));
-
     try {
-      // console.log("website",website)
       // await axios.post('/api/my-projects/', {
       //     id:user?.id,
       //     pageNum: userProj.currentPage,
@@ -67,8 +64,10 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
       // }).then(response => {
       //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: response.data.result, currentPage: userProj.currentPage + 1 }))
       // }).catch(() => {
+
       //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
       // })
+      console.log(userId);
     } catch (err) {
       console.error(err);
       setUserProj((prev) => ({

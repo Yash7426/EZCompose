@@ -87,7 +87,7 @@ export default function PreviewPanel() {
     };
   }
 
-  const enableNewAdding = (e: React.MouseEvent<HTMLElement>) => {
+  const enableNewAdding = (e: React.MouseEvent) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
 
     pageDesignState.nodeLevel.current =
@@ -99,12 +99,13 @@ export default function PreviewPanel() {
   };
 
   const updateInsertPosition = (e: React.DragEvent<HTMLElement>) => {
+    console.log("see now i am triggered")
     let _msg = document.createElement("div");
 
     if (_msg) {
       _msg.classList.add("temp_add_here"); // Use add() method to add classes
       _msg.innerHTML = '<i class="las la-plus-circle"></i>';
-       _msg.addEventListener("mouseenter", enableNewAdding as EventListener); // Use onmouseenter instead of onMouseEnter
+       _msg.addEventListener("mouseenter", enableNewAdding as Allow ); // Use onmouseenter instead of onMouseEnter
     }
 
     removeGuides();
@@ -159,6 +160,7 @@ export default function PreviewPanel() {
   };
 
   const removeGuides = () => {
+
     let _rem_elems = document.querySelectorAll(".temp_add_here");
     for (let j = 0; j < _rem_elems.length; j++) {
       _rem_elems[j].remove();
@@ -227,13 +229,14 @@ export default function PreviewPanel() {
       onClick: (e: React.MouseEvent<HTMLElement>) =>
         selectElementActive(e),
       onDragEnter: (e: React.MouseEvent<HTMLDivElement>) => enableNewAdding(e),
-      onKeyUp: (e: React.KeyboardEventHandler<HTMLDivElement>) =>
+      onKeyUp: (e:React.KeyboardEvent<HTMLDivElement>) =>
         handleContentEdit(e),
       contentEditable: e.elemEditable,
       "data-optionstype": e.elementType,
       suppressContentEditableWarning: e.elemEditable,
       style: formatStyle,
     };
+    
     // let elProp = { className: e.classList, "data-path": props.datapath };
     if (e.elements.length > 0) {
       //has sub elem
@@ -829,43 +832,42 @@ export default function PreviewPanel() {
     }
   };
 
-  const handleContentEdit = (e) => {
-    if (e.target.getAttribute("contentEditable") === "true") {
+  const handleContentEdit = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.currentTarget.getAttribute("contentEditable") === "true") {
       //update the state of app
 
       let _elPath;
-      let $e;
+      let $e :HTMLElement|null;
 
       let _depth = { ...pageDesignState.design };
 
       if (
-        e.target.getAttribute("data-optionstype") === "ListItem" &&
+        e.currentTarget.getAttribute("data-optionstype") === "ListItem" &&
         e.key === "Enter" &&
         !e.shiftKey
       ) {
         e.preventDefault();
 
         // let parentPos = e.target.closest('[data-optionstype="List"]').getAttribute("data-path");
-        let $elms = e.target
-          .closest('[data-optionstype="List"]')
-          .querySelectorAll("li");
+        let $elms = e.currentTarget?.closest('[data-optionstype="List"]')?.querySelectorAll("li");
 
         //node
-        let setNodePath = e.target
-          .closest('[data-optionstype="List"]')
-          .getAttribute("data-path");
-        setNodePath = setNodePath.substring(0, setNodePath.length - 1);
-        setNodePath = setNodePath.split(",");
+        let setNodePath = e.currentTarget.closest('[data-optionstype="List"]')?.getAttribute("data-path") as string|string[];
+        if(setNodePath){
+          setNodePath = (setNodePath as string).substring(0, setNodePath.length - 1) ;
+          setNodePath = setNodePath?.split(",")
+
+        }
 
         if (setNodePath.length > 0) {
-          setNodePath = "elements[" + setNodePath.join("].elements[") + "]";
+          setNodePath = "elements[" + (setNodePath as string[]).join("].elements[") + "]";
         } else {
           setNodePath = "elements";
         }
 
         let existingItmes = get(_depth, setNodePath);
 
-        if (existingItmes.elements.length < $elms.length + 1) {
+        if ($elms && existingItmes.elements.length < $elms.length + 1) {
           if (elChangeTimer.current) clearTimeout(elChangeTimer.current);
           set(_depth, setNodePath + ".elements", [
             ...existingItmes.elements,
@@ -893,34 +895,43 @@ export default function PreviewPanel() {
           return;
         }
       }
-
-      if (e.target.hasAttribute("data-path")) {
-        _elPath = e.target.getAttribute("data-path");
-        $e = e.target;
+      let __attr=e.currentTarget.getAttribute("data-path")
+      if (__attr) {
+        _elPath = __attr;
+        $e = e.target as unknown as HTMLElement;
       } else {
-        _elPath = e.target.closest("data-path").getAttribute("data-path");
-        $e = e.target.closest("data-path");
+        _elPath = e.currentTarget.closest("data-path")?.getAttribute("data-path");
+        $e = e.currentTarget.closest("data-path");
       }
-      _elPath = _elPath.substring(0, _elPath.length - 1);
-      _elPath = _elPath.split(",");
+      _elPath = _elPath?.substring(0, _elPath.length - 1);
+      _elPath = _elPath?.split(",");
 
       //let _depth = { ...pageDesignState.design };
-
-      if (_elPath.length > 1) {
+      if($e?.innerHTML){
+      if (_elPath && _elPath.length > 1) {
         // _elPath = _elPath.slice(0, -1);
 
+        // set(
+        //   _depth,
+        //   "elements[" + _elPath.join("].elements[") + "].inHTML",
+        //   encodeURIComponent($e.innerHTML)
+        // );
         set(
           _depth,
           "elements[" + _elPath.join("].elements[") + "].inHTML",
-          encodeURIComponent($e.innerHTML)
+          encodeURIComponent($e?.innerHTML)
         );
       } else {
-        set(
-          _depth,
-          "elements[" + _elPath[0] + "].inHTML",
-          encodeURIComponent($e.innerHTML)
-        );
+        if(_elPath){
+          set(
+            _depth,
+            "elements[" + _elPath[0] + "].inHTML",
+            encodeURIComponent($e.innerHTML)
+          );
+
+        }
       }
+    }
       //elChangeTimer
       //clear existing timeout
       if (elChangeTimer.current) clearTimeout(elChangeTimer.current);
@@ -1234,7 +1245,9 @@ export default function PreviewPanel() {
         if (node) {
           node.focus();
         }
+        // @ts-ignore
         if (document.selection) {
+        // @ts-ignore
           var range = document.body.createTextRange();
           range.moveToElementText(node);
           range.select();

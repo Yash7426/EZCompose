@@ -3,6 +3,7 @@ import { set, get } from "lodash";
 
 import './elementLayer.css'
 import { usePageDesignContext } from '@/contexts/page-design';
+import { IdesignState } from '@/interfaces/design';
 
 export default function ElementLayer() {
 

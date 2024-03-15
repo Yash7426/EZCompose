@@ -11,6 +11,7 @@ import CreateRowsLayout from './create-rows-layout';
 import FontManager from './font-manager';
 import GoogleAnalytics from './google-analytics';
 import WebsiteSettings from './website-setting';
+import CreateNewPage from './create-new-page';
 const SettingPanel=()=> {
 
     let pageDesignState = usePageDesignContext()

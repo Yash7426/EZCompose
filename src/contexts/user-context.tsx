@@ -1,6 +1,7 @@
 import { useToken } from "@/hooks/use-token";
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { useuserDetailsContext } from "./user-details";
+import { Iuser } from "@/interfaces/user";
 
 interface IUserContext {
 user: Iuser;
@@ -20,7 +21,7 @@ const UserProvider = ({ children }: IUserProvider) => {
 
 
 // TO_DO -> When user logs in we have to set the user data here .(sameple provided below)
-
+  
 //   useEffect(() => {
 //     if (session.data?.user?.name && session.status == "authenticated" && session !== undefined) {
 //       const loaddata = async () => {
@@ -61,7 +62,13 @@ useEffect(() => {
       let __userData = getPayloadFromToken(token as string);
       setUser(__userData);
 
-      if (userDetails) setUserDetails({ ...userDetails, user: __userData.username, email: __userData.email, _id: __userData.id, id: __userData.id })
+      if (userDetails) 
+      setUserDetails({ ...userDetails,
+     user: __userData.username, 
+     email: __userData.email,
+      _id: __userData.id,
+      //  id: __userData.id
+       })
   }
 }, [token]);
 
