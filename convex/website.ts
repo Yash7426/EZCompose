@@ -29,9 +29,9 @@ export const createWebsite = mutation({
     bannerImage: v.optional(v.string()),
   },
   handler: async (ctx, { name, user, bannerImage }) => {
-    const website = { name, bannerImage, users: [user] };
-    const web= await ctx.db.insert("website", website);
-    console.log(web)
+    const website = { name, bannerImage, users: [user], pages: [] };
+    const web = await ctx.db.insert("website", website);
+    console.log(web);
     return web;
   },
 });
@@ -76,5 +76,35 @@ export const deleteWebsite = mutation({
   args: { id: v.id("website") },
   handler: async (ctx, args) => {
     await ctx.db.delete(args.id);
+  },
+});
+
+export const generateUploadUrl = mutation({
+  args: {
+    // ...
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Called storeUser without authentication present");
+    }
+
+    // Return an upload URL
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+export const generateServeUrl = mutation({
+  args: {
+    // ...
+    storageId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Called storeUser without authentication present");
+    }
+    // Return an upload URL
+    return await ctx.storage.getUrl(args.storageId);
   },
 });

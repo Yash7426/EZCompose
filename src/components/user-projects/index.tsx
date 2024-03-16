@@ -48,8 +48,6 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     api.website.listuserSites,
     userId ? { user: userId as Id<"users"> } : "skip"
   );
-  console.log(websites)
-
 
   useEffect(()=>{
     if(websites){
@@ -92,7 +90,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
             {userProj.userProject.map((e, i) => {
               return (
                 <div key={i} className="projectoption">
-                  <Link href={`/designer/${e._id}/${e.pages && e.pages[0]._id}/`}>
+                  <Link href={`/design/${e._id}/${e.pages && e.pages.length>0 && e.pages[0].pageId}/`}>
                     <div className="projimgshowcase">
                       <img
                         src={

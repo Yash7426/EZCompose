@@ -46,8 +46,7 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
         const websiteId = await createWebsite({
           user: userId as Id<"users">,
           name: __webName,
-          bannerImage:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PGyK_KgPmWmkyh5pAQltCNIxkd5ohgo66t5qROV3sX5wh8yUOuAI5jnI0CPAId25U8c&usqp=CAU",
+          bannerImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PGyK_KgPmWmkyh5pAQltCNIxkd5ohgo66t5qROV3sX5wh8yUOuAI5jnI0CPAId25U8c&usqp=CAU"
         });
         UserDetailsState.setEditorState((prev) => ({
           ...prev,
@@ -63,17 +62,19 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
           url: "index",
           isPublished: false,
           isDropEnabled: true,
+          settingMode: BigInt(-1),
           analyticsId: "",
           fonts: [],
-          websiteId: UserDetailsState.editorState?.websiteId as Id<"website">,
+          websiteId: websiteId as Id<"website">,
           elements: [],
           prevImageUri: "",
         });
 
-        closeModal();
         // create a default web page
+        // console.log(`/design/${websiteId}/${indexPageId}`);
         router.push(`/design/${websiteId}/${indexPageId}`);
       } catch (error) {
+        // closeModal();
         console.error(error);
       }
     } catch (err) {}

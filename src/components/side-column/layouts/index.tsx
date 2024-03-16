@@ -207,7 +207,7 @@ console.log("dragelem=",dragElOptions)
     return (
         <>
             <div className='custom-row'>
-                <button onClick={() => { pageDesignState.setDesign({ ...pageDesignState.design, settingMode: 0 }) }}>Create custom Layout</button>
+                <button onClick={() => { pageDesignState.setDesign({ ...pageDesignState.design, settingMode: BigInt(0) }) }}>Create custom Layout</button>
             </div>
             <div className='custom-layouts'>
                 {/* <h5>Frequently used,</h5> */}

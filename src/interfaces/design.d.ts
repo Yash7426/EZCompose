@@ -33,14 +33,14 @@ type IdesignState = {
 };
 
 interface Page {
-  _id: Id<"webpage">;
+  pageId: Id<"webpage">;
   pageName: string;
 }
 
 type IpageState = {
   _id?: Id<"website">;
   name?: string;
-  pages?: [];
+  pages?: Page[];
   bannerImage?: string;
   users?: Id<"users">[];
 };

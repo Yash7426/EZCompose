@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
     };
 
     const createNewPage = () => {
-        setDesign((prev)=>({ ...prev, settingMode: 4 }));
+        setDesign((prev)=>({ ...prev, settingMode: BigInt(4) }));
     };
     const elementInnerLeaveRemove = ( e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
 
@@ -122,8 +122,8 @@ const Navbar: React.FC = () => {
             <ul className='selectPage'>
                 <div className='inList'>
                     {pages.map((page, index) => (
-                        <li key={index} className={editorState?.pageId === page._id ? 'active menuPagesList' : 'menuPagesList'}>
-                            <Link className='pageOption' href={`/designer/${editorState?.websiteId}/${page._id}`} data-page-id={page._id} onClick={() => handlePageChange(page._id)}>
+                        <li key={index} className={editorState?.pageId === page.pageId ? 'active menuPagesList' : 'menuPagesList'}>
+                            <Link className='pageOption' href={`/design/${editorState?.websiteId}/${page.pageId}`} data-page-id={page.pageId} onClick={() => handlePageChange(page.pageId)}>
                                 {page.pageName}
                             </Link>
                         </li>
@@ -135,13 +135,18 @@ const Navbar: React.FC = () => {
         );
     };
 
+    useEffect(()=>{},[webDesignState])
+
+
+    console.log("hello",isPageDesign)
+    console.log(webDesignState)
     return (
         <nav className={nvstyle["navbar"]}>
             <div className={nvstyle["navbar_header_logo"]}>WebPage Builder</div>
             {(isPageDesign && webDesignState?.pages && webDesignState.pages.length > 0) && (
                 <div className={nvstyle["navbar_header_logo"]}>
                     <span className='pageSelectorSpan' onClick={() => selectPageList.current?.classList.toggle("show")}>
-                        {webDesignState.pages.map((page) => (editorState?.pageId === page?._id ? page.pageName : null))}
+                        {webDesignState.pages.map((page) => (editorState?.pageId === page?.pageId ? page.pageName : null))}
                     </span>
                     <>
                         <button className='selectPage' onClick={() => selectPageList.current?.classList.toggle("show")}>
@@ -170,10 +175,10 @@ const Navbar: React.FC = () => {
                         <li data-elementid="2" data-dropheight="86" onMouseEnter={currentActiveMenu} onMouseLeave={elementLeaveRemove}>
                             <button onClick={()=>router.push('#')}>Settings</button>
                             <ul className={nvstyle["navbar_menu_level_two"]} onMouseLeave={elementInnerLeaveRemove}>
-                                <li className={nvstyle["pointerHover"]}><button onClick={() => { setDesign((prev)=>({ ...prev, settingMode: 3 }))}}>Settings & Meta</button></li>
-                                <li className={nvstyle["pointerHover"]}><button onClick={() => { setDesign((prev)=>({ ...prev, settigMode: 1 })) }}>Font Manager</button></li>
+                                <li className={nvstyle["pointerHover"]}><button onClick={() => { setDesign((prev)=>({ ...prev, settingMode: BigInt(3) }))}}>Settings & Meta</button></li>
+                                <li className={nvstyle["pointerHover"]}><button onClick={() => { setDesign((prev)=>({ ...prev, settigMode: BigInt(1) })) }}>Font Manager</button></li>
                                 {/* <li className={nvstyle["pointerHover"]}><a href='/'>Social Links</a></li> */}
-                                <li className={nvstyle["pointerHover"]}><a onClick={() => { setDesign((prev)=>({ ...prev, settingMode: 2 })) }} >Google Analytics</a></li>
+                                <li className={nvstyle["pointerHover"]}><a onClick={() => { setDesign((prev)=>({ ...prev, settingMode: BigInt(2) })) }} >Google Analytics</a></li>
                             </ul>
                         </li>
 

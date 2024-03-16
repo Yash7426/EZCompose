@@ -56,6 +56,7 @@ export default function CreateNewPage(props:Allow) {
                     isDropEnabled: true,
                     analyticsId: "",
                     fonts: [],
+                    settingMode:BigInt(-1),
                     websiteId: UserDetailsState.editorState?.websiteId as Id<'website'>,
                     elements: [],
                     prevImageUri:""
@@ -79,7 +80,7 @@ export default function CreateNewPage(props:Allow) {
 
             //     UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: response.data.pageId })
 
-            //     router.push(`/designer/${UserDetailsState.editorState?.websiteId}/${response.data.pageId}/`)
+            //     router.push(`/design/${UserDetailsState.editorState?.websiteId}/${response.data.pageId}/`)
 
             //     props.closeWin();
 

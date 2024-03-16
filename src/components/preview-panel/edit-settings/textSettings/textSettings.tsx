@@ -239,7 +239,7 @@ export default function TextSettings(props: Allow) {
                                         /**
                                          * Font type
                                          */
-                                        (textSetting.panelMode === 0) && <TextFontSetting showFontListOption={() => { pageDesignState.setDesign({ ...pageDesignState.design, settingMode: 1 }) }} fontList={pageDesignState.design?.fonts} textSetting={textSetting} setTextSetting={setTextSetting} />
+                                        (textSetting.panelMode === 0) && <TextFontSetting showFontListOption={() => { pageDesignState.setDesign({ ...pageDesignState.design, settingMode: BigInt(1) }) }} fontList={pageDesignState.design?.fonts} textSetting={textSetting} setTextSetting={setTextSetting} />
                                     }
                                     {
                                         /**

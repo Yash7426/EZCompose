@@ -6,6 +6,12 @@ export default defineSchema({
     name: v.string(),
     bannerImage: v.optional(v.string()),
     users: v.array(v.id("users")),
+    pages: v.array(
+      v.object({
+        pageId: v.id("webpage"),
+        pageName: v.string(),
+      })
+    ),
   }),
   webpage: defineTable({
     faviconUri: v.optional(v.string()),

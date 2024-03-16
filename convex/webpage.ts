@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
 
 export const getWebpage = query({
   args: { id: v.id("webpage") },
@@ -40,7 +41,21 @@ export const createWebpage = mutation({
     prevImageUri: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("webpage", args);
+    const website = await ctx.db.get(args.websiteId);
+    let arr= [] as {
+      pageId: Id<"webpage">,
+      pageName: string,
+    }[]
+    if(website){
+      arr=[...website.pages]
+    }
+    const webpageId= await ctx.db.insert("webpage", args);
+    arr.push({
+      pageId:webpageId,
+      pageName: args.title
+    })
+    await ctx.db.patch(args.websiteId, { pages: arr});
+    return webpageId;
   },
 });
 
