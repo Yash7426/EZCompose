@@ -10,15 +10,15 @@ import { useuserDetailsContext } from "@/contexts/user-details";
 import { useUserContext } from "../user-context";
 import { useToken } from "@/hooks/use-token";
 import { useRouter } from "next/navigation";
-import { IdesignState } from "@/interfaces/design";
+import { IdesignState, IpageState } from "@/interfaces/design";
 
 // import { useNavigate } from "react-router-dom";
 
 interface IuserDetailsContext{
     design: IdesignState | null;
     setDesign: Dispatch<SetStateAction<IdesignState | null>>   
-    webDesignState: IdesignState|null;
-    setWebDesignState: Dispatch<SetStateAction<IdesignState | null>>
+    webDesignState: IpageState|null;
+    setWebDesignState: Dispatch<SetStateAction<IpageState | null>>
     tokenTracker: string
     setTokenTracker: Dispatch<SetStateAction<string>>
     dropPosition: React.MutableRefObject<number|null>
@@ -73,7 +73,7 @@ const PageDesignProvider = ({children}:{children: React.ReactNode}) => {
 const router=useRouter()
     const [design, setDesign] = useState<IdesignState | null>(InitialDeisgnState);
     const [actElLayer, setELLayer] = useState<string>("0,");
-    const [webDesignState, setWebDesignState] = useState<IdesignState|null>(null );
+    const [webDesignState, setWebDesignState] = useState<IpageState|null>({} );
 
     const {user }= useUserContext();
     const [token,] = useToken();
@@ -97,7 +97,7 @@ const router=useRouter()
     const saveWebPage = async (status:number, type:string,ImgUri?:string, ) => {
 
         if (status === 200 && design?.elements && design?.elements?.length > 0) {
-            setWebDesignState((prev)=>({ ...prev, prevImgUri: ImgUri }));
+            setWebDesignState((prev)=>({ ...prev, bannerImage: ImgUri }));
             //update the website setting
             await axios.post('/api/save-webprev/', {
                 id: user?._id,

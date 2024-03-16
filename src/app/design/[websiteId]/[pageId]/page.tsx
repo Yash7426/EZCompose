@@ -14,6 +14,8 @@ import SideColumn from '@/components/side-column';
 import PreviewPanel from '@/components/preview-panel';
 import { Id } from '../../../../../convex/_generated/dataModel';
 import Navbar from '@/components/header';
+import { useQuery } from 'convex/react';
+import { api } from '../../../../../convex/_generated/api';
 function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage">}}) {
 
     const __webpageParams = {
@@ -23,10 +25,9 @@ function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage
     const router = useRouter()
 
 
-
     let pageDesignState = usePageDesignContext();
     const UserDetailsState =useuserDetailsContext();
-
+    console.log("usedetaUserDetailsState",UserDetailsState)
     // { currentWidth: "300px", isDragStarted: false }
     const resizer = useRef<HTMLDivElement & {
         isDragStarted: boolean;
@@ -86,31 +87,20 @@ function DesignApp({params}:{params:{websiteId:Id<"website">, pageId:Id<"webpage
         let _pid = pid;
         let _wid = wid;
         try {
-            // 
-            await axios.post('/api/getWebPage/', {
-                id:userId,
-                pageId: _pid,
-                websiteId: _wid
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            }).then(response => {
-                // 
-                if (response.data.result) {
-                    pageDesignState.setDesign(response.data.result)
-                    pageDesignState.setWebDesignState(response.data.webResult)
-
-                } else {
-                    // router.push("/my-websites")
-                }
-
-
-            }).catch(() => {
-                // router.push("/my-websites")
-            })
-
+            const webpage = useQuery(
+                api.webpage.getWebpage,
+                _pid ? { id: _pid as Id<"webpage">}:"skip"
+            );
+            const website = useQuery(
+                api.website.getWebSite,
+                _wid ? { id: _wid as Id<"website">}:"skip"
+            );
+            if(webpage!=undefined) pageDesignState.setDesign(webpage);
+            if(website!=undefined)pageDesignState.setWebDesignState(website)   
+            if(website == undefined && webpage==undefined) router.push("my-websites")
         } catch (err) {
 
-            // navigate("/my-websites")
+            router.push("/my-websites")
         }
 
     }

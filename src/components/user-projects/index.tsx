@@ -18,12 +18,14 @@ type IuserProject = {
   perPage: number;
   loadFailed: boolean;
   userProject: {
-    _id: number;
-    pages: Page[];
-    prevImgUri?: string;
-    websiteName: string;
-    published: boolean;
+    _id: Id<'website'>;
+    pages?: Page[];
+    bannerImage?: string;
+    name: string;
+    published?: boolean;
+    users?: Id<'users'>[];
   }[];
+
 };
 type UserProjectProps = {
   createNewWeb: () => void;
@@ -34,12 +36,6 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
   // const {user} = useUserContext();
   const [token] = useToken();
   const userId = useStoreUserEffect();
-
-  const websites = useQuery(
-    api.website.listuserSites,
-    userId ? { user: userId as Id<"users"> } : "skip"
-  );
-
   let [userProj, setUserProj] = useState<IuserProject>({
     loadingProj: false,
     currentPage: 1,
@@ -48,6 +44,23 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     userProject: [],
   });
 
+  const websites = useQuery(
+    api.website.listuserSites,
+    userId ? { user: userId as Id<"users"> } : "skip"
+  );
+  console.log(websites)
+
+
+  useEffect(()=>{
+    if(websites){
+      setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: websites, currentPage: userProj.currentPage + 1 }))
+    }
+    else{
+        setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
+    }
+  },[websites])
+
+
   useEffect(() => {
     loadUserProject();
   }, []);
@@ -55,18 +68,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
   const loadUserProject = async () => {
     setUserProj((prev) => ({ ...prev, loadingProj: true }));
     try {
-      // await axios.post('/api/my-projects/', {
-      //     id:user?.id,
-      //     pageNum: userProj.currentPage,
-      //     perPage: userProj.perPage
-      // }, {
-      //     headers: { Authorization: `Bearer ${token}` }
-      // }).then(response => {
-      //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: response.data.result, currentPage: userProj.currentPage + 1 }))
-      // }).catch(() => {
-
-      //     setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
-      // })
+  
       console.log(userId);
     } catch (err) {
       console.error(err);
@@ -90,20 +92,20 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
             {userProj.userProject.map((e, i) => {
               return (
                 <div key={i} className="projectoption">
-                  <Link href={`/designer/${e._id}/${e.pages[0]._id}/`}>
+                  <Link href={`/designer/${e._id}/${e.pages && e.pages[0]._id}/`}>
                     <div className="projimgshowcase">
                       <img
                         src={
-                          e.prevImgUri
-                            ? e.prevImgUri
+                          e.bannerImage
+                            ? e.bannerImage
                             : "/assets/images/elements/html/dummyImage.jpg"
                         }
                       />
                     </div>
                     <div className="projectDetails">
-                      <div className="projTitle">{e.websiteName}</div>
+                      <div className="projTitle">{e.name}</div>
                       <div className="projDets">
-                        {e.pages.length} page(s) &nbsp;&nbsp;|{" "}
+                        {e.pages && e.pages.length} page(s) &nbsp;&nbsp;|{" "}
                         <div className="projStatus">
                           {e.published ? "Live" : "Unpublished"}
                         </div>

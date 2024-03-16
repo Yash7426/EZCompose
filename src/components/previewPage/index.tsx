@@ -9,6 +9,9 @@ import { useUserContext } from '@/contexts/user-context';
 import { useCssSheetPreviewContext } from '@/contexts/cssSheetPreview';
 import FontLoader from '../preview-panel/font-loader';
 import { useToken } from '@/hooks/use-token';
+import { useQuery } from 'convex/react';
+import { Id } from '../../../convex/_generated/dataModel';
+import { api } from '../../../convex/_generated/api';
 export default function PreviewPage() {
 
     const user = useUserContext();
@@ -66,29 +69,32 @@ export default function PreviewPage() {
 
     const getPagePrev = async () => {
         try {
-
-            await axios.post('/api/getWebPage/', {
-                id: user.user?._id,
-                pageId: __webpageParams.pageId,
-                websiteId: __webpageParams.websiteId
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            }).then(response => {
-                if (response.data.result) {
-
-                    setPrevPage({ ...prevPage, page: response.data.result, authorized: true, loaded: true })
-                    // pageDesignState.setDesign(response.data.result)
-                    // pageDesignState.setWebDesignState(response.data.webResult)
-                } else {
-                    // navigate("/my-websites")
-                    setPrevPage({ ...prevPage, authorized: false, loaded: true })
-                }
-
-
-            }).catch(err => {
-                // navigate("/my-websites")
+            const webpage = useQuery(
+                api.webpage.getWebpage,
+                __webpageParams.pageId ? { id:  __webpageParams.pageId as Id<"webpage">}:"skip"
+            );
+            if(webpage){
+                setPrevPage({ ...prevPage, page: webpage, authorized: true, loaded: true })
+            }
+            else{
                 setPrevPage({ ...prevPage, authorized: false, loaded: true })
-            })
+            }
+            // await axios.post('/api/getWebPage/', {
+            //     id: user.user?._id,
+            //     pageId: __webpageParams.pageId,
+            //     websiteId: __webpageParams.websiteId
+            // }, {
+            //     headers: { Authorization: `Bearer ${token}` }
+            // }).then(response => {
+            //     if (response.data.result) {
+
+            //         setPrevPage({ ...prevPage, page: response.data.result, authorized: true, loaded: true })
+            //         // pageDesignState.setDesign(response.data.result)
+            //         // pageDesignState.setWebDesignState(response.data.webResult)
+            //     } else {
+            //         // navigate("/my-websites")
+            //         setPrevPage({ ...prevPage, authorized: false, loaded: true })
+            // }
 
         } catch (e) {
 

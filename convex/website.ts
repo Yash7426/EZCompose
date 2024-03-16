@@ -3,15 +3,22 @@ import { v } from "convex/values";
 import { Doc } from "./_generated/dataModel";
 
 export const listuserSites = query({
-  // args: { user: v.optional( v.id("users")) },
+  args: { user: v.id("users") },
   handler: async (ctx, args): Promise<Doc<"website">[]> => {
-    console.log("W")
+    console.log("W");
     const websites = await ctx.db.query("website").collect();
     const userWebsites = (websites ?? []).filter((website) => {
       const u = website.users.some((user) => user === args.user);
       return u && website;
     });
     return userWebsites;
+  },
+});
+
+export const getWebSite = query({
+  args: { id: v.id("website") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
   },
 });
 
@@ -23,7 +30,9 @@ export const createWebsite = mutation({
   },
   handler: async (ctx, { name, user, bannerImage }) => {
     const website = { name, bannerImage, users: [user] };
-    return await ctx.db.insert("website", website);
+    const web= await ctx.db.insert("website", website);
+    console.log(web)
+    return web;
   },
 });
 

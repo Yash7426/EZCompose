@@ -1,7 +1,7 @@
 
 interface FontOption {
   font: string;
-  weights: Variant[] |string[];
+  weights?: Variant[] |string[];
 }
 
 
@@ -20,11 +20,11 @@ type IdesignState = {
   isPublished?: boolean;
   elementType?:"Header Layout"
   elid?:string
-  pageMode?: number;
-  settingMode?: number;
+  pageMode?: number | bigint;
+  settingMode?: number | bigint;
   isDropEnabled?: boolean;
   analyticsId?: string;
-  dropIndex?: number;
+  dropIndex?: number | bigint;
   fonts?:FontOption[];
   elements?:IdesignState[];
   pages?:Page[]
@@ -36,3 +36,11 @@ interface Page {
   _id: Id<"webpage">;
   pageName: string;
 }
+
+type IpageState = {
+  _id?: Id<"website">;
+  name?: string;
+  pages?: [];
+  bannerImage?: string;
+  users?: Id<"users">[];
+};

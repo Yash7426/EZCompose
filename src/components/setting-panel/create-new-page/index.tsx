@@ -6,18 +6,22 @@ import { useuserDetailsContext } from '@/contexts/user-details';
 import { usePageDesignContext } from '@/contexts/page-design';
 import { useRouter } from 'next/navigation';
 import { useToken } from '@/hooks/use-token';
+import { useMutation } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+import { Id } from '../../../../convex/_generated/dataModel';
+import useStoreUserEffect from '@/app/useStoreUserEffect';
 
 export default function CreateNewPage(props:Allow) {
 
     let UserDetailsState = useuserDetailsContext();
     // let pageDesignState = usePageDesignContext();
-
+    const userId = useStoreUserEffect();
     const router = useRouter();
 
     let [pageName, setPageName] = useState("About")
     let [pageUri, setNewPageUri] = useState("about")
-
     const [token,] = useToken();
+    const createWebpage = useMutation(api.webpage.createWebpage);
 
 
 
@@ -40,25 +44,51 @@ export default function CreateNewPage(props:Allow) {
 
         try {
             let _pageUri = pageUri.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
-            await axios.put('/api/new-webpage/', {
-                id: UserDetailsState.userDetails?._id,
-                webId: UserDetailsState.editorState?.websiteId,
-                pageName,
-                pageUri: _pageUri
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            }).then(response => {
+            try {
+                const pageId = await createWebpage({
+                    faviconUri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFf_7kDwWnZhDhBoJfNqdCXtceqDMhh5yzMQ&usqp=CAU",
+                    description: "",
+                    socialImage: "",
+                    title: pageName,
+                    author: userId as Id<'users'>,
+                    url:  _pageUri,
+                    isPublished: false,
+                    isDropEnabled: true,
+                    analyticsId: "",
+                    fonts: [],
+                    websiteId: UserDetailsState.editorState?.websiteId as Id<'website'>,
+                    elements: [],
+                    prevImageUri:""
+                });
+                UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: pageId })
 
-                UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: response.data.pageId })
-
-                router.push(`/designer/${UserDetailsState.editorState?.websiteId}/${response.data.pageId}/`)
-
+                router.push(`/design/${UserDetailsState.editorState?.websiteId}/${pageId}/`)
                 props.closeWin();
+              } catch (error) {
+                console.error(error);
+            }
 
-            }).catch(err => {
+            // await axios.put('/api/new-webpage/', {
+            //     id: UserDetailsState.userDetails?._id,
+            //     webId: UserDetailsState.editorState?.websiteId,
+            //     pageName,
+            //     pageUri: _pageUri
+            // }, {
+            //     headers: { Authorization: `Bearer ${token}` }
+            // }).then(response => {
 
-                alert("Can not create the webpage")
-            })
+            //     UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: response.data.pageId })
+
+            //     router.push(`/designer/${UserDetailsState.editorState?.websiteId}/${response.data.pageId}/`)
+
+            //     props.closeWin();
+
+            // }).catch(err => {
+
+            //     alert("Can not create the webpage")
+            // })
+
+            
 
         } catch (e) {
 
