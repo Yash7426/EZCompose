@@ -8,8 +8,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-// import { useUser } from "../../Component/auth/useUser";
-// import { useToken } from "../../Component/auth/useToken";
 import axios from "axios";
 import * as htmlToImage from "html-to-image";
 import { useEffect } from "react";
@@ -18,6 +16,10 @@ import { useUserContext } from "../user-context";
 import { useToken } from "@/hooks/use-token";
 import { useRouter } from "next/navigation";
 import { IdesignState, IpageState } from "@/interfaces/design";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import useStoreUserEffect from "@/app/useStoreUserEffect";
+import { Id } from "../../../convex/_generated/dataModel";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -43,20 +45,23 @@ const pageDesignPreview = createContext<IuserDetailsContext>(
 );
 
 const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
+  const updatePage = useMutation(api.webpage.updateWebpage);
+  const deletePage = useMutation(api.webpage.deleteWebpage);
+  // const user1 = useStoreUserEffect();
   const InitialDeisgnState: IdesignState = {
-    websiteId: null,
-    author: null,
+    websiteId: "" as Id<"website">,
+    author: "" as Id<"users">,
     url: "",
     title: "My Website",
     faviconUri: "https://reactjs.org/faviconUrin.ico",
     socialImage: "",
     description: "descriptionription for the webpage",
     isPublished: false,
-    pageMode: 1,
+    pageMode: BigInt(1),
     settingMode: BigInt(-1),
     isDropEnabled: true,
     analyticsId: "",
-    dropIndex: 0,
+    dropIndex: BigInt(0),
     fonts: [
       {
         font: "Poppins",
@@ -81,7 +86,8 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
   const [actElLayer, setELLayer] = useState<string>("0,");
   const [webDesignState, setWebDesignState] = useState<IpageState | null>({});
 
-  const { user } = useUserContext();
+
+  const user = useStoreUserEffect()
   const [token] = useToken();
 
   const [tokenTracker, setTokenTracker] = useState<string>(token as string);
@@ -98,21 +104,29 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
   }, [token]);
 
   const saveWebPage = async (status: number, type: string, ImgUri?: string) => {
-    if (status === 200 && design?.elements && design?.elements?.length > 0) {
-      setWebDesignState((prev) => ({ ...prev, bannerImage: ImgUri }));
-      //update the website setting
-      await axios.post(
-        "/api/save-webprev/",
-        {
-          id: user?._id,
-          websiteId: editorState?.websiteId,
-          imageUri: "" + ImgUri,
-        },
-        {
-          headers: { Authorization: `Bearer ${tokenTracker}` },
-        }
-      );
-    }
+    // if (status === 200 && design?.elements && design?.elements?.length > 0) {
+
+      // await updatePage({
+      //   webpageId: editorState?.pageId,
+      //   websiteId: editorState?.websiteId,
+      //   author: user._id as Id<"users">,
+      //   ...__design_data,
+      // });
+    //   setWebDesignState((prev) => ({ ...prev, bannerImage: ImgUri }));
+    //   //update the website setting
+
+    //   await axios.post(
+    //     "/api/save-webprev/",
+    //     {
+    //       id: user?._id,
+    //       websiteId: editorState?.websiteId,
+    //       imageUri: "" + ImgUri,
+    //     },
+    //     {
+    //       headers: { Authorization: `Bearer ${tokenTracker}` },
+    //     }
+    //   );
+    // }
 
     //go for regular saving of page
 
@@ -124,27 +138,25 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
           setDesign({ ...design, isPublished: !design?.isPublished });
         }
         delete __design_data["_id"];
+        delete __design_data["websiteId"];
+        delete __design_data["author"];
+
         __design_data.settingMode = BigInt(-1);
 
-        await axios
-          .post(
-            "/api/save-webpage/",
-            {
-              id: user?._id,
-              pageId: editorState?.pageId,
-              pageJso: __design_data,
-            },
-            {
-              headers: { Authorization: `Bearer ${tokenTracker}` },
-            }
-          )
-          .then(() => {
-            alert("Saved.");
-          })
-          .catch(() => {
-            alert("Can not save the webpage");
+        // const d=  as  Id<"website">;
+        console.log(editorState?.pageId)
+        console.log(editorState?.websiteId)
+        
+        if (editorState?.pageId && editorState?.websiteId && user?._id)
+          await updatePage({
+            webpageId: editorState?.pageId,
+            websiteId: editorState?.websiteId,
+            author: user._id as Id<"users">,
+            ...__design_data,
           });
+          console.log("89")
       }
+      console.log("90")
     } catch (e) {
       alert("Unable to save the webpage try again!");
     }
@@ -152,31 +164,12 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
 
   const removeWebPage = async () => {
     try {
-      await axios
-        .post(
-          "/api/remove-webpage/",
-          {
-            id: user?._id,
-            pageId: editorState?.pageId,
-            webId: editorState?.websiteId,
-          },
-          {
-            headers: { Authorization: `Bearer ${tokenTracker}` },
-          }
-        )
-        .then((response) => {
-          //
-          alert("Deleted.");
-
-          setEditorState({ ...editorState, pageId: response.data.pageId });
-          router.push(
-            `/design/${editorState?.websiteId}/${response.data.pageId}/`
-          );
-        })
-        .catch(() => {
-          console.error("Can not delete the webpage");
-          alert("Can not delete the webpage");
-        });
+      const response = await deletePage({
+        id: editorState?.pageId as Id<"webpage">,
+        websiteId: editorState?.websiteId as Id<"website">,
+      });
+      setEditorState({ ...editorState, pageId: response as Id<"webpage"> });
+      router.push(`/design/${editorState?.websiteId}/${response}/`);
     } catch (e) {
       alert("Unable to delete the webpage try again!");
     }

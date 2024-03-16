@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import "./userProjects.css";
 import { useUserContext } from "@/contexts/user-context";
@@ -35,7 +34,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
   // let navigate = useNavigate();
   // const {user} = useUserContext();
   const [token] = useToken();
-  const userId = useStoreUserEffect();
+  const user = useStoreUserEffect();
   let [userProj, setUserProj] = useState<IuserProject>({
     loadingProj: false,
     currentPage: 1,
@@ -46,7 +45,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
 
   const websites = useQuery(
     api.website.listuserSites,
-    userId ? { user: userId as Id<"users"> } : "skip"
+    user?._id ? { user: user._id as Id<"users"> } : "skip"
   );
 
   useEffect(()=>{
@@ -66,8 +65,6 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
   const loadUserProject = async () => {
     setUserProj((prev) => ({ ...prev, loadingProj: true }));
     try {
-  
-      console.log(userId);
     } catch (err) {
       console.error(err);
       setUserProj((prev) => ({

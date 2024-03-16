@@ -2,7 +2,6 @@
 import { useEffect, useContext, useRef, useState } from "react";
 import AppStyles from "./designApp.module.css";
 import { FaGripLinesVertical } from "react-icons/fa";
-import axios from "axios";
 import { usePageDesignContext } from "@/contexts/page-design";
 import { useuserDetailsContext } from "@/contexts/user-details";
 import { useParams, useRouter } from "next/navigation";

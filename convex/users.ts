@@ -40,14 +40,21 @@ export const store = mutation({
       if (user.name !== identity.name) {
         await ctx.db.patch(user._id, { name: identity.name });
       }
-      return user._id;
+      return user;
     }
     // If it's a new identity, create a new `User`.
-    return await ctx.db.insert("users", {
+    const uid = await ctx.db.insert("users", {
       name: identity.name!,
       tokenIdentifier: identity.tokenIdentifier,
       email: identity.email!,
       profileImage: identity.pictureUrl ?? "",
     });
+    return {
+        _id: uid,
+        name: identity.name!,
+        tokenIdentifier: identity.tokenIdentifier,
+        email: identity.email!,
+        profileImage: identity.pictureUrl ?? "",
+    };
   },
 });

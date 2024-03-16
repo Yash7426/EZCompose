@@ -4,12 +4,14 @@ import './manageWebsites.css'
 import { useuserDetailsContext } from '@/contexts/user-details'
 import UserProjects from '../user-projects'
 import CreateNewWebsite from '../create-new-website'
+import useStoreUserEffect from '@/app/useStoreUserEffect'
 const ManageWebsites=()=> {
 
     const [mPr, setMPr] = useState({
         showNewWebsite: false
     });
-    const {userDetails} = useuserDetailsContext();
+    // const {userDetails} = useuserDetailsContext();
+    const user = useStoreUserEffect()
 
     return (
         <>
@@ -24,7 +26,7 @@ const ManageWebsites=()=> {
                             <div className="row-container flex-row-welcome">
 
                                 <div className='welcomeLeft'>
-                                    <h1>Welcome back, {userDetails?.name|| "User"}!</h1>
+                                    <h1>Welcome back, {user?.name|| "User"}!</h1>
                                     <p>Select one of your site, you want to edit</p>
                                 </div>
                                 <button className='newWebsiteBtn' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>

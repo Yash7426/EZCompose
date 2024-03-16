@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import './createNewPage.css'
 
-import axios from 'axios';
 import { useuserDetailsContext } from '@/contexts/user-details';
 import { usePageDesignContext } from '@/contexts/page-design';
 import { useRouter } from 'next/navigation';
@@ -15,7 +14,7 @@ export default function CreateNewPage(props:Allow) {
 
     let UserDetailsState = useuserDetailsContext();
     // let pageDesignState = usePageDesignContext();
-    const userId = useStoreUserEffect();
+    const user = useStoreUserEffect();
     const router = useRouter();
 
     let [pageName, setPageName] = useState("About")
@@ -50,7 +49,7 @@ export default function CreateNewPage(props:Allow) {
                     description: "",
                     socialImage: "",
                     title: pageName,
-                    author: userId as Id<'users'>,
+                    author: user?._id as Id<'users'>,
                     url:  _pageUri,
                     isPublished: false,
                     isDropEnabled: true,
@@ -69,25 +68,7 @@ export default function CreateNewPage(props:Allow) {
                 console.error(error);
             }
 
-            // await axios.put('/api/new-webpage/', {
-            //     id: UserDetailsState.userDetails?._id,
-            //     webId: UserDetailsState.editorState?.websiteId,
-            //     pageName,
-            //     pageUri: _pageUri
-            // }, {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // }).then(response => {
-
-            //     UserDetailsState.setEditorState({ ...UserDetailsState.editorState, pageId: response.data.pageId })
-
-            //     router.push(`/design/${UserDetailsState.editorState?.websiteId}/${response.data.pageId}/`)
-
-            //     props.closeWin();
-
-            // }).catch(err => {
-
-            //     alert("Can not create the webpage")
-            // })
+        
 
             
 

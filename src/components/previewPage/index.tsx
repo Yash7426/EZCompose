@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import axios from 'axios';
 import { useParams } from 'next/navigation';
 import parse from 'html-react-parser';
 import SetStyle from './setStyle';
@@ -76,29 +75,11 @@ export default function PreviewPage() {
     const getPagePrev = async () => {
         try {
             if(webpage){
-                console.log("working")
-                console.log("webpage ",webpage)
                 setPrevPage({ ...prevPage, page: webpage, authorized: true, loaded: true })
             }
             else{
                 setPrevPage({ ...prevPage, authorized: false, loaded: true })
             }
-            // await axios.post('/api/getWebPage/', {
-            //     id: user.user?._id,
-            //     pageId: __webpageParams.pageId,
-            //     websiteId: __webpageParams.websiteId
-            // }, {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // }).then(response => {
-            //     if (response.data.result) {
-
-            //         setPrevPage({ ...prevPage, page: response.data.result, authorized: true, loaded: true })
-            //         // pageDesignState.setDesign(response.data.result)
-            //         // pageDesignState.setWebDesignState(response.data.webResult)
-            //     } else {
-            //         // navigate("/my-websites")
-            //         setPrevPage({ ...prevPage, authorized: false, loaded: true })
-            // }
 
         } catch (e) {
 
@@ -279,7 +260,6 @@ export default function PreviewPage() {
         }
     }
 
-console.log("dfsdf ",prevPage)
 
     return (<>
         <div className='webPagePrev'>

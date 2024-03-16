@@ -22,9 +22,9 @@ const UserDetailsProvider = ({children}:{children: React.ReactNode}) => {
         user: "",
         email: "",
         _id: null,
-        pageId:"" ,
-        websiteId: "",
-        id: ""     
+        // pageId:"" ,
+        // websiteId: "",
+        // id: ""     
     }
     const [userDetails, setUserDetails] = useState<IuserDetails | null>(initialUserDetails)
     const [editorState, setEditorState] = useState<IeditorState | null>(null)

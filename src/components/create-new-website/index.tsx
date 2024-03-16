@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import "./new-website-modal.css";
 import { useRouter } from "next/navigation";
 import { useUserContext } from "@/contexts/user-context";
@@ -27,7 +26,7 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
   let [newWebSetting, setNewWebSetting] = useState({
     webName: "My Website",
   });
-  const userId = useStoreUserEffect();
+  const user1 = useStoreUserEffect();
 
   const createNewWebsite = async () => {
     try {
@@ -42,9 +41,9 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
 
       try {
         console.log("hitt dfdsfdsfddsdfed", __webName);
-        console.log(userId);
+        
         const websiteId = await createWebsite({
-          user: userId as Id<"users">,
+          user: user1?._id as Id<"users">,
           name: __webName,
           bannerImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PGyK_KgPmWmkyh5pAQltCNIxkd5ohgo66t5qROV3sX5wh8yUOuAI5jnI0CPAId25U8c&usqp=CAU"
         });
@@ -58,7 +57,7 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
           description: "",
           socialImage: "",
           title: "index",
-          author: userId as Id<"users">,
+          author: user1?._id as Id<"users">,
           url: "index",
           isPublished: false,
           isDropEnabled: true,

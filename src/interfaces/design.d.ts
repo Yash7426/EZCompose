@@ -12,19 +12,19 @@ type IdesignState = {
   faviconUri?: string;
   socialImage?: string;
   description?: string;
-  websiteId?: null | Id<"website">;
-  author?: Id<"users"> | null;
+  websiteId?: Id<"website"> ;
+  author?: Id<"users">;
   url?: string;
   prevImageUri?: string;
   title?: string;
   isPublished?: boolean;
   elementType?:"Header Layout"
   elid?:string
-  pageMode?: number | bigint;
-  settingMode?: number | bigint;
+  pageMode?:  bigint;
+  settingMode?:  bigint;
   isDropEnabled?: boolean;
   analyticsId?: string;
-  dropIndex?: number | bigint;
+  dropIndex?: bigint;
   fonts?:FontOption[];
   elements?:IdesignState[];
   pages?:Page[]

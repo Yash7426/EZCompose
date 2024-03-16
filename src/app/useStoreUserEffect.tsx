@@ -9,7 +9,20 @@ export default function useStoreUserEffect() {
   const { user } = useUser();
   // When this state is set we know the server
   // has stored the user.
-  const [userId, setUserId] = useState<Id<"users"> | null>(null);
+  const [curUser, setCurUser] = useState<{
+    _id: Id<"users">;
+    _creationTime: number;
+    profileImage?: string | undefined;
+    name: string;
+    email: string;
+    tokenIdentifier: string;
+} | {
+    _id: Id<"users">;
+    name: string;
+    tokenIdentifier: string;
+    email: string;
+    profileImage: string;
+} | null>(null);
   const storeUser = useMutation(api.users.store);
   // Call the `storeUser` mutation function to store
   // the current user in the `users` table and return the `Id` value.
@@ -22,13 +35,13 @@ export default function useStoreUserEffect() {
     // Recall that `storeUser` gets the user information via the `auth`
     // object on the server. You don't need to pass anything manually here.
     async function createUser() {
-      const id = await storeUser();
-      setUserId(id);
+      const user = await storeUser();
+      setCurUser(user);
     }
     createUser();
-    return () => setUserId(null);
+    return () => setCurUser(null);
     // Make sure the effect reruns if the user logs in with
     // a different identity
   }, [isAuthenticated, storeUser, user?.id]);
-  return userId;
+  return curUser;
 }

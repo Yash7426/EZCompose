@@ -10,11 +10,27 @@ export const getWebpage = query({
 });
 
 export const deleteWebpage = mutation({
-  args: { id: v.id("webpage") },
+  args: { id: v.id("webpage"),websiteId:v.id("website") },
   handler: async (ctx, args) => {
+    const website = await ctx.db.get(args.websiteId);
     await ctx.db.delete(args.id);
+    return website?.pages[0].pageId
   },
 });
+
+export const getPageByName = query({
+  args: { pageName: v.string(),websiteId:v.id("website") },
+  handler: async (ctx, args) => {
+    const website = await ctx.db.get(args.websiteId);
+
+    const page = (website?.pages??[]).filter((item)=>{
+      return item.pageName==args.pageName
+    })
+
+    const webPage = await ctx.db.get(page[0].pageId)
+    return webPage;
+  },
+})
 
 export const createWebpage = mutation({
   args: {
@@ -85,6 +101,7 @@ export const updateWebpage = mutation({
     settingMode: v.optional(v.int64()),
     pageMode: v.optional(v.int64()),
     prevImageUri: v.optional(v.string()),
+    _creationTime:v.optional(v.number())
   },
   handler: async (ctx, { webpageId, ...args }) => {
     return await ctx.db.patch(webpageId, args);

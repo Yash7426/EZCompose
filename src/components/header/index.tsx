@@ -207,15 +207,15 @@ const Navbar: React.FC = () => {
             {(isPageDesign || isPageDesignEmpty) && (
                 <>
                 <div className='user-web-link'>
-                    <span>{`http://${window.location.hostname}/web/${webDesignState?._id}${design?.url}`}</span>
-                    <Link className='external-open'  href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}${design?.url}`}><FaExternalLinkAlt /></Link>
+                    <span>{`http://${window.location.hostname}/web/${webDesignState?._id}/${design?.url}`}</span>
+                    <Link className='external-open'  href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}/${design?.url}`}><FaExternalLinkAlt /></Link>
                 </div>
 
                 
                 <div className={nvstyle["user_persistant_actions"]}>
                     <ul className={nvstyle["navbar_menu_level_one"]}>
-                        <li><Link onClick={() => setDesign((prev)=>({ ...prev, pageMode: 1 }))} className={clsx(nvstyle["btn_responsive"] ,"responsive_mobile" , ((design?.pageMode) ? nvstyle["active"] : null))} href='#'><IoDesktopOutline /></Link></li>
-                        <li><Link onClick={() => setDesign((prev)=>({ ...prev, pageMode: 0 }))} className={clsx(nvstyle["btn_responsive"] ," responsive_pc" , ((!design?.pageMode) ? nvstyle["active"] : null))} href='#'><FaMobileAlt /></Link></li>
+                        <li><Link onClick={() => setDesign((prev)=>({ ...prev, pageMode: BigInt(1) }))} className={clsx(nvstyle["btn_responsive"] ,"responsive_mobile" , ((design?.pageMode) ? nvstyle["active"] : null))} href='#'><IoDesktopOutline /></Link></li>
+                        <li><Link onClick={() => setDesign((prev)=>({ ...prev, pageMode: BigInt(0) }))} className={clsx(nvstyle["btn_responsive"] ," responsive_pc" , ((!design?.pageMode) ? nvstyle["active"] : null))} href='#'><FaMobileAlt /></Link></li>
                     </ul>
                 </div>
 
