@@ -1101,7 +1101,7 @@ export default function PreviewPanel() {
           set(
             _depth,
             "elements[" + _dSelArr.join("].elements[") + "].elements",
-            [currentAppendElem]
+            [...toPlaceNodeContent, JSON.parse(JSON.stringify(currentAppendElem))]
           );
         } else {
           set(_depth, "elements", [currentAppendElem]);

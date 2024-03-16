@@ -357,7 +357,9 @@ if(__nodeID)
                         linksState.navEl.map((e, i) => {
                             return (
                                 <div key={i} data-is-dragel draggable
-                                    onDragStart={(e) => { dragPositionStart.current =+ e.currentTarget?.getAttribute("data-link-idx"); }}
+                                    onDragStart={(e) => {
+                                        let X=e.currentTarget?.getAttribute("data-link-idx")
+                                         if(X) dragPositionStart.current = +X }}
                                     onDragEnter={updateDragEnterPosition}
                                     onDragEnd={arrangeElemsDragged}
                                     className='linkModify' data-link-idx={i} >

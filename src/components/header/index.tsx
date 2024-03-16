@@ -6,7 +6,7 @@ import { usePageDesignContext } from '@/contexts/page-design';
 import { useuserDetailsContext } from '@/contexts/user-details';
 import { useUserContext } from '@/contexts/user-context';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { FaAngleDown ,FaExternalLinkAlt} from "react-icons/fa";
 import { IoDesktopOutline } from "react-icons/io5";
@@ -21,12 +21,14 @@ const Navbar: React.FC = () => {
 
     const {webDesignState,setDesign,design,publishWebPage,getWebPageImageAndSavePage,removeWebPage} = usePageDesignContext();
     const {setEditorState,editorState} =useuserDetailsContext();
-    
+    const params = useParams<{websiteId:string,pageId:string}>()
     const router=useRouter()
-    const isPageDesign= true;
-    // const isPageDesign = "useMatch("/designer/:projectId/:pageId")";
-    // const isPageDesignEmpty = useMatch("/designer/:projectId/:pageId");
-    const isPageDesignEmpty =true;
+    // const isPageDesign= true;
+    
+    const isPageDesign = (params.pageId && params.websiteId) ? true:false 
+    const isPageDesignEmpty = (params.pageId && params.websiteId) ? true:false
+    console.log("DE ",isPageDesignEmpty)
+    console.log("DE2 ",isPageDesign)
 
     const {user} = useUserContext();
 
@@ -202,7 +204,7 @@ const Navbar: React.FC = () => {
                 </ul>
                 <div ref={dropdownSlide} className={nvstyle["spanning_menu_box"]}></div>
             </div>
-            {(!isPageDesign || !isPageDesignEmpty) && (
+            {(isPageDesign || isPageDesignEmpty) && (
                 <>
                 <div className='user-web-link'>
                     <span>{`http://${window.location.hostname}/web/${webDesignState?._id}${design?.url}`}</span>

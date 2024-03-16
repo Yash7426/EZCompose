@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import axios from 'axios';
 import { useParams } from 'next/navigation';
@@ -19,13 +20,17 @@ export default function PreviewPage() {
     const __webpageParams = useParams();
     let cssSheetPreviewState = useCssSheetPreviewContext()
 
+    const webpage = useQuery(
+        api.webpage.getWebpage,
+        __webpageParams.pageId ? { id:  __webpageParams.pageId as Id<"webpage">}:"skip"
+    );
 
     const pageStyle = useRef([`html,body{border: 0;padding: 0;margin: 0;outline: 0;}`]);
     const scrollPosition = useRef(0);
 
     type IpreviewPageType={
         loaded:boolean;
-        page:ILinkElement;
+        page:Partial<ILinkElement>;
         authorized:boolean;
     }
     const [prevPage, setPrevPage] = useState<IpreviewPageType>({
@@ -63,17 +68,16 @@ export default function PreviewPage() {
         }
 
 
-    }, []);
+    }, [webpage]);
 
 
+  
 
     const getPagePrev = async () => {
         try {
-            const webpage = useQuery(
-                api.webpage.getWebpage,
-                __webpageParams.pageId ? { id:  __webpageParams.pageId as Id<"webpage">}:"skip"
-            );
             if(webpage){
+                console.log("working")
+                console.log("webpage ",webpage)
                 setPrevPage({ ...prevPage, page: webpage, authorized: true, loaded: true })
             }
             else{
@@ -275,7 +279,7 @@ export default function PreviewPage() {
         }
     }
 
-
+console.log("dfsdf ",prevPage)
 
     return (<>
         <div className='webPagePrev'>
@@ -287,9 +291,9 @@ export default function PreviewPage() {
                     <div className='web_page_preview'>
                     <FontLoader fontList={prevPage.page.fonts ?? []} />
                         {
-                            prevPage.page.elements.map((e, i) => {
+                            prevPage.page.elements?.map((e, i) => {
 
-                                if (prevPage.page.elements.length == (i + 1)) {
+                                if (prevPage.page.elements?.length == (i + 1)) {
                                     cssSheetPreviewState.setCssSheet(pageStyle.current.join("\n"))
                                 }
 
