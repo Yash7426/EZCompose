@@ -75,7 +75,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     }
   };
 
-  return (
+  return ( 
     <div>
       <div className="projects_case_container">
         {userProj.loadingProj && <div className="loading-wrap">Loading...</div>}

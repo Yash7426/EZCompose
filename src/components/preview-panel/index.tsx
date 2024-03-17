@@ -79,7 +79,7 @@ export default function PreviewPanel() {
     "#b744b8",
   ];
 
-  let prevW = { width: "500px", minWidth: "800px" };
+  let prevW = { width: "500px", minWidth: "" };
   if (pageDesignState.design?.pageMode) {
     prevW = {
       minWidth: "1200px",
@@ -89,7 +89,7 @@ export default function PreviewPanel() {
 
   const enableNewAdding = (e: React.MouseEvent) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
-
+    console.log("add inside of the div")
     pageDesignState.nodeLevel.current =
       e.currentTarget.getAttribute("data-path");
     const targetPath = e.currentTarget.getAttribute("data-path");
@@ -99,7 +99,7 @@ export default function PreviewPanel() {
   };
 
   const updateInsertPosition = (e: React.DragEvent<HTMLElement>) => {
-    console.log("see now i am triggered")
+    console.log("see now i am triggered222")
     let _msg = document.createElement("div");
 
     if (_msg) {
@@ -111,15 +111,15 @@ export default function PreviewPanel() {
     removeGuides();
 
     let _sizes = e.currentTarget.closest("section")?.getBoundingClientRect();
-
     if (_sizes && e.clientY <= _sizes.y + 15) {
       // TODO : Element Adding helper
       // e.target.closest("div[data-prevpanel]").insertBefore(_msg, e.target.closest("section"));
-
+      
       let y = e.currentTarget
-        ?.closest("section")
-        ?.getAttribute("data-elposition");
+      ?.closest("section")
+      ?.getAttribute("data-elposition");
       let dropIndex: number;
+      
       if (y) {
         dropIndex = +y;
 
@@ -129,10 +129,10 @@ export default function PreviewPanel() {
     } else if (_sizes && e.clientY >= _sizes.y + (_sizes.height - 15)) {
       // TODO : Element Adding helper
       // e.target.closest("section").insertAdjacentElement("afterend", _msg);
-
+      
       let y = e.currentTarget
-        .closest("section")
-        ?.getAttribute("data-elposition");
+      .closest("section")
+      ?.getAttribute("data-elposition");
       let dropIndex;
       if (y) {
         dropIndex = +y;
@@ -142,9 +142,10 @@ export default function PreviewPanel() {
     } else {
       //insert it inside the element
       let dpa;
-
+      
       const isdataPath = e.currentTarget.hasAttribute("data-path");
       const dataPath = e.currentTarget.getAttribute("data-path");
+      console.log("inside isdatapaht-->",e.currentTarget)
       if (isdataPath) {
         dpa = dataPath;
       } else {
@@ -153,6 +154,7 @@ export default function PreviewPanel() {
           dpa = e.currentTarget
             .querySelector("[data-path]")
             ?.getAttribute("data-path");
+          console.log("inside dpa--> ",dpa)
       }
       pageDesignState.nodeLevel.current = dpa;
       pageDesignState.dropPosition.current = null;
@@ -1199,6 +1201,7 @@ export default function PreviewPanel() {
     type: string,
     selectText: boolean
   ) => {
+    console.log("showsettingpanel--->", name);
     setPanelSettings({ ...panelSettings, panelTitle: name, panelMode: type });
 
     let scrlTopp = (document.querySelector("[data-panelmain]") as HTMLElement)
@@ -1400,8 +1403,8 @@ export default function PreviewPanel() {
 
   return (
     <div
-      className={prvp["panel_container"]}
-      onMouseEnter={() => {
+      className={`${prvp["panel_container"]} checking`}
+      onMouseEnter={() => { 
         if (ElementSwitcher.current) {
           ElementSwitcher.current.style.opacity = "1";
         }

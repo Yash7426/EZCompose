@@ -3,6 +3,7 @@ import { set, get } from "lodash";
 import './column-width-setting.css'
 import { usePageDesignContext } from '@/contexts/page-design';
 import { FaPlusCircle } from "react-icons/fa";
+import { getWidthCol } from './utils';
 
 export default function ColumnWidthSetting(props:Allow) {
 

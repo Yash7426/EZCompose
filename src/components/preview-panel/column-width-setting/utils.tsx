@@ -1,4 +1,4 @@
-const getWidthCol = (arr:string):number => {
+export const getWidthCol = (arr:string):number => {
     if (arr.includes("wd wd-1")) {
         return 1;
     }

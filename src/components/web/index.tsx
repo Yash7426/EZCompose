@@ -68,12 +68,6 @@ export default function WebPage() {
  
   const getPagePrev = async () => {
     try {
-      // const response =await updatePage({
-      //     webpageId: __webpageParams.pageUri as Id<"webpage">,
-      //     websiteId: __webpageParams.websiteId as Id<"website">,
-      //     author: user?._id as Id<"users">,
-      //     isPublished:true
-      // });
 
       if (webpage)
         setPrevPage({
@@ -117,7 +111,7 @@ export default function WebPage() {
     if (typeof e === "string") {
       return e + " " + __clsName;
     }
-
+            
     if (Array.isArray(e)) {
       return [...e, __clsName].join(" ");
     }
