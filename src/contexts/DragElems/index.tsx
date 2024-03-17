@@ -18,13 +18,6 @@ const DragElemsProvider = ({children}:{children: React.ReactNode}) => {
 
     const [__dragElems, __setDragElems] = useState<IdragElemsState>(InitialDragElemsState);
 
-
-
-
-    // useEffect(() => {
-    //     
-    // }, [design])
-
     return (
         <dragElemsContext.Provider value={{ __dragElems, __setDragElems }}>
             {children}

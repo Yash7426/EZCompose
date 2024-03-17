@@ -88,7 +88,7 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
 
               </div>
               <div>
-                <Button variant={"outline"} className='flex items-center gap-2 text-lg' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>
+                <Button variant={"outline"}  className='flex items-center gap-2 text-lg' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>
                 <IoMdAddCircle className='text-'/>
                   Add New Project
                 </Button>
@@ -162,6 +162,7 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
               ))}
             </div>
           </Disclosure.Panel>
+
         </>
       )}
     </Disclosure>

@@ -10,6 +10,7 @@ import { api } from "../../../convex/_generated/api";
 import { v } from "convex/values";
 import { Id } from "../../../convex/_generated/dataModel";
 import useStoreUserEffect from "@/app/useStoreUserEffect";
+import GeneralDialog from "../dialog";
 
 type CreateNewWebsitetype = {
   closeModal: () => void;
@@ -17,6 +18,7 @@ type CreateNewWebsitetype = {
 const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
   const router = useRouter();
   const createWebsite = useMutation(api.website.createWebsite);
+  const updateWebsite = useMutation(api.website.updateWebsite);
   const createWebpage = useMutation(api.webpage.createWebpage);
 
   const { user } = useUserContext();
@@ -41,7 +43,7 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
 
       try {
         console.log("hitt dfdsfdsfddsdfed", __webName);
-        
+
         const websiteId = await createWebsite({
           user: user1?._id as Id<"users">,
           name: __webName,
@@ -76,10 +78,11 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
         // closeModal();
         console.error(error);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   return (
+
     <div className="createNewWebsiteModal">
       <div className="modal_container">
         <div className="modal_title">

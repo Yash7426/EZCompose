@@ -16,12 +16,6 @@ const CssSheetPreviewProvider=({children}:IcssSheetProvider)=>{
     const [cssSheet, setCssSheet] = useState("");
 
 
-
-
-    // useEffect(() => {
-    //     
-    // }, [design])
-
     return (
         <cssSheetPreview.Provider value={{ cssSheet, setCssSheet }}>
             {children}

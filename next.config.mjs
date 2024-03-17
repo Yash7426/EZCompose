@@ -13,7 +13,11 @@ const nextConfig = {
             {
                 protocol:"https",
                 hostname:"judicious-fennec-130.convex.cloud"
-            }
+            },
+            {
+                protocol:"https",
+                hostname:"encrypted-tbn0.gstatic.com"
+            },
         ]
     }
 };

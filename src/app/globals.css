@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-:root {
-  --primary-link: #333;
-  --primary-link-hover-background: #cfe2ff;
-  --secondary-highlighter: #f7f7f7;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  
+  :root {
+    --primary-link: #333;
+    --primary-link-hover-background: #cfe2ff;
+    --secondary-highlighter: #f7f7f7;
+  }
