@@ -3,7 +3,7 @@ const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 // const defaultTheme = require("tailwindcss/defaultTheme");
- 
+
 const svgToDataUri = require("mini-svg-data-uri");
 
 const config: Config = {
@@ -14,7 +14,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      animation:{
+      animation: {
         "meteor-effect": "meteor 5s linear infinite",
       },
       backgroundImage: {
@@ -23,26 +23,26 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
+        white:"#fff",
+        black:"#000",
         current: "currentColor",
         background: "#101014",
-    },
-    keyframes: {
-
-      marquee: {
-        '0%': { transform: 'translateX(0%)' },
-        '100%': { transform: 'translateX(-100%)' }
       },
-      meteor:{
-        "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
           "70%": { opacity: "1" },
           "100%": {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
           },
-      }
-
+        },
+      },
     },
-    }
   },
   plugins: [
     addVariablesForColors,
@@ -69,7 +69,6 @@ const config: Config = {
       );
     },
   ],
-
 };
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 function addVariablesForColors({ addBase, theme }: any) {
@@ -77,7 +76,7 @@ function addVariablesForColors({ addBase, theme }: any) {
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
- 
+
   addBase({
     ":root": newVars,
   });

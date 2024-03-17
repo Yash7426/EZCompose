@@ -90,6 +90,7 @@ type IuserProject = {
     bannerImage?: string;
     name: string;
     published?: boolean;
+    description?:string
     users?: Id<"users">[];
   }[];
 };
@@ -191,15 +192,16 @@ const page = () => {
             </div>
             <div className="text-3xl text-white my-4">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
-              {userProj.userProject.map((ele) => (
+              {userProj.userProject.map((ele,ind) => (
                 <Card2
+                 key={ind}
                   imageUrl={
                     ele.bannerImage
                       ? ele.bannerImage
                       : "/assets/images/elements/html/dummyImage.jpg"
                   }
                   title={ele.name}
-                  description="Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."
+                  description={ele.description as string}
                   link={`/design/${ele._id}/${ele.pages && ele.pages.length > 0 && ele.pages[0].pageId}/`}
                   pages={ele.pages as Page[]}
                 />

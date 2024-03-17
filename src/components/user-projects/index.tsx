@@ -20,6 +20,7 @@ type IuserProject = {
     _id: Id<'website'>;
     pages?: Page[];
     bannerImage?: string;
+    description?:string
     name: string;
     published?: boolean;
     users?: Id<'users'>[];

@@ -27,9 +27,10 @@ export const createWebsite = mutation({
     user: v.id("users"),
     name: v.string(),
     bannerImage: v.optional(v.string()),
+    description : v.optional(v.string())
   },
-  handler: async (ctx, { name, user, bannerImage }) => {
-    const website = { name, bannerImage, users: [user], pages: [] };
+  handler: async (ctx, { name, user, bannerImage, description }) => {
+    const website = { name, bannerImage, users: [user], pages: [] , description};
     const web = await ctx.db.insert("website", website);
     console.log(web);
     return web;

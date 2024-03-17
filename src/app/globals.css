@@ -15,3 +15,7 @@
     --primary-link-hover-background: #cfe2ff;
     --secondary-highlighter: #f7f7f7;
   }
+
+  svg.mx-auto.block.h-12.w-12.align-middle.text-gray-400{
+    height:200px;
+}

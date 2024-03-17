@@ -6,6 +6,7 @@ export default defineSchema({
     name: v.string(),
     bannerImage: v.optional(v.string()),
     users: v.array(v.id("users")),
+    description : v.optional(v.string()),
     pages: v.array(
       v.object({
         pageId: v.id("webpage"),

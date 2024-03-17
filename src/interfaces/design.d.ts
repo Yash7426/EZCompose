@@ -43,4 +43,5 @@ type IpageState = {
   pages?: Page[];
   bannerImage?: string;
   users?: Id<"users">[];
+  description?:string
 };
