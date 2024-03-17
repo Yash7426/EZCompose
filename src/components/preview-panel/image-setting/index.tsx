@@ -113,8 +113,8 @@ export default function ImageSetting(props:Allow) {
                 setImageSearchSetting({ ...imageSearchSetting, isLoading: true, rType: "Popular Images" });
                 //latest uri
                 let client ;
-                if(process.env.REACT_APP_PEXELS_API_KEY){
-                    client= createClient(process.env.REACT_APP_PEXELS_API_KEY);
+                if(process.env.NEXT_PUBLIC_PEXELS_API_KEY){
+                    client= createClient(process.env.NEXT_PUBLIC_PEXELS_API_KEY);
 
                 }
                 await client?.photos.curated({ per_page: imageSearchSetting.perPage, orientation: "landscape" }).then(photos => {
@@ -144,7 +144,7 @@ export default function ImageSetting(props:Allow) {
                 loadMoreImages.current.style.display = "none";
                 setImageSearchSetting({ ...imageSearchSetting, isLoading: true, rType: `Currently showing: ${imageSearchSetting.q}` });
                 let client; 
-                 if(process.env.REACT_APP_PEXELS_API_KEY) client = createClient(process.env.REACT_APP_PEXELS_API_KEY);
+                 if(process.env.NEXT_PUBLIC_PEXELS_API_KEY) client = createClient(process.env.NEXT_PUBLIC_PEXELS_API_KEY);
                 const query = imageSearchSetting.q;
 
                 await client?.photos.search({ query, per_page: imageSearchSetting.perPage, orientation: "landscape" }).then(photos => {
@@ -177,7 +177,7 @@ export default function ImageSetting(props:Allow) {
                 setImageSearchSetting({ ...imageSearchSetting, isLoading: true, rType: "Popular Images" });
                 //latest uri
                 let client ;
-                if (process.env.REACT_APP_PEXELS_API_KEY) client= createClient(process.env.REACT_APP_PEXELS_API_KEY);
+                if (process.env.NEXT_PUBLIC_PEXELS_API_KEY) client= createClient(process.env.NEXT_PUBLIC_PEXELS_API_KEY);
 
                 await client?.photos.curated({ page: imageSearchSetting.page, per_page: imageSearchSetting.perPage, orientation: "landscape" }).then(photos => {
                     if( 'photos' in photos){
@@ -206,7 +206,7 @@ export default function ImageSetting(props:Allow) {
                 setImageSearchSetting({ ...imageSearchSetting, isLoading: true, rType: `Currently showing: ${imageSearchSetting.q}` });
 
                 let client ;
-                if(process.env.REACT_APP_PEXELS_API_KEY) client =createClient(process.env.REACT_APP_PEXELS_API_KEY);
+                if(process.env.NEXT_PUBLIC_PEXELS_API_KEY) client =createClient(process.env.NEXT_PUBLIC_PEXELS_API_KEY);
                 const query = imageSearchSetting.q;
 
                 client?.photos.search({ page: imageSearchSetting.page, query, per_page: imageSearchSetting.perPage, orientation: "landscape" }).then(photos => {

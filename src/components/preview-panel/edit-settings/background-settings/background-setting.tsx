@@ -188,6 +188,9 @@ if(node){
     
     }
 
+
+    useEffect(()=>{},[backgroundSettings])
+
   
     const setBGImg=()=>{
         let currentNode = props.currentlyActive.current;
@@ -205,7 +208,7 @@ if(node){
         if (__bgSize === "custom") {
             __bgSize = backgroundSettings.backgroundImage.customX + "% " + backgroundSettings.backgroundImage.customY + "%"
         }
-
+        console.log("called setBGImg->", backgroundSettings)
         let __apply_bg = {
             backgroundImage: `url("${backgroundSettings.backgroundImage.url}")`,
             backgroundSize: __bgSize,
