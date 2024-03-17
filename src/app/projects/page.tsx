@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import { LuFolderSearch } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
 import { SiFiles } from "react-icons/si";
@@ -17,20 +18,9 @@ import leftGradient from "@/assets/image/left-gradient.webp"
 import rightGradient from "@/assets/image/right-gradient.webp"
 import { Meteors } from "@/components/ui/meteor";
 import Card2 from "@/components/project-card/another";
-const SearchBar = () => {
-  return (
-    <div className="relative w-[400px]">
-      <div className="h-full flex items-center hover:cursor-pointer  justify-center w-10 absolute right-0 bg-black rounded-r-md">
-        <LuFolderSearch className="text-slate-200 w-10 text-base h-4 hover:text-orange-400 font-bold absolute   right-0 my-auto" />
-      </div>
-      <input
-        type="text"
-        placeholder="Type to search"
-        className="w-full pl-12 pr-3 py-2  focus:placeholder:text-gray-100 bg-[#1C1C1C] outline-none border border-gray-500 focus:border-gray-300 shadow-sm rounded-lg"
-      />
-    </div>
-  );
-};
+import { useClientContext } from "@/contexts/client-context";
+import { usePathname } from "next/navigation";
+
 
 const sidelinks = [
   {
@@ -83,10 +73,17 @@ const Items = [
   { text: 'Calendar', href: '#' },
 ]
 const page = () => {
+  const { setSearch ,search} = useClientContext()
+  const pathname = usePathname()
+  const isSearch = pathname.includes('/projects')
+  useEffect(()=>{
+    setSearch(isSearch)
+  
+  },[])
   return (
     <>
 
-      <Navbar Items={Items} navigation={navigation2} userProfile={userProfile}/>
+      <Navbar Items={Items} navigation={navigation2} userProfile={userProfile} isSearch={search}/>
       <div className="relative  w-full h-screen overflow-hidden bg-[#070A0F]">
         <Meteors />
 
@@ -95,16 +92,17 @@ const page = () => {
           <div className="bg-black w-full p-4 md:p-8 pt-20 md:pt-20">
             <div className="text-3xl text-white">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
-         
+
               {
                 sidelinks.map((ele) =>
                   <Card2
-                  imageUrl="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"
-                  title="Noteworthy technology acquisitions 2021"
-                  description="Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."
-                  link="#"
+                    imageUrl="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"
+                    title="Noteworthy technology acquisitions 2021"
+                    description="Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."
+                    link="#"
                   />
-                  )
+
+                )
               }
             </div>
           </div>

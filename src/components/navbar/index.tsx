@@ -1,9 +1,12 @@
 "use client"
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import SearchInput from '../search-input';
+import { FaBell } from 'react-icons/fa';
+import Button from '../ui/button';
+import { IoMdAddCircle } from "react-icons/io";
 // import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface NavigationItem {
@@ -21,15 +24,21 @@ interface Props {
   navigation: NavigationItem[];
   userProfile: UserProfile;
   Items: MenuItem[];
+  isSearch?: boolean
 }
 interface MenuItem {
-    text: string;
-    href: string;
-    
+  text: string;
+  href: string;
+
 }
+<button className="">
+  Figma Outline
+</button>
 
-
-const Navbar: React.FC<Props> = ({ navigation, userProfile,Items }) => {
+const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = false }) => {
+  const [mPr, setMPr] = useState({
+    showNewWebsite: false
+});
   return (
     <Disclosure as="nav" className="bg-transparent absolute z-50 w-full">
       {({ open }) => (
@@ -73,16 +82,25 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile,Items }) => {
                     ))}
                   </div>
                 </div>
-                <SearchInput id="default-search" placeholder="Search Mockups, Logos..." />
+                {
+                  isSearch && <SearchInput id="default-search" placeholder="Search Mockups, Logos..." />
+                }
+
+              </div>
+              <div>
+                <Button variant={"outline"} className='flex items-center gap-2 text-lg' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>
+                <IoMdAddCircle className='text-'/>
+                  Add New Project
+                </Button>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative rounded-full bg-gray-800 p-2 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
-                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
+                  <FaBell className="h-6 w-6" aria-hidden="true" />
 
                 </button>
 
@@ -109,16 +127,16 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile,Items }) => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {Items.map((item) => (
-                            <Menu.Item key={item.text}>
-                            {({ active }) => (
-                                <Link href={item.href} className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                                {item.text}
-                                </Link>
-                            )}
-                            </Menu.Item>
-                        ))}
-                    
+                      {Items.map((item) => (
+                        <Menu.Item key={item.text}>
+                          {({ active }) => (
+                            <Link href={item.href} className={clsx(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                              {item.text}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      ))}
+
                     </Menu.Items>
                   </Transition>
                 </Menu>
