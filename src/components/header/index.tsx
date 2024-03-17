@@ -221,7 +221,7 @@ const Navbar: React.FC = () => {
 
                 <div className={nvstyle["user_persistant_actions"]}>
                     <ul className={nvstyle["navbar_menu_level_one"]}>
-                        <li><Link className={nvstyle["highlight_btn_light_prev"]} href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}${design.url}`} target="_blank">{(!design?.isPublished) ? "Preview" : "Open"}</Link></li>
+                        <li><Link className={nvstyle["highlight_btn_light_prev"]} href={(!design?.isPublished) ? `/preview/${editorState?.websiteId}/${editorState?.pageId}/` : `/web/${webDesignState?._id}/${design.url}`} target="_blank">{(!design?.isPublished) ? "Preview" : "Open"}</Link></li>
                         <li><button className={nvstyle["highlight_btn_light"]} onClick={()=>getWebPageImageAndSavePage((!design?.isPublished) ? "Save" : "Update")}>{(!design?.isPublished) ? "Save" : "Update"}</button></li>
                         <li><button onClick={publishWebPage} className={nvstyle["highlight_btn"]}>{(!design?.isPublished) ? "Publish" : "UnPublish"}</button></li>
                     </ul>
