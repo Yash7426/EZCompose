@@ -8,6 +8,7 @@ const variants = {
   nav: "px-6 py-2 rounded-lg hover:opacity-90",
 }
 
+
 interface ButtonProperties extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string
   textClassName?: string
