@@ -27,6 +27,7 @@ import { Page } from "@/interfaces/design";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import CreateProjectDialog from "@/components/createProjectModal";
+import { motion } from "framer-motion";
 const sidelinks = [
   {
     icons: <SiFiles />,
@@ -93,11 +94,32 @@ type IuserProject = {
     users?: Id<"users">[];
   }[];
 };
+type IFlipCardType = {
+  selected: {
+    rotateY: number;
+    transition: { duration: number };
+  };
+  notSelected: {
+    rotateY: number;
+    transition: { duration: number };
+  };
+};
 type UserProjectProps = {
   createNewWeb: () => void;
 };
 
 const page = () => {
+  const cardVariants:IFlipCardType = {
+    selected: {
+      rotateY: 180,
+      transition: { duration: 0.35 },
+    },
+    notSelected: {
+      rotateY: 0,
+      transition: { duration: 0.35 },
+    },
+  };
+
   const { setSearch, search } = useClientContext();
   const pathname = usePathname();
   const isSearch = pathname.includes("/projects");
@@ -112,6 +134,12 @@ const page = () => {
     loadFailed: false,
     userProject: [],
   });
+  const [selectedCard, setSelectedCard] = useState<number | null>(-1);
+
+  const selectCard = (cardId: number) => {
+    setSelectedCard(selectedCard === cardId ? null : cardId);
+  };
+
 
   const websites = useQuery(
     api.website.listuserSites,
@@ -156,6 +184,7 @@ const page = () => {
   useEffect(() => {
     setSearch(isSearch);
   }, []);
+
   return (
     <>
 
@@ -191,7 +220,7 @@ const page = () => {
             </div>
             <div className="text-3xl text-white my-4">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
-              {userProj.userProject.map((ele) => (
+              {userProj.userProject.map((ele, idx) => (
                 <Card2
                   imageUrl={
                     ele.bannerImage
@@ -202,6 +231,11 @@ const page = () => {
                   description="Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."
                   link={`/design/${ele._id}/${ele.pages && ele.pages.length > 0 && ele.pages[0].pageId}/`}
                   pages={ele.pages as Page[]}
+                  key={ele._id}
+                  onFlipClick={() => selectCard(idx)}
+                  initial="notSelected"
+                  animate={selectedCard === idx ? "selected" : "notSelected"}
+                  variants={cardVariants}
                 />
               ))}
             </div>
