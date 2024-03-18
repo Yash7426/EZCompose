@@ -4,6 +4,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { HiDocumentText } from "react-icons/hi";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export const IconContainer = ({ icon, text, delay }: any) => {
   return (
@@ -24,8 +25,8 @@ export const IconContainer = ({ icon, text, delay }: any) => {
         "relative z-50 flex flex-col items-center justify-center space-y-2"
       )}
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700 bg-slate-800 shadow-inner">
-        {icon || <HiDocumentText className="  h-8 w-8 text-slate-600" />}
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700 bg-white shadow-inner">
+        {<Image alt="" src={icon} height={400} width={400} className="h-8 w-8 "/> || <HiDocumentText className="  h-8 w-8 text-slate-600" />}
       </div>
       <div className="hidden rounded-md px-2 py-1 md:block">
         <div className="text-center text-xs font-bold text-slate-400">

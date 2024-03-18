@@ -23,6 +23,7 @@ import Modal from '../ui/modal';
 import { useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import { calculateMillisecondsBetweenDates } from '../preview-panel/column-width-setting/utils';
+import { useModalContext } from "@/contexts/modal-context";
 interface MenuItem {
   name: string;
   href: string;
@@ -55,10 +56,13 @@ const Navbar: React.FC = () => {
   } = usePageDesignContext();
   const { setEditorState, editorState } = useuserDetailsContext();
   const [checked, setChecked] = useState(false);
+  const { handleClose, setmodalData } = useModalContext()
   const params = useParams<{ websiteId: string; pageId: string }>();
   const router = useRouter();
+  const [date, setDate] = useState(new Date());
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
   // const isPageDesign= true;
-
+  const schedulePublish = useMutation(api.website.schedulePublish)
   const isPageDesign = params.pageId && params.websiteId ? true : false;
   const isPageDesignEmpty = params.pageId && params.websiteId ? true : false;
 
@@ -153,10 +157,63 @@ const Navbar: React.FC = () => {
       icon: <CiCirclePlus />,
     },
   ];
-  const PageItems = [];
+
 
   return (
     <nav className={`${nvstyle["navbar"]} py-1`}>
+
+      <Modal isOpen={isAlbumOpen} onClose={() => setIsAlbumOpen((prev) => !prev)} className="!w-[90%] md:!w-[800px] md:!max-w-[95vw] mb-[20px]">
+        <div className="bg-[#18181c]  text-wihte  p-[15px] rounded-3xl flex flex-col gap-3 relative w-full max-w-[960px] mx-auto no-scrollbar no-scroll md:px-[70px] px-[15px] ">
+<div className="text-2xl text-white">
+  Publish the page
+</div>
+          <Filter
+            key={"Publish"}
+            title={"Do you want to Schedule the Job?"}
+            inputType={"radio"}
+            value={checked}
+            onChange={(value) => setChecked(value as boolean)}
+            className="text-white"
+            selectOptions={[
+              {
+                label: "Yes",
+                value: true,
+              },
+              {
+                label: "No",
+                value: false,
+              },
+            ]}
+          />
+          <div>
+          {
+            checked ?
+              (
+                <div className="flex flex-col gap-4">
+                  <input type="datetime-local" value={date.toISOString().slice(0, 16)} onChange={(e) => setDate(new Date(e.target.value))} />
+                  <Button onClick={async () => {
+                    await schedulePublish({
+                      dateTime: calculateMillisecondsBetweenDates(new Date(), date),
+                      id: params.pageId as unknown as Id<"webpage">,
+                    })
+                  }} variant="outline">
+                    Schedule
+                  </Button>
+                </div>
+              )
+              :
+              (
+                <>
+                  <Button onClick={publishWebPage} variant="outline">
+                    Publish
+                  </Button>
+                </>
+              )
+          }
+
+          </div>
+        </div>
+      </Modal>
       {/* <div className={nvstyle["navbar_header_logo"]}>WebPage Builder</div> */}
       {isPageDesign &&
         webDesignState?.pages &&
@@ -218,11 +275,11 @@ const Navbar: React.FC = () => {
         <>
           <div className="user-web-link">
             <span className=" !pr-12">
-                <div className="w-full text-slate-400 pr-2 line-clamp-3">
+              <div className="w-full text-slate-400 pr-2 line-clamp-3">
 
                 {`http://${window.location.hostname}/web/${webDesignState?._id}/${design?.url}`}
-                </div>
-                </span>
+              </div>
+            </span>
             <Link
               className="external-open"
               href={
@@ -259,7 +316,7 @@ const Navbar: React.FC = () => {
                 {
                   id: 2,
                   name: !design?.isPublished ? "Publish" : "Unpublish",
-                  onClick: publishWebPage,
+                  onClick: () => setIsAlbumOpen(true),
                   icon: <CiCircleMinus />,
                 },
                 {

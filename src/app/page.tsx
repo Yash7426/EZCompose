@@ -17,14 +17,14 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { FaCode } from "react-icons/fa6";
 import { FaRobot } from "react-icons/fa";
+import Wrapper from "@/components/ui/wrapper";
 
 // import useStoreUserEffect from "./useStoreUserEffect";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", href: "/", current: true },
+  { name: "Projects", href: "/projects", current: false },
+
 ];
 
 const userProfile = {
@@ -207,9 +207,12 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="relative grid grid-cols-1">
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 ">
             <div>
               <Features features={features} />
+            </div>
+            <div className="my-auto">
+            <Wrapper />
             </div>
           </div>
           <Team teamMembers={TeamMemberArray} />

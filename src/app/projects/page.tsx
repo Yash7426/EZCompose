@@ -12,7 +12,6 @@ import { MdOutlineArrowDropDown } from "react-icons/md";
 import Card from "@/components/preview-project-card";
 import Button from "@/components/ui/button";
 import Navbar from "@/components/navbar";
-import ProjectCard from "@/components/project-card";
 import GradientBackground from "@/components/ui/gradient-background";
 import leftGradient from "@/assets/image/left-gradient.webp";
 import rightGradient from "@/assets/image/right-gradient.webp";
@@ -383,7 +382,7 @@ const page = () => {
                 
                 <Card2
                  key={idx}
-                 _id={ele._id}
+                //  _id={ele._id}
                   imageUrl={
                     ele.bannerImage
                       ? ele.bannerImage
