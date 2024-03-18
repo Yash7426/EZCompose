@@ -51,10 +51,6 @@ Once you have installed the necessary dependencies, follow these steps to set up
 6. Open your browser and navigate to http://localhost:3000 to access EZCompose.
 
 
-## Reports
-
-Include any relevant reports or documents related to the project, such as design documents, testing reports, or user manuals.
-
 ## Details
 
 EZCompose is a cutting-edge web design collaboration platform that empowers users to create responsive websites collaboratively, without the need for coding expertise. Let's delve into its key features and functionality:
