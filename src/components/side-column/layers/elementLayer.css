@@ -46,8 +46,8 @@
 }
 
 .layergroup li.mouseOn {
-    background-color: #cfe2ff;
-    color: #116dff;
+    background-color: #383838;
+    color:  rgb(203 213 225);
 }
 
 .layergroup li:last-child {
@@ -76,7 +76,7 @@
 
 .layergroup>ul>li>ul>li>ul>li>ul>li>ul li:before {
     padding-left: 10px;
-    paddding-top: 10px;
+    padding-top: 10px;
 }
 
 .currentlyActiveNode {
@@ -103,7 +103,7 @@
 }
 
 .layerBasedHighlight * {
-    color: #116dff !important;
+    color:  rgb(203 213 225) !important;
     background: #0d6efd40 !important;
     outline: 2px solid #0d6efd;
 }
@@ -159,29 +159,29 @@ li.hasSubNode ul {
 }
 
 .layergroup li span:hover {
-    background-color: #cfe2ff;
-    color: #116dff;
-    /* outline: 1px solid #116dff; */
+    background-color: #383838;
+    color:  rgb(203 213 225);
+    /* outline: 1px solid  rgb(203 213 225); */
 }
 
 
 button.elementNodeSelector {
-    border: 1px solid #116dff;
+    border: 1px solid  rgb(203 213 225);
     background: transparent;
     border-radius: 5px;
-    color: #116dff;
+    color:  rgb(203 213 225);
     margin-right: 5px;
 }
 
 button.elementNodeSelector:hover {
-    background: #116dff;
+    background:  rgb(203 213 225);
     color: #fff;
     cursor: pointer;
 }
 
 .currentlyActiveNode button,
 .currentlyActiveNode i {
-    background: #116dff;
+    background:  rgb(203 213 225);
     color: #fff;
     cursor: pointer;
 }
@@ -192,25 +192,25 @@ button.elementNodeSelector:hover {
 }
 
 .duplicateLayer {
-    border: 1px solid #116dff;
+    border: 1px solid  rgb(203 213 225);
     background: transparent;
     border-radius: 5px;
-    color: #116dff;
+    color:  rgb(203 213 225);
     margin-right: 5px;
     cursor: pointer;
 }
 
 .duplicateLayer:hover {
-    background: #116dff;
+    background:  rgb(203 213 225);
     color: #fff;
 }
 
 .currentlyActiveNode .duplicateLayer {
-    border: 1px solid #116dff !important;
+    border: 1px solid  rgb(203 213 225) !important;
 }
 
 .currentlyActiveNode .duplicateLayer,
 .currentlyActiveNode .duplicateLayer i {
-    color: #116dff;
+    color:  rgb(203 213 225);
     background: transparent;
 }

@@ -19,3 +19,15 @@
   svg.mx-auto.block.h-12.w-12.align-middle.text-gray-400{
     height:200px;
 }
+
+*::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* Color of the scrollbar track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+}

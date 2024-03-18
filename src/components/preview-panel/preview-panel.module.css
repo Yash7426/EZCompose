@@ -20,17 +20,6 @@
     margin: 0 auto;
     min-height: calc(100vh - 40px);
 }
-.panel_container_inner::-webkit-scrollbar {
-    width: 5px; /* Width of the scrollbar */
-}
-
-.panel_container_inner::-webkit-scrollbar-track {
-    background: transparent; /* Color of the scrollbar track */
-}
-
-.panel_container_inner::-webkit-scrollbar-thumb {
-    background: #888; /* Color of the scrollbar thumb */
-}
 
 .layout_panel_options {
     position: absolute;

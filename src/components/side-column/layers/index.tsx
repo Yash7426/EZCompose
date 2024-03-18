@@ -261,13 +261,14 @@ export default function ElementLayer() {
 
         return React.createElement(
           "li",
-          { ...elProp, className: "hasSubNode" },
+          { ...elProp, className: "hasSubNode text-slate-300" },
           [
             <span
               data-spannode
               onDoubleClick={selectLayerNode}
               onMouseLeave={removeHighlightNode}
               onMouseEnter={highlightNode}
+              className="text-slate-300"
             >
               {children}
               <div
@@ -307,6 +308,7 @@ export default function ElementLayer() {
               data-spannode
               onMouseLeave={removeHighlightNode}
               onMouseEnter={highlightNode}
+              className="text-slate-300"
             >
               {e.elementType}
               <div
@@ -335,12 +337,13 @@ export default function ElementLayer() {
     } else {
       return React.createElement(
         "li",
-        { ...elProp, className: "layerNode" },
+        { ...elProp, className: "layerNode"},
         <span
           onDoubleClick={selectLayerNode}
           data-spannode
           onMouseLeave={removeHighlightNode}
           onMouseEnter={highlightNode}
+          className="text-slate-300"
         >
           {e.elementType}
           <div onMouseLeave={removeHighlightNode} onMouseEnter={highlightNode}>
@@ -361,7 +364,7 @@ export default function ElementLayer() {
     <div className="WebpageLayersOuter">
       <div className="webpageLayerInner">
         <div className="layergroup">
-          <ul>
+          <ul className="text-slate-300">
             {pageDesignState.design?.elements?.map((e, i) => {
               return <GenerateLayer key={i} element={e} datapath={i + ","} />;
             })}

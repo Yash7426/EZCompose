@@ -309,7 +309,7 @@ export default function HtmlElement() {
             onDragEnd={AddDroppedElement}
           >
             <img className="item_drag_img" src={e.previmg} />
-            <p className="item_drag_desc">{e.desc}</p>
+            <p className="item_drag_desc text-slate-300">{e.desc}</p>
           </div>
         );
       })}
