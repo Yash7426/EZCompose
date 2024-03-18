@@ -87,12 +87,7 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
                 }
 
               </div>
-              <div>
-                <Button variant={"outline"}  className='flex items-center gap-2 text-lg' onClick={() => setMPr({ ...mPr, showNewWebsite: true })}>
-                <IoMdAddCircle className='text-'/>
-                  Add New Project
-                </Button>
-              </div>
+              
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"

@@ -1,6 +1,7 @@
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { Doc } from "./_generated/dataModel";
+import { internal } from "./_generated/api";
 
 export const listuserSites = query({
   args: { user: v.id("users") },
@@ -106,6 +107,26 @@ export const updateWebsite = mutation({
       updateObj.bannerImage = args.bannerImage;
     }
     return await ctx.db.patch(args.id, updateObj);
+  },
+});
+export const schedulePublish = mutation({
+  args: {
+    id: v.id("webpage"),
+    dateTime : v.any()
+  },
+  handler: async (ctx, args) => {
+    await ctx.scheduler.runAfter(args.dateTime, internal.website.publish , {
+      id: args.id
+    });
+  },
+});
+
+export const publish = internalMutation({
+  args: {
+    id: v.id("webpage")
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { isPublished: true });
   },
 });
 

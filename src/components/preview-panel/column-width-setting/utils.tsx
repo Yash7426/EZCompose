@@ -37,3 +37,12 @@ export const getWidthCol = (arr:string):number => {
     }
     return 0;
 }
+
+export const calculateMillisecondsBetweenDates=(date1: Date, date2: Date): number=> {
+    // Convert dates to milliseconds and calculate the difference
+    const milliseconds1: number = date1.getTime();
+    const milliseconds2: number = date2.getTime();
+    const differenceMilliseconds: number = Math.abs(milliseconds2 - milliseconds1);
+
+    return differenceMilliseconds;
+}
