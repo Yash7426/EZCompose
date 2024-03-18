@@ -9,16 +9,28 @@
 .panel_preview {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.1);
     margin: 0px auto;
-    background-color: white;
+    background-color: #292929;
     min-height: calc(100vh - 40px);
     position: relative;
 }
 
 .panel_container_inner {
-    /* max-width: 1100px; */
+    max-width: 1050px;
+    overflow-x: hidden;
     margin: 0 auto;
+    min-height: calc(100vh - 40px);
+}
+.panel_container_inner::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
 }
 
+.panel_container_inner::-webkit-scrollbar-track {
+    background: transparent; /* Color of the scrollbar track */
+}
+
+.panel_container_inner::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+}
 
 .layout_panel_options {
     position: absolute;

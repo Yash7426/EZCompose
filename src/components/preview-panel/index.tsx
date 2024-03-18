@@ -83,8 +83,9 @@ export default function PreviewPanel() {
   let prevW = { width: "500px", minWidth: "" };
   if (pageDesignState.design?.pageMode) {
     prevW = {
-      minWidth: "1200px",
+      minWidth: "600px",
       width: "100%",
+
     };
   }
 
@@ -2042,8 +2043,8 @@ export default function PreviewPanel() {
           }
         </div>
       </div>
-      <div style={prevW} className={clsx(prvp["panel_preview"],"check here")}>
-        <div className={prvp["panel_container_inner"]} data-prevpanel="true">
+      <div style={{"width":"100%", "height":"100%"}} className={clsx(prvp["panel_preview"],"overflow-x-hidden")}>
+        <div style={prevW} className={`${prvp["panel_container_inner"]} overflow-x-hidden h-full bg-white`} data-prevpanel="true">
           {/* <HeaderNav /> */}
           {pageDesignState.design?.elements?.length ? (
             pageDesignState.design?.elements?.map((e, i) => {
@@ -2063,7 +2064,7 @@ export default function PreviewPanel() {
                   onDragLeave={removeGuides}
                   data-elposition={i}
                   key={e.elid + "_" + i}
-                  className="bg-white h-full"
+                  className="bg-white"
                 >
                   <GenerateHTMLComp element={e} datapath={i + ","} />
                 </section>
