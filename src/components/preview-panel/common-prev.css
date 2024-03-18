@@ -20,15 +20,15 @@ body {
 } */
 
 div[data-prevpanel] .temp_elem:hover {
-    outline: 1px dashed #116dff;
+    outline: 1px dashed #383838;
 }
 
 div[data-prevpanel] .wd-row *:hover {
-    outline: 1px dashed #116dff;
+    outline: 1px dashed #383838;
 }
 
 div[data-prevpanel] .wd-row:hover {
-    outline: 1px dashed #116dff;
+    outline: 1px dashed #383838;
 }
 
 .temp_elem:has(.temp_elem) {
@@ -141,7 +141,7 @@ li.actionListical:hover i {
 
 .html_elem_option_list ul li:hover {
     box-shadow: 5px 5px 10px #a6bcdd, -5px -5px 10px #a6bcdd;
-    background: #0d6efd;
+    background: #00000080;
     color: #fff;
 }
 
@@ -167,7 +167,7 @@ li.actionListical:hover i {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
     padding: 5px 10px;
-    background: #cfe2ff;
+    background: black;
     padding-bottom: 0px;
     position: sticky;
     top: 0;
@@ -176,7 +176,7 @@ li.actionListical:hover i {
 .settings_dragger_title {
     flex-grow: 1;
     font-size: 14px;
-    color: #116dff;
+    color: white;
     cursor: move;
 }
 
@@ -218,7 +218,7 @@ li.actionListical:hover i {
 }
 
 .html_elem_height_setter.active {
-    background-color: #0d6efd;
+    background:  #292929;;
     color: #fff !important;
 }
 

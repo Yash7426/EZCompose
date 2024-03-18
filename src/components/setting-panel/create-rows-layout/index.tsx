@@ -193,17 +193,17 @@ export default function CreateRowsLayout(props:Allow) {
     return (
         <div className='layoutCreator'>
             <div className='layoutCreatorHeader'>
-                <div className='layoutCreatorTitle'>
+                <div className='layoutCreatorTitle flex justify-center items-center text-slate-300 !bg-ui1'>
                     Create rows layout
                 </div>
-                <div className='layoutCreatorAction'>
-                    <button onClick={props.closeWin}><i className="las la-times"></i></button>
+                <div className='layoutCreatorAction !bg-ui1'>
+                    <button onClick={props.closeWin} className="!bg-ui1 text-white"><i className="text-white las la-times"></i></button>
                 </div>
             </div>
             <div className='layoutCreatorContent'>
                 <div className="layourCrInner">
                     <div className="layoutColumnAdd">
-                        <button onClick={addNewColumn}><i className="las la-plus"></i> Add Column</button>
+                        <button onClick={addNewColumn} className="text-white !bg-ui1"><i className="las la-plus"></i> Add Column</button>
                     </div>
                     <div className='columnPrev' id="prevImg" ref={imageCaptureMode}>
                         <div className='columnPrevInner'>
@@ -220,10 +220,10 @@ export default function CreateRowsLayout(props:Allow) {
                         </div>
                     </div>
                     <div className='columnActions'>
-                        <button className='colGenLay' onClick={saveNewLayout}><i className="las la-check"></i> Generate Layout</button>
+                        <button className='colGenLay !bg-ui1 !text-white' onClick={saveNewLayout}><i className="las la-check text-white"></i> Generate Layout</button>
                         <div className='al-lft'>
-                            <button className='colDelInd' onClick={() => setColumnData({ ...columnData, column: [{ width: 12 }] })}><i className="las la-sync-alt"></i></button>
-                            <button className='colDelInd' onClick={removeSelectedCol}><i className="las la-trash-alt"></i></button>
+                            <button className='colDelInd !bg-ui1 text-white' onClick={() => setColumnData({ ...columnData, column: [{ width: 12 }] })}><i className="text-white las la-sync-alt"></i></button>
+                            <button className='colDelInd !bg-ui1 text-white' onClick={removeSelectedCol}><i className="las text-white la-trash-alt"></i></button>
                         </div>
                     </div>
                 </div>

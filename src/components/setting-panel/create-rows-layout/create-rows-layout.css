@@ -118,9 +118,9 @@
 }
 
 .columnPrevInner>div.prev-col.activeCol {
-    background: #fff3cd !important;
-    color: #ffc107 !important;
-    outline-color: #ffc107 !important;
+    background: #383838 !important;
+    color: white !important;
+    outline-color: black !important;
 }
 
 .prev-col span {

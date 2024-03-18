@@ -31,9 +31,9 @@
 }
 
 .editSettingLeftSidebr ul li:hover {
-    background: #f7f7f7;
+    background: #00000080;
 }
 
 .editSettingLeftSidebr ul li.active {
-    background: #fff3cd;
+    background: #383838;
 }

@@ -57,7 +57,7 @@
 }
 
 .subPagesList ul li:hover {
-    background-color: #cfe2ff;
+    background-color: #00000080;
 
 }
 
@@ -70,7 +70,7 @@
 }
 
 .subPagesList ul li.active {
-    background-color: #0d6efd;
+    background-color: #383838;
     color: #fff;
 }
 

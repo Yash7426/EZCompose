@@ -57,8 +57,7 @@ const Navbar: React.FC = () => {
 
   const isPageDesign = params.pageId && params.websiteId ? true : false;
   const isPageDesignEmpty = params.pageId && params.websiteId ? true : false;
-  console.log("DE ", isPageDesignEmpty);
-  console.log("DE2 ", isPageDesign);
+
 
   const { user } = useUserContext();
 
@@ -172,7 +171,6 @@ const Navbar: React.FC = () => {
                 label: page.pageName,
               }))}
               onOptionClick={(option) => {
-                console.log("working ", option);
                 handlePageChange(option.value as Id<"webpage">);
               }}
               className={"!text-white !bg-ui2"}

@@ -23,8 +23,8 @@ const EditSettings:React.FC<iProps>=(props) =>{
     });
 
     return (
-        <div className='editSettings'>
-            <div className='editSettingLeftSidebr'>
+        <div className='editSettings !bg-ui1 !text-white '>
+            <div className='editSettingLeftSidebr !bg-ui1   !text-white'>
                 <ul>
                     <li className={(editSettingState.currentSet === 0) ? "active" : ""} onClick={() => setEditSettingState({ ...editSettingState, currentSet: 0 })}><i className="las la-fill"></i></li>
                     <li className={(editSettingState.currentSet === 1) ? "active" : ""} onClick={() => setEditSettingState({ ...editSettingState, currentSet: 1 })}><i className="las la-font"></i></li>
@@ -34,7 +34,7 @@ const EditSettings:React.FC<iProps>=(props) =>{
                     <li className={(editSettingState.currentSet === 5) ? "active" : ""} onClick={() => setEditSettingState({ ...editSettingState, currentSet: 5 })}><i className="lar la-object-group"></i></li>
                 </ul>
             </div>
-            <div className='editSettingPanels'>
+            <div className='editSettingPanels !bg-ui1'>
                 {
                     /**
                      * Background

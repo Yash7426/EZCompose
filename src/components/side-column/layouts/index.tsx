@@ -22,7 +22,6 @@ export default function SideColumnLayout() {
     const [isCreateCustomLayoutOpen, setisCreateCustomLayoutOpen] = useState(false)
     const dragElOptions = useDragElemContext()
     //  const {__dragElems,__setDragElems}=dragElOptions
-    console.log("dragelem=", dragElOptions)
 
     let layout = [
         {
@@ -167,7 +166,7 @@ export default function SideColumnLayout() {
     const AddDroppedElement = (e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.DragEvent<HTMLDivElement>) => {
         //lets get new context
         // let pageDesignStateNew = useContext(pageDesignContext)
-
+        
         if (pageDesignState.design?.isDropEnabled && pageDesignState.design?.elements) {
 
             //reset the insert position
@@ -191,8 +190,6 @@ export default function SideColumnLayout() {
                 //     alert("Can not add sub element to this element");
                 //     return;
                 // }
-                // console.log("reached here->",_elems);
-
                 pageDesignState.setDesign({ ...pageDesignState.design, elements: _elems });
                 pageDesignState.dropPosition.current = null;
 

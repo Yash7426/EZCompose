@@ -20,10 +20,8 @@ export const getUser = query({
     let arr: arrType = [];
     await Promise.all(ids.map(async (ele) => {
       let user = await ctx.db.get(ele);
-      console.log("ids--->", user);
       if (user) arr.push(user);
     }));
-    console.log(arr);
     return arr;
   },
 });

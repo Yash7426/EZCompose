@@ -518,13 +518,13 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
 
 
   return (
-    <div className="BgImagePanel">
-      <div className="bgPanelOption">
+    <div className="BgImagePanel !bg-ui1 text-white">
+      <div className="bgPanelOption !bg-ui1 text-white">
         <ul>
           {PanelOptions.map((option, index) => (
             <li
               key={index}
-              className={option.isSelected ? "active" : ""}
+              className={`!bg-ui1 text-white ${option.isSelected ? "active" : ""}`}
               onClick={() =>
                 setImageSearchSetting({
                   ...imageSearchSetting,

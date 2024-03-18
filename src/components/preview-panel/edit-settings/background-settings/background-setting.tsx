@@ -428,23 +428,23 @@ if(node){
 
 
     return (
-        <div className='backgroundSettings'>
-            <div className='backgroundHeader'>
-                <ul>
+        <div className='backgroundSettings !bg-ui1 !text-white'>
+            <div className='backgroundHeader !bg-ui1 !text-white'>
+                <ul className="!bg-ui1 !text-white">
                     <li className={((backgroundSettings.backgroundMode === 0)) ? "active" : ""} onClick={() => setBackgroundSettings({ ...backgroundSettings, backgroundMode: 0 })}>Solid Color</li>
                     <li className={((backgroundSettings.backgroundMode === 1)) ? "active" : ""} onClick={() => setBackgroundSettings({ ...backgroundSettings, backgroundMode: 1 })}>Gradient</li>
                     <li className={((backgroundSettings.backgroundMode === 2)) ? "active" : ""} onClick={() => setBackgroundSettings({ ...backgroundSettings, backgroundMode: 2 })}>Image</li>
                 </ul>
-                {((backgroundSettings.backgroundMode === 1)) && <div className='colorGradPans'>
-                    <ul>
-                        <li className={(backgroundSettings.gradientColor.tab === 1) ? "active" : ""} onClick={() => setBackgroundSettings({
+                {((backgroundSettings.backgroundMode === 1)) && <div className='colorGradPans !text-white !bg-ui1'>
+                    <ul >
+                        <li className={`${(backgroundSettings.gradientColor.tab === 1) ? "active" : "" } text-white !bg-ui1 `} onClick={() => setBackgroundSettings({
                             ...backgroundSettings,
                             gradientColor: {
                                 ...backgroundSettings.gradientColor,
                                 tab: 1
                             }
                         })}>Colors</li>
-                        <li className={(backgroundSettings.gradientColor.tab === 0) ? "active" : ""} onClick={() => setBackgroundSettings({
+                        <li className={`${(backgroundSettings.gradientColor.tab === 0) ? "active" : ""} text-white !bg-ui1`} onClick={() => setBackgroundSettings({
                             ...backgroundSettings,
                             gradientColor: {
                                 ...backgroundSettings.gradientColor,
@@ -462,26 +462,26 @@ if(node){
                      */
                     (backgroundSettings.backgroundMode === 0) &&
                     <>
-                        <div className='backgroundSetInner'>
-                            <div className='bgSetPanelInner'>
-                                <div className='bgSetPanelOption'>
+                        <div className='backgroundSetInner !bg-ui1 !text-white'>
+                            <div className='bgSetPanelInner !bg-ui1 !text-white'>
+                                <div className='bgSetPanelOption !bg-ui1 !text-white'>
                                     <h5>Select Color</h5>
-                                    <div className="coloroption">
+                                    <div className="coloroption !bg-ui1 !text-white">
                                         <input
-                                            className='colorPallet'
+                                            className='colorPallet !bg-ui1 !text-white'
                                             type={"color"}
                                             onChange={(e) => { setBackgroundSettings({ ...backgroundSettings, solidColor: { ...backgroundSettings.solidColor, color: e.target.value } }) }}
                                             value={backgroundSettings.solidColor.color} />
-                                        <div className='colorPalletOpacity'>
+                                        <div className='colorPalletOpacity !bg-ui1 !text-white'>
 
-                                            <input className='colorPalletOpacityRange' type={"range"} onChange={(e) => { setBackgroundSettings({ ...backgroundSettings, solidColor: { ...backgroundSettings.solidColor, opacity: +e.target.value } }) }} value={backgroundSettings.solidColor.opacity} max={100} min={0} step="1" />
-                                            <span className='colorPalletOpacityValue'>{backgroundSettings.solidColor.opacity}%</span>
+                                            <input className='colorPalletOpacityRange !bg-ui2 !text-white' type={"range"} onChange={(e) => { setBackgroundSettings({ ...backgroundSettings, solidColor: { ...backgroundSettings.solidColor, opacity: +e.target.value } }) }} value={backgroundSettings.solidColor.opacity} max={100} min={0} step="1" />
+                                            <span className='colorPalletOpacityValue !bg-ui1 !text-white'>{backgroundSettings.solidColor.opacity}%</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className='bgSetPanelAction'>
-                                <button onClick={setSolidColor}>Apply</button>
+                            <div className='bgSetPanelAction !bg-ui1 !text-white'>
+                                <button onClick={setSolidColor} className='!bg-ui2 !text-white'>Apply</button>
                             </div>
                         </div>
                     </>
@@ -493,16 +493,16 @@ if(node){
                      */
                     (backgroundSettings.backgroundMode === 1) &&
                     <>
-                        <div className='backgroundSetInner'>
-                            <div className='bgSetPanelInner'>
-                                <div className='bgSetPanelOption'>
+                        <div className='backgroundSetInner !bg-ui1 !text-white'>
+                            <div className='bgSetPanelInner !bg-ui1 !text-white'>
+                                <div className='bgSetPanelOption !bg-ui1 !text-white'>
 
                                     {
                                         (backgroundSettings.gradientColor.tab === 0) &&
-                                        <div className="colorSetting">
+                                        <div className="colorSetting !bg-ui1 !text-white">
                                             <h5>Gradient Type</h5>
-                                            <div className='coloroption'>
-                                                <select onChange={(e) => setBackgroundSettings({ ...backgroundSettings, gradientColor: { ...backgroundSettings.gradientColor, type: e.target.value } })}>
+                                            <div className='coloroption !bg-ui1 !text-white'>
+                                                <select className="!bg-ui1 !text-white" onChange={(e) => setBackgroundSettings({ ...backgroundSettings, gradientColor: { ...backgroundSettings.gradientColor, type: e.target.value } })}>
                                                     <option value={"linear"}>Linear Gradient</option>
                                                     <option value={"radial"}>Radial Gradient</option>
                                                     <option value={"conic"}>Conic Gradient</option>
@@ -513,8 +513,8 @@ if(node){
                                                  * Linear Gradient Settings
                                                  */
                                                 (backgroundSettings.gradientColor.type === "linear") && <>
-                                                    <h5>Repeat Gradient</h5>
-                                                    <div className='coloroption'>
+                                                    <h5 className="!bg-ui1 !text-white">Repeat Gradient</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
                                                         <select
                                                             onChange={(e) => setBackgroundSettings({
                                                                 ...backgroundSettings,
@@ -526,14 +526,14 @@ if(node){
                                                                     }
                                                                 }
                                                             })}>
-                                                            <option value={0}>Do not repeat gradient</option>
-                                                            <option value={1}>Repeat gradient</option>
+                                                            <option value={0} className='!bg-ui1 !text-white'>Do not repeat gradient</option>
+                                                            <option value={1} className='!bg-ui1 !text-white'>Repeat gradient</option>
                                                         </select>
                                                     </div>
-                                                    <h5>Gradient Angle</h5>
-                                                    <div className='coloroption'>
-                                                        <div className='colorPalletOpacity'>
-                                                            <input className='colorPalletOpacityRange' type={"range"}
+                                                    <h5 className='!bg-ui1 !text-white'>Gradient Angle</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
+                                                        <div className='colorPalletOpacity !bg-ui1 !text-white'>
+                                                            <input className='colorPalletOpacityRange !bg-ui1 !text-white' type={"range"}
                                                                 onChange={(e) => setBackgroundSettings({
                                                                     ...backgroundSettings,
                                                                     gradientColor: {
@@ -545,7 +545,7 @@ if(node){
                                                                     }
                                                                 })}
                                                                 value={backgroundSettings.gradientColor.linearSettings.angle} max={360} min={-360} step="1" />
-                                                            <span className='colorPalletOpacityValue'>{backgroundSettings.gradientColor.linearSettings.angle}°</span>
+                                                            <span className='colorPalletOpacityValue !bg-ui1 !text-white'>{backgroundSettings.gradientColor.linearSettings.angle}°</span>
                                                         </div>
                                                     </div>
                                                 </>}
@@ -555,9 +555,10 @@ if(node){
                                                  * Radial Gradient Settings
                                                  */
                                                 (backgroundSettings.gradientColor.type === "radial") && <>
-                                                    <h5>Repeat Gradient</h5>
-                                                    <div className='coloroption'>
+                                                    <h5 className='!bg-ui1 !text-white'>Repeat Gradient</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
                                                         <select
+                                                            className='!bg-ui1 !text-white'
                                                             onChange={(e) => setBackgroundSettings({
                                                                 ...backgroundSettings,
                                                                 gradientColor: {
@@ -568,12 +569,12 @@ if(node){
                                                                     }
                                                                 }
                                                             })}>
-                                                            <option value={0}>Do not repeat gradient</option>
-                                                            <option value={1}>Repeat gradient</option>
+                                                            <option value={0} className='!bg-ui1 !text-white'>Do not repeat gradient</option>
+                                                            <option value={1} className='!bg-ui1 !text-white'>Repeat gradient</option>
                                                         </select>
                                                     </div>
-                                                    <h5>Radial Shape</h5>
-                                                    <div className='coloroption'>
+                                                    <h5 className='!bg-ui1 !text-white'>Radial Shape</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
                                                         <select
                                                             onChange={(e) => setBackgroundSettings({
                                                                 ...backgroundSettings,
@@ -585,8 +586,8 @@ if(node){
                                                                     }
                                                                 }
                                                             })}>
-                                                            <option value={""}>Ellipse (Default)</option>
-                                                            <option value={"circle,"}>Circle</option>
+                                                            <option className='!bg-ui1 !text-white' value={""}>Ellipse (Default)</option>
+                                                            <option className='!bg-ui1 !text-white' value={"circle,"}>Circle</option>
                                                         </select>
                                                     </div>
                                                 </>
@@ -597,8 +598,8 @@ if(node){
                                                  * Conic Gradient Settings
                                                  */
                                                 (backgroundSettings.gradientColor.type === "conic") && <>
-                                                    <h5>Repeat Gradient</h5>
-                                                    <div className='coloroption'>
+                                                    <h5 className='!bg-ui1 !text-white'>Repeat Gradient</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
                                                         <select
                                                             onChange={(e) => setBackgroundSettings({
                                                                 ...backgroundSettings,
@@ -610,14 +611,14 @@ if(node){
                                                                     }
                                                                 }
                                                             })}>
-                                                            <option value={0}>Do not repeat gradient</option>
-                                                            <option value={1}>Repeat gradient</option>
+                                                            <option value={0} className="!bg-ui1 !text-white">Do not repeat gradient</option>
+                                                            <option value={1} className="!bg-ui1 !text-white">Repeat gradient</option>
                                                         </select>
                                                     </div>
-                                                    <h5>Start Angle</h5>
-                                                    <div className='coloroption'>
-                                                        <div className='colorPalletOpacity'>
-                                                            <input className='colorPalletOpacityRange' type={"range"}
+                                                    <h5 className="!bg-ui1 !text-white">Start Angle</h5>
+                                                    <div className='coloroption !bg-ui1 !text-white'>
+                                                        <div className='colorPalletOpacity !bg-ui1 !text-white'>
+                                                            <input className='colorPalletOpacityRange !bg-ui1 !text-white' type={"range"}
                                                                 onChange={(e) => setBackgroundSettings({
                                                                     ...backgroundSettings,
                                                                     gradientColor: {
@@ -629,44 +630,44 @@ if(node){
                                                                     }
                                                                 })}
                                                                 value={backgroundSettings.gradientColor.conicSettings.angle} max={360} min={-360} step="1" />
-                                                            <span className='colorPalletOpacityValue'>{backgroundSettings.gradientColor.conicSettings.angle}°</span>
+                                                            <span className='colorPalletOpacityValue !bg-ui1 !text-white'>{backgroundSettings.gradientColor.conicSettings.angle}°</span>
                                                         </div>
                                                     </div>
                                                 </>}
                                         </div>}
-                                    {(backgroundSettings.gradientColor.tab === 1) && <div className="colorPallet">
-                                        <div className="gradientColors">
+                                    {(backgroundSettings.gradientColor.tab === 1) && <div className="colorPallet !bg-ui1 !text-white">
+                                        <div className="gradientColors !bg-ui1 !text-white">
 
                                             {backgroundSettings.gradientColor.colors.map((e, i) => {
 
-                                                return (<div className="coloroption" key={i} data-color-index={i}>
+                                                return (<div className="coloroption !bg-ui1 !text-white" key={i} data-color-index={i}>
                                                     <input
-                                                        className='colorPallet'
+                                                        className='colorPallet !bg-ui1 !text-white'
                                                         type={"color"}
                                                         value={e.color} data-color-index={i} onChange={(e) => chGradProp(e, 0)} />
-                                                    <div className='colorRangeGroup'>
-                                                        <div className='colorPalletOpacity'>
+                                                    <div className='colorRangeGroup !bg-ui1 !text-white'>
+                                                        <div className='colorPalletOpacity !bg-ui1 !text-white'>
                                                             <label>Opacity:</label>
-                                                            <input className='colorPalletOpacityRange' type={"range"} onChange={(e) => chGradProp(e, 1)}
+                                                            <input className='colorPalletOpacityRange !bg-ui1 !text-white' type={"range"} onChange={(e) => chGradProp(e, 1)}
                                                                 value={e.opacity} max={100} min={0} step="1" data-color-index={i} />
-                                                            <span className='colorPalletOpacityValue'>{e.opacity}%</span>
+                                                            <span className='colorPalletOpacityValue !bg-ui1 !text-white'>{e.opacity}%</span>
                                                         </div>
-                                                        <div className='colorPalletStrength'>
+                                                        <div className='colorPalletStrength !bg-ui1 !text-white'>
                                                             <label>Stretch:</label>
-                                                            <input className='colorPalletOpacityRange' type={"range"} onChange={(e) => chGradProp(e, 2)}
+                                                            <input className='colorPalletOpacityRange !bg-ui1 !text-white' type={"range"} onChange={(e) => chGradProp(e, 2)}
                                                                 value={e.strength} max={100} min={0} step="1" data-color-index={i} />
-                                                            <span className='colorPalletOpacityValue'>{e.strength}%</span>
+                                                            <span className='colorPalletOpacityValue !bg-ui1 !text-white'>{e.strength}%</span>
                                                         </div>
                                                     </div>
                                                     {(backgroundSettings.gradientColor.colors.length > 1) ? <div className='removeColor' onClick={removeGradColor} data-color-index={i}><i className="las la-trash-alt"></i></div> : ""}
                                                 </div>)
                                             })}
-                                            <div className='colorOptionAdd' onClick={addColorPallet}><i className="las la-plus-circle"></i> Add color</div>
+                                            <div className='colorOptionAdd !bg-ui1 !text-white' onClick={addColorPallet}><i className="las la-plus-circle"></i> Add color</div>
                                         </div>
                                     </div>}
                                 </div>
                             </div>
-                            <div className='bgSetPanelAction'>
+                            <div className='bgSetPanelAction !bg-ui1 !text-white'>
                                 <button onClick={setGradColor}>Apply</button>
                             </div>
                         </div>

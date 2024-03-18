@@ -25,7 +25,7 @@ const SettingPanel=()=> {
 
     return (
         (pageDesignState.design?.settingMode !== BigInt(-1)) && <div className='settingPanel' >
-            <div className='setingPanelMain' style={(pageDesignState.design?.settingMode === BigInt(0)) ? { maxWidth: "70%" } : { maxWidth: "600px" }}>
+            <div className='setingPanelMain !bg-ui1' style={(pageDesignState.design?.settingMode === BigInt(0)) ? { maxWidth: "70%" } : { maxWidth: "600px" }}>
                 <div className='settingPanelInner'>
                     {
                         /**

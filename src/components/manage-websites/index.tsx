@@ -32,7 +32,6 @@ const ManageWebsites = () => {
                             { id: "username", label: "Username", value: "@peduarte" }
                         ]}
                         onSubmit={() => {
-                            console.log("Submitted");
                             setMPr({ ...mPr, showNewWebsite: false })
                         }}
                     /> */}

@@ -12,7 +12,7 @@
   
   :root {
     --primary-link: #333;
-    --primary-link-hover-background: #cfe2ff;
+    --primary-link-hover-background: #00000080;
     --secondary-highlighter: #f7f7f7;
   }
 

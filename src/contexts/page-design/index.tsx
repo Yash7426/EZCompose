@@ -8,7 +8,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import axios from "axios";
 import * as htmlToImage from "html-to-image";
 import { useEffect } from "react";
 import { useuserDetailsContext } from "@/contexts/user-details";
@@ -133,8 +132,6 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       const __design_data = design;
-      console.log('pppppppp',type);
-      console.log('desgigg',design);
       if (__design_data != null) {
         if (type === "publish") {
           __design_data.isPublished = !design?.isPublished;
@@ -157,7 +154,6 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
           });
       }
     } catch (e) {
-      console.log(e)
       alert("Unable to save the webpage try again!");
     }
   };
@@ -176,8 +172,10 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const getWebPageImageAndSavePage = async (type = "save") => {
+    console.log("I got hitttttttt");
     try {
       let prevPanel = document.querySelector("[data-prevpanel]");
+      console.log(prevPanel);
       if (prevPanel != null) {
         await htmlToImage
           .toJpeg(prevPanel as HTMLElement, {
@@ -191,22 +189,18 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
           })
 
           .then(function (dataUrl) {
-            console.log("getWebPageImage---->",type);
             saveWebPage(200, type, dataUrl);
           })
           .catch((err) => {
-            console.log("fsdlfjsdkjf---->");
             saveWebPage(500, "");
           });
       }
     } catch (e) {
-      console.log("0",e)
       alert("Unable to save the webpage! Try again!");
     }
   };
 
   const publishWebPage = async () => {
-    console.log("see I publish func")
     if (design?.elements && design?.elements.length < 1) {
       alert("Can not publish blank page. Add elements to publish.");
       return;

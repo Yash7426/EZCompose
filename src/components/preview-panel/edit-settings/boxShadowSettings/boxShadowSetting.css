@@ -136,7 +136,7 @@
 }
 
 .toggleSwitch.active {
-    background: #0d6efd;
+    background: #383838;
     border-radius: 5px;
     color: #fff;
 }

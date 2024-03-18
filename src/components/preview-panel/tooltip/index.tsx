@@ -30,7 +30,7 @@ export default function ToolTip(props: Allow) {
     <>
       <Tooltip content={props.tooltipcontent} styles={tooltipStyles}>
       </Tooltip>
-        <i className={props.iconclass}></i>
+        <i className={`${props.iconclass} !text-white bg-ui1 `}></i>
     </>
   );
 }

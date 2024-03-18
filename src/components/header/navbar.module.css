@@ -73,7 +73,7 @@
 
 .navbar_menu_level_one>li:hover>a {
     background-color: var(--primary-link-hover-background);
-    color: #116dff;
+    color: white;
     text-decoration: none;
     font-size: 14px;
     border-radius: 40px;
@@ -120,8 +120,8 @@
 }
 
 .navbar ul ul li a:hover {
-    background: var(--secondary-highlighter);
-    color: #116dff;
+    background: #00000080;
+    color: white;
 }
 
 .navbar_menu_level_two {
@@ -201,8 +201,8 @@
 }
 
 .navbar_menu_level_one>li:hover>a.highlight_btn_light {
-    background-color: #9ec5fe;
-    color: #116dff;
+    background-color: #00000080;
+    color: white;
 }
 
 .navbar_menu_level_one>li>a.highlight_btn {
@@ -253,11 +253,11 @@
 }
 
 .navbar_menu_level_one>li>a.btn_responsive:hover {
-    color: #116dff;
-    background: #f7f7f7;
+    color: white;
+    background: #00000080;
 }
 
 .navbar_menu_level_one>li>a.btn_responsive.active {
-    color: #116dff;
-    background: #9ec5fe;
+    color: white;
+    background: #00000080;
 }

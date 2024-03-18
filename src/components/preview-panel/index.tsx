@@ -65,6 +65,7 @@ export default function PreviewPanel() {
     //refresh helper
   }, [rCount]);
 
+
   useEffect(() => {
     updateSelectNodeFromLayers();
   }, [pageDesignState.actElLayer]);
@@ -85,15 +86,15 @@ export default function PreviewPanel() {
     prevW = {
       minWidth: "600px",
       width: "100%",
-
     };
   }
 
   const enableNewAdding = (e: React.MouseEvent) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
-    pageDesignState.nodeLevel.current =
+      pageDesignState.nodeLevel.current =
       e.currentTarget.getAttribute("data-path");
-    const targetPath = e.currentTarget.getAttribute("data-path");
+      const targetPath = e.currentTarget.getAttribute("data-path");
+      console.log("enableAd", targetPath );
     if (targetPath) dragEnterSelector.current = targetPath;
     // e.target.classList.add("temp_infocus");
     // }
@@ -101,11 +102,11 @@ export default function PreviewPanel() {
 
   const updateInsertPosition = (e: React.DragEvent<HTMLElement>) => {
     let _msg = document.createElement("div");
-
     if (_msg) {
+      // console.log("enterted222")
       _msg.classList.add("temp_add_here"); // Use add() method to add classes
       _msg.innerHTML = '<i class="las la-plus-circle"></i>';
-       _msg.addEventListener("mouseenter", enableNewAdding as Allow ); // Use onmouseenter instead of onMouseEnter
+      _msg.addEventListener("mouseenter", enableNewAdding as Allow); // Use onmouseenter instead of onMouseEnter
     }
 
     removeGuides();
@@ -114,25 +115,27 @@ export default function PreviewPanel() {
     if (_sizes && e.clientY <= _sizes.y + 15) {
       // TODO : Element Adding helper
       // e.target.closest("div[data-prevpanel]").insertBefore(_msg, e.target.closest("section"));
-      
+
       let y = e.currentTarget
-      ?.closest("section")
-      ?.getAttribute("data-elposition");
+        ?.closest("section")
+        ?.getAttribute("data-elposition");
       let dropIndex: number;
-      
+
       if (y) {
         dropIndex = +y;
 
         pageDesignState.dropPosition.current = dropIndex;
       }
+      console.log("I am triggered1", _sizes);
       pageDesignState.nodeLevel.current = null;
     } else if (_sizes && e.clientY >= _sizes.y + (_sizes.height - 15)) {
       // TODO : Element Adding helper
       // e.target.closest("section").insertAdjacentElement("afterend", _msg);
-      
+
+      console.log("I am triggered2", _sizes);
       let y = e.currentTarget
-      .closest("section")
-      ?.getAttribute("data-elposition");
+        .closest("section")
+        ?.getAttribute("data-elposition");
       let dropIndex;
       if (y) {
         dropIndex = +y;
@@ -145,14 +148,16 @@ export default function PreviewPanel() {
       
       const isdataPath = e.currentTarget.hasAttribute("data-path");
       const dataPath = e.currentTarget.getAttribute("data-path");
+      console.log("I am triggered3", e.currentTarget);
       if (isdataPath) {
         dpa = dataPath;
       } else {
         if (isdataPath) dpa = dataPath;
-        else
+        else {
           dpa = e.currentTarget
             .querySelector("[data-path]")
             ?.getAttribute("data-path");
+        }
       }
       pageDesignState.nodeLevel.current = dpa;
       pageDesignState.dropPosition.current = null;
@@ -160,7 +165,6 @@ export default function PreviewPanel() {
   };
 
   const removeGuides = () => {
-
     let _rem_elems = document.querySelectorAll(".temp_add_here");
     for (let j = 0; j < _rem_elems.length; j++) {
       _rem_elems[j].remove();
@@ -215,6 +219,7 @@ export default function PreviewPanel() {
   };
   const GenerateHTMLComp = (props: Allow) => {
     let e = props.element;
+    // console.log("generate html comp", e);
     let formatStyle = { ...e.styles };
     if (formatStyle.hasOwnProperty("animationIterationCount"))
       formatStyle.animationIterationCount = 0;
@@ -226,17 +231,15 @@ export default function PreviewPanel() {
       ...e.attributes,
       className: e.classList,
       "data-path": props.datapath,
-      onClick: (e: React.MouseEvent<HTMLElement>) =>
-        selectElementActive(e),
+      onClick: (e: React.MouseEvent<HTMLElement>) => selectElementActive(e),
       onDragEnter: (e: React.MouseEvent<HTMLDivElement>) => enableNewAdding(e),
-      onKeyUp: (e:React.KeyboardEvent<HTMLDivElement>) =>
-        handleContentEdit(e),
+      onKeyUp: (e: React.KeyboardEvent<HTMLDivElement>) => handleContentEdit(e),
       contentEditable: e.elemEditable,
       "data-optionstype": e.elementType,
       suppressContentEditableWarning: e.elemEditable,
       style: formatStyle,
     };
-    
+
     // let elProp = { className: e.classList, "data-path": props.datapath };
     if (e.elements.length > 0) {
       //has sub elem
@@ -534,13 +537,13 @@ export default function PreviewPanel() {
     //181
 
     ElementNodeSelector.current = nodeP?.substring(0, nodeP.length - 1);
-    if(nodeP){
+    if (nodeP) {
       pageDesignState.activeElemLayer.current = nodeP.substring(
         0,
         nodeP.length - 1
-        );
-        pageDesignState.setELLayer(nodeP.substring(0, nodeP.length - 1));
-    } 
+      );
+      pageDesignState.setELLayer(nodeP.substring(0, nodeP.length - 1));
+    }
     // /layout_panel_options
   };
 
@@ -554,7 +557,7 @@ export default function PreviewPanel() {
     commonSelectionnProcedure(_elm);
   };
 
-  const selectElementActive = (e:React.MouseEvent<HTMLElement>) => {
+  const selectElementActive = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     e.stopPropagation();
     commonSelectionnProcedure(e.currentTarget);
@@ -837,7 +840,7 @@ export default function PreviewPanel() {
       //update the state of app
 
       let _elPath;
-      let $e :HTMLElement|null;
+      let $e: HTMLElement | null;
 
       let _depth = { ...pageDesignState.design };
 
@@ -849,18 +852,25 @@ export default function PreviewPanel() {
         e.preventDefault();
 
         // let parentPos = e.target.closest('[data-optionstype="List"]').getAttribute("data-path");
-        let $elms = e.currentTarget?.closest('[data-optionstype="List"]')?.querySelectorAll("li");
+        let $elms = e.currentTarget
+          ?.closest('[data-optionstype="List"]')
+          ?.querySelectorAll("li");
 
         //node
-        let setNodePath = e.currentTarget.closest('[data-optionstype="List"]')?.getAttribute("data-path") as string|string[];
-        if(setNodePath){
-          setNodePath = (setNodePath as string).substring(0, setNodePath.length - 1) ;
-          setNodePath = setNodePath?.split(",")
-
+        let setNodePath = e.currentTarget
+          .closest('[data-optionstype="List"]')
+          ?.getAttribute("data-path") as string | string[];
+        if (setNodePath) {
+          setNodePath = (setNodePath as string).substring(
+            0,
+            setNodePath.length - 1
+          );
+          setNodePath = setNodePath?.split(",");
         }
 
         if (setNodePath.length > 0) {
-          setNodePath = "elements[" + (setNodePath as string[]).join("].elements[") + "]";
+          setNodePath =
+            "elements[" + (setNodePath as string[]).join("].elements[") + "]";
         } else {
           setNodePath = "elements";
         }
@@ -895,43 +905,44 @@ export default function PreviewPanel() {
           return;
         }
       }
-      let __attr=e.currentTarget.getAttribute("data-path")
+      let __attr = e.currentTarget.getAttribute("data-path");
       if (__attr) {
         _elPath = __attr;
         $e = e.target as unknown as HTMLElement;
       } else {
-        _elPath = e.currentTarget.closest("data-path")?.getAttribute("data-path");
+        _elPath = e.currentTarget
+          .closest("data-path")
+          ?.getAttribute("data-path");
         $e = e.currentTarget.closest("data-path");
       }
       _elPath = _elPath?.substring(0, _elPath.length - 1);
       _elPath = _elPath?.split(",");
 
       //let _depth = { ...pageDesignState.design };
-      if($e?.innerHTML){
-      if (_elPath && _elPath.length > 1) {
-        // _elPath = _elPath.slice(0, -1);
+      if ($e?.innerHTML) {
+        if (_elPath && _elPath.length > 1) {
+          // _elPath = _elPath.slice(0, -1);
 
-        // set(
-        //   _depth,
-        //   "elements[" + _elPath.join("].elements[") + "].inHTML",
-        //   encodeURIComponent($e.innerHTML)
-        // );
-        set(
-          _depth,
-          "elements[" + _elPath.join("].elements[") + "].inHTML",
-          encodeURIComponent($e?.innerHTML)
-        );
-      } else {
-        if(_elPath){
+          // set(
+          //   _depth,
+          //   "elements[" + _elPath.join("].elements[") + "].inHTML",
+          //   encodeURIComponent($e.innerHTML)
+          // );
           set(
             _depth,
-            "elements[" + _elPath[0] + "].inHTML",
-            encodeURIComponent($e.innerHTML)
+            "elements[" + _elPath.join("].elements[") + "].inHTML",
+            encodeURIComponent($e?.innerHTML)
           );
-
+        } else {
+          if (_elPath) {
+            set(
+              _depth,
+              "elements[" + _elPath[0] + "].inHTML",
+              encodeURIComponent($e.innerHTML)
+            );
+          }
         }
       }
-    }
       //elChangeTimer
       //clear existing timeout
       if (elChangeTimer.current) clearTimeout(elChangeTimer.current);
@@ -1101,7 +1112,10 @@ export default function PreviewPanel() {
           set(
             _depth,
             "elements[" + _dSelArr.join("].elements[") + "].elements",
-            [...toPlaceNodeContent, JSON.parse(JSON.stringify(currentAppendElem))]
+            [
+              ...toPlaceNodeContent,
+              JSON.parse(JSON.stringify(currentAppendElem)),
+            ]
           );
         } else {
           set(_depth, "elements", [currentAppendElem]);
@@ -1247,7 +1261,7 @@ export default function PreviewPanel() {
         }
         // @ts-ignore
         if (document.selection) {
-        // @ts-ignore
+          // @ts-ignore
           var range = document.body.createTextRange();
           range.moveToElementText(node);
           range.select();
@@ -1401,7 +1415,7 @@ export default function PreviewPanel() {
   return (
     <div
       className={`${prvp["panel_container"]} checking`}
-      onMouseEnter={() => { 
+      onMouseEnter={() => {
         if (ElementSwitcher.current) {
           ElementSwitcher.current.style.opacity = "1";
         }
@@ -1440,55 +1454,55 @@ export default function PreviewPanel() {
       }
       <div
         data-operation=""
-        className={prvp["layout_panel_options"]}
+        className={`!bg-ui1 !text-white ${prvp["layout_panel_options"]}`}
         ref={ElementSwitcher}
       >
         <ul className={prvp["elemental_options"]}>
-          <li className="actionBtnHover" onClick={moveElUp}>
+          <li className="actionBtnHover !bg-ui1 !text-white" onClick={moveElUp}>
             <i className="las la-chevron-circle-up"></i>
           </li>
           <li
-            className="actionBtnDrag"
+            className="actionBtnDrag !bg-ui1 !text-white"
             onDrag={updateDragPosition}
             onDragEnd={moveDraggedElem}
             draggable
           >
-            <i className="las la-arrows-alt"></i>
+            <i className="las la-arrows-alt !bg-ui1 !text-white"></i>
           </li>
-          <li className="actionBtnHover" onClick={moveElDown}>
-            <i className="las la-chevron-circle-down"></i>
+          <li className="actionBtnHover !bg-ui1 !text-white" onClick={moveElDown}>
+            <i className="las la-chevron-circle-down !bg-ui1 !text-white"></i>
           </li>
           <li>
             <hr />
           </li>
-          <li className="actionBtnHover" onClick={removeSubNode}>
-            <i className="las la-trash-alt"></i>
+          <li className="actionBtnHover !bg-ui1 !text-white" onClick={removeSubNode}>
+            <i className="las la-trash-alt !bg-ui1 !text-white"></i>
           </li>
         </ul>
       </div>
 
       <div
-        className="html_elem_height_setter"
+        className="html_elem_height_setter !bg-ui1 !text-white"
         onDrag={setElementHeight}
         onDragStart={elemHeightResizeY}
         onDragEnd={setElemHtMin}
         draggable
         ref={elementalHeightResizer}
       >
-        <i className="las la-arrows-alt-v"></i>
+        <i className="las la-arrows-alt-v !bg-ui1 !text-white"></i>
       </div>
       <div className="html_elem_option_list" ref={elementalOptions}>
         <ul>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             onClick={(e) =>
               showSettingsPanel(e, "Style options", "editSettings", false)
             }
           >
-            <i className="las la-palette"></i> Edit Options
+            <i className="las la-palette !text-white"></i> Edit Options
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={showRowOption}
             onClick={(e) =>
               showSettingsPanel(e, "Row Layout", "rowLayout", false)
@@ -1496,7 +1510,7 @@ export default function PreviewPanel() {
           >
             <ToolTip
               iconclass="lab la-microsoft"
-              tooltipcontent={<span className="no-wrap-text">Row Layout</span>}
+              tooltipcontent={<span className="no-wrap-text !bg-ui1 !text-white">Row Layout</span>}
             ></ToolTip>
           </li>
           <li
@@ -1507,80 +1521,80 @@ export default function PreviewPanel() {
             }
           >
             <ToolTip
-              iconclass="las la-align-center"
-              tooltipcontent={<span className="no-wrap-text">Align Itmes</span>}
+              iconclass="las la-align-center !bg-ui1 !text-white"
+              tooltipcontent={<span className="no-wrap-text !bg-ui1 !text-white">Align Itmes</span>}
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={showHeaderOption}
             onClick={(e) =>
               showSettingsPanel(e, "Heading Type", "headingType", false)
             }
           >
             <ToolTip
-              iconclass="las la-heading"
-              tooltipcontent={<span className="no-wrap-text">Heading Tag</span>}
+              iconclass="las la-heading !bg-ui1 !text-white"
+              tooltipcontent={<span className="no-wrap-text !bg-ui1 !text-white">Heading Tag</span>}
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={showListOption}
             onClick={(e) =>
               showSettingsPanel(e, "List Settings", "ListType", false)
             }
           >
             <ToolTip
-              iconclass="las la-list-ul"
+              iconclass="las la-list-ul !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">List Settings</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">List Settings</span>
               }
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={showImageSetting}
             onClick={(e) =>
               showSettingsPanel(e, "Image Settings", "ImageType", false)
             }
           >
             <ToolTip
-              iconclass="las la-image"
+              iconclass="las la-image !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">Image Settings</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">Image Settings</span>
               }
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={iframeSettings}
             onClick={(e) =>
-              showSettingsPanel(e, "Inline Frame Settings", "iframeType", false)
+              showSettingsPanel(e, "Inline Frame Settings !bg-ui1 !text-white", "iframeType", false)
             }
           >
             <ToolTip
-              iconclass="las la-window-maximize"
+              iconclass="las la-window-maximize !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">iframe Settings</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">iframe Settings</span>
               }
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={columnWidthSetting}
             onClick={(e) =>
               showSettingsPanel(e, "Column Width Settings", "columnType", false)
             }
           >
             <ToolTip
-              iconclass="las la-arrows-alt-h"
+              iconclass="las la-arrows-alt-h !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">Manage Columns</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">Manage Columns</span>
               }
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={naviagtionMenuSettings}
             onClick={(e) =>
               showSettingsPanel(
@@ -1592,69 +1606,70 @@ export default function PreviewPanel() {
             }
           >
             <ToolTip
-              iconclass="las la-bars"
+              iconclass="las la-bars !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">Manage Menu Links</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">Manage Menu Links</span>
               }
             ></ToolTip>
           </li>
           <li
-            className="actionListical"
+            className="actionListical !bg-ui1 !text-white"
             ref={headerPositionSettings}
             onClick={(e) =>
               showSettingsPanel(e, "Header Settings", "headerSetType", false)
             }
           >
             <ToolTip
-              iconclass="las la-cog"
+              iconclass="las la-cog !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">Set Header Positions</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">Set Header Positions</span>
               }
             ></ToolTip>
           </li>
 
           {creatorDevMode.current && (
             <li
-              className="actionListical"
+              className="actionListical !bg-ui1 !text-white"
               onClick={(e) =>
                 showSettingsPanel(e, "Node JSON", "previewNode", false)
               }
             >
               <ToolTip
-                iconclass="las la-laptop-code"
+                iconclass="las la-laptop-code !bg-ui1 !text-white"
                 tooltipcontent={
-                  <span className="no-wrap-text">Show Node JSON</span>
+                  <span className="no-wrap-text !bg-ui1 !text-white">Show Node JSON</span>
                 }
               ></ToolTip>
             </li>
           )}
 
           <li
-            className="actionListical small_btn_actionListical"
+            className="actionListical small_btn_actionListical !bg-ui1 !text-white"
             onClick={(e) => {
               e.preventDefault();
               showSettingsPanel(e, "Animation", "animation", false);
             }}
           >
             <ToolTip
-              iconclass="las la-magic"
+              iconclass="las la-magic !bg-ui1 !text-white"
               tooltipcontent={
-                <span className="no-wrap-text">Add Animations</span>
+                <span className="no-wrap-text !bg-ui1 !text-white">Add Animations</span>
               }
             ></ToolTip>
           </li>
 
-          <li className="actionListical small_btn_actionListical">
+          <li className="actionListical small_btn_actionListical !bg-ui1 !text-white">
             <button
-              onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 e.preventDefault();
                 showSettingsPanel(e, "Link", "hyperlink", true);
               }}
+              className="!bg-ui1 !text-white"
             >
               <ToolTip
                 iconclass="las la-link"
                 tooltipcontent={
-                  <span className="no-wrap-text">Insert Link</span>
+                  <span className="no-wrap-text !bg-ui1 !text-white">Insert Link</span>
                 }
               ></ToolTip>
             </button>
@@ -1750,7 +1765,7 @@ export default function PreviewPanel() {
             </span>
           </div>
         </div>
-        <div className="settings_dragger_content">
+        <div className="settings_dragger_content bg-ui1 text-white">
           {
             /**
              * Animation Options component
@@ -2043,8 +2058,15 @@ export default function PreviewPanel() {
           }
         </div>
       </div>
-      <div style={{"width":"100%", "height":"100%"}} className={clsx(prvp["panel_preview"],"overflow-x-hidden")}>
-        <div style={prevW} className={`${prvp["panel_container_inner"]} overflow-x-hidden h-full bg-white`} data-prevpanel="true">
+      <div
+        style={{ width: "100%", height: "100%" }}
+        className={clsx(prvp["panel_preview"], "overflow-x-hidden")}
+      >
+        <div
+          style={prevW}
+          className={`${prvp["panel_container_inner"]} overflow-x-hidden h-full bg-white`}
+          data-prevpanel="true"
+        >
           {/* <HeaderNav /> */}
           {pageDesignState.design?.elements?.length ? (
             pageDesignState.design?.elements?.map((e, i) => {

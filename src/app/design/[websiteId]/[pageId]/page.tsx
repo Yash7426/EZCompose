@@ -132,11 +132,6 @@ function DesignApp({
     let _wid = wid;
     if (!_pid || !_wid) return;
     try {
-        console.log("Data", {
-        webpage,
-        design: pageDesignState.design,
-        compare: webpage === pageDesignState.design,
-      });
       if (webpage != undefined) {
         if (
           !_.isEqual(webpage?.elements,pageDesignState.design?.elements)
@@ -156,7 +151,6 @@ function DesignApp({
 
   useEffect(() => {
     // if(pageDesignState.design?.isPublished==true) return;
-    // console.log("object");
     pageDesignState.getWebPageImageAndSavePage();
   }, [pageDesignState.design]);
 
