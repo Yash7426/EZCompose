@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import Button from "../ui/button";
 import { api } from "../../../convex/_generated/api";
 import { useMutation, useQueries, useQuery } from "convex/react";
+import { TextGenerateEffect } from "../ui/text-generate-effect";
 
 const initPeople = [
   {
@@ -89,20 +90,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   }, [getUsersOfWebsite]);
   return (
     <motion.div
-      className=" w-full relative max-w-md justify-stretch"
+      className=" w-full relative max-w-md self-stretch"
       animate={animate}
       initial={initial}
       variants={variants}
     >
       <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
       <div
-        className="transform"
+        className="transform h-full"
         style={{
           transform: animate === "selected" ? "rotateY(180deg)" : "none",
         }}
       >
         <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-          <div className="w-full my-1 flex justify-between">
+          <div className="w-full mb-auto flex justify-between">
             <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 fill-gray-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +121,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               </svg>
             </div>
             <div onClick={onFlipClick}>
-              <MdFlip className="h-5 w-5 rounded-full border-gray-500" />
+              <MdFlip className="h-5 w-5 rounded-full border-gray-500 fill-gray-500 " />
             </div>
           </div>
 
@@ -129,15 +130,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               <div className="flex flex-row items-center justify-center  w-full">
                 <AnimatedTooltip items={people} />
               </div>
-              <div className="text-slate-500 text-base text-center w-full">
-                Collaborators
+              <div className="text-white text-sm mt-4">
+              <TextGenerateEffect words={` To create and collaborate with your team on this website, please enter the email address of the user you wish to invite below:`} />
+              
               </div>
+             
               <div className="mt-5 w-full flex flex-col justify-center items-center">
                 <Label
                   htmlFor="invite"
                   className="text-center font-bold text-[18px] text-slate-400 my-4"
                 >
-                  Invite an user to collaborate
+                  Invite a user to collaborate
                 </Label>
                 <Input
                   id="invite"
@@ -162,7 +165,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <>
               <Link href={link}>
                 <Image
-                  className="rounded-t-lg max-h-[200px]"
+                  className="roundedfont-bold text-xl text-white my-4 relative z-50-lg max-h-[200px]"
                   src={imageUrl}
                   alt={title}
                   width={600}
@@ -170,11 +173,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 />
               </Link>
               <div className="hover:translate-x-4 transition duration-200">
-                <h1 className="font-bold text-xl text-white my-4 relative z-50">
+                <h1 className="font-bold text-xl text-white my-4 relative z-50 capitalize ">
                   {title}
                 </h1>
 
-                <p className="font-normal text-base text-slate-500 mb-4 relative z-50">
+                <p className="font-normal text-base text-slate-500 mb-4 relative z-50 first-letter:capitalize">
                   {description}
                 </p>
 
