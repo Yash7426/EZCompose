@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
    
       <div className="mt-8 py-6  items-center justify-between sm:flex">
         <div className="mt-4 sm:mt-0 font-normal mx-auto text-gray-500">
-          &copy; 2022 Float UI All rights reserved.
+          &copy; 2024 EZ Compose All rights reserved.
         </div>
       
       </div>

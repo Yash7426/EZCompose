@@ -1,18 +1,18 @@
-"use client"
-import React, { Fragment, useState } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import clsx from 'clsx';
-import Link from 'next/link';
-import SearchInput from '../search-input';
-import { FaBell } from 'react-icons/fa';
-import Button from '../ui/button';
+"use client";
+import React, { Fragment, useState } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import clsx from "clsx";
+import Link from "next/link";
+import SearchInput from "../search-input";
+import { FaBell } from "react-icons/fa";
+import Button from "../ui/button";
 import { IoMdAddCircle } from "react-icons/io";
-import Image from 'next/image';
-import Logo from "@/assets/image/EZCOMPOSEX.png"
+import Image from "next/image";
+import Logo from "@/assets/image/EZCOMPOSEX.png";
 import { IoClose } from "react-icons/io5";
 import { HiBars3 } from "react-icons/hi2";
-import { UserButton } from '@clerk/nextjs';
-import {dark} from  "@clerk/themes";
+import { UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 // import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface NavigationItem {
@@ -30,19 +30,22 @@ interface Props {
   navigation: NavigationItem[];
   userProfile: UserProfile;
   Items: MenuItem[];
-  isSearch?: boolean
+  isSearch?: boolean;
 }
 interface MenuItem {
   text: string;
   href: string;
-
 }
 
-
-const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = false }) => {
+const Navbar: React.FC<Props> = ({
+  navigation,
+  userProfile,
+  Items,
+  isSearch = false,
+}) => {
   const [mPr, setMPr] = useState({
-    showNewWebsite: false
-});
+    showNewWebsite: false,
+  });
   return (
     <Disclosure as="nav" className="bg-transparent absolute z-50 w-full">
       {({ open }) => (
@@ -53,11 +56,11 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
-                   {open ? (
-                    <IoClose className="block h-6 w-6" aria-hidden="true"/>
+                  {open ? (
+                    <IoClose className="block h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <HiBars3 className="block h-6 w-6" aria-hidden="true"/>
-                  )} 
+                    <HiBars3 className="block h-6 w-6" aria-hidden="true" />
+                  )}
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start p-2">
@@ -77,22 +80,26 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
                         key={item.name}
                         href={item.href}
                         className={clsx(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Link>
                     ))}
                   </div>
                 </div>
-                {
-                  isSearch && <SearchInput id="default-search" placeholder="Search Mockups, Logos..." />
-                }
-
+                {isSearch && (
+                  <SearchInput
+                    id="default-search"
+                    placeholder="Search Mockups, Logos..."
+                  />
+                )}
               </div>
-              
+
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
@@ -101,10 +108,9 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
                   <FaBell className="h-6 w-6" aria-hidden="true" />
-
                 </button>
 
-               <UserButton appearance={{baseTheme:dark}}/>
+                <UserButton appearance={{ baseTheme: dark }} />
               </div>
             </div>
           </div>
@@ -117,17 +123,18 @@ const Navbar: React.FC<Props> = ({ navigation, userProfile, Items, isSearch = fa
                   as="a"
                   href={item.href}
                   className={clsx(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
               ))}
             </div>
           </Disclosure.Panel>
-
         </>
       )}
     </Disclosure>
