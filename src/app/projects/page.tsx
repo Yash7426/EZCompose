@@ -323,7 +323,7 @@ const page = () => {
                 inputType={"text"}
                 title={"Description"}
                 placeholder={"Enter Description"}
-                value={formData.title}
+                value={formData.description}
                 onChange={(value) =>setFormData((prev) => ({ ...prev, description: value as string }))}
                 className={"bg-transparent rounded-md"}
                 Variant="flex flex-col items-start gap-[10px] text-[14px] "
@@ -377,7 +377,10 @@ const page = () => {
             </div>
             <div className="text-3xl text-white my-4">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
-              {userProj.userProject.map((ele, idx) => (
+              {userProj.userProject.map((ele, idx) => {
+                console.log("ppppp->",ele._id);
+                return (
+                
                 <Card2
                  key={idx}
                  _id={ele._id}
@@ -397,7 +400,7 @@ const page = () => {
                   variants={cardVariants}
                   users = {ele.users}
                 />
-              ))}
+              )})}
             </div>
           </div>
         </div>
