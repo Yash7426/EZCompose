@@ -93,7 +93,7 @@ const Filter: React.FC<FilterDetail> = ({
     }
   }
   return (
-    <div className={clsx(Variant, "")}>
+    <div className={clsx(Variant)}>
       <label className="font-medium" htmlFor={title}>
         {title}
       </label>
@@ -102,7 +102,7 @@ const Filter: React.FC<FilterDetail> = ({
           <TextInput
             onChange={(e) => onChange!(e.target.value)}
             type="text"
-            className={className}
+            className={`${className} !bg-ui2 !text-white`}
             value={value as string}
             name="text"
             placeholder={placeholder}
@@ -157,6 +157,7 @@ const Filter: React.FC<FilterDetail> = ({
             options={selectOptions}
             errorMessage={errorMessage}
             // className={className}
+            
             defaultSelected={(selectOptions ?? [])?.filter((item) => item.value == value)[0] ?? []}
             placeholder={placeholder}
             onOptionClick={onOptionClick}

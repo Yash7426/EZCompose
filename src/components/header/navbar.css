@@ -127,18 +127,16 @@ span.pageSelectorSpan {
 
 }
 
-.user-web-link {
-    flex-grow: 1;
-}
 
 .user-web-link span {
-    background: #f7f7f7;
+    background: #383838;
     padding: 5px 20px;
     font-size: 12px;
     border-radius: 15px;
     width: 100%;
     display: block;
     padding-left: 30px;
+    padding-right: 100px;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, .1);
 }
@@ -147,23 +145,27 @@ span.pageSelectorSpan {
     content: "\f57d";
     font-family: 'Line Awesome Free';
     font-weight: 900;
-    font-size: 15px;
+    font-size: 13px;
     position: absolute;
     left: 20px;
+    bottom: 5px;
+    color:white;
 }
 
 a.external-open {
     position: absolute;
     right: 16px;
-    top: 6px;
-    font-size: 18px;
-    background: #f7f7f7;
-
+    top: 13px;
+    font-size: 12px;
+    background-color: #292929;
+    color: white;
 }
 
 .user-web-link {
+    flex-grow: 1;
+    background-color: #292929;
     position: relative;
-    max-width: calc(100% - 890px);
+    max-width: 400px;
     overflow: hidden;
 
 }

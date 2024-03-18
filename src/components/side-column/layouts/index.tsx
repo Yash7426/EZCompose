@@ -206,7 +206,6 @@ export default function SideColumnLayout() {
         }
     }
     const handleCreateCustomLayout = () => {
-console.log("create custom layout")
         setmodalData(() => ({
             buttonText: "Generate Layout",
             content: (
@@ -292,7 +291,7 @@ setisCreateCustomLayoutOpen(true)
               </Button> */}
             </div>
           </Modal>
-            <div className='custom-row'>
+            <div className='custom-row bg-ui1'>
                 <button onClick={() => { handleCreateCustomLayout() }}>Create custom Layout</button>
             </div>
             <div className='custom-layouts'>
@@ -305,7 +304,7 @@ setisCreateCustomLayoutOpen(true)
 
                             key={e.elid + "-" + i} onDoubleClick={AddDroppedElement} onDragEnd={AddDroppedElement}>
                             <Image className="text-center max-w-[100%]" src={e.previmg} alt='' width={400} height={400}/>
-                            <p className="item_drag_desc">{e.desc}</p>
+                            <p className="item_drag_desc text-slate-300">{e.desc}</p>
                         </div>)
                     })
 

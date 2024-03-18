@@ -155,10 +155,9 @@ function DesignApp({
   };
 
   useEffect(() => {
-    console.log("object");
-    pageDesignState.getWebPageImageAndSavePage(
-      !pageDesignState.design?.isPublished ? "Save" : "Update"
-    );
+    // if(pageDesignState.design?.isPublished==true) return;
+    // console.log("object");
+    pageDesignState.getWebPageImageAndSavePage();
   }, [pageDesignState.design]);
 
   return (

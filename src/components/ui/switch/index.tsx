@@ -13,7 +13,7 @@ export const Switch = ({
         htmlFor="checkbox"
         className={clsx(
           "h-7  px-1  flex items-center border border-transparent shadow-[inset_0px_0px_12px_rgba(0,0,0,0.25)] rounded-full w-[60px] relative cursor-pointer transition duration-200",
-          checked ? "bg-cyan-500" : "bg-slate-700 border-slate-500"
+          checked ? "bg-ui3" : "bg-ui2 border-slate-500"
         )}
       >
         <motion.div

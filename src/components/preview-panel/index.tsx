@@ -2042,7 +2042,7 @@ export default function PreviewPanel() {
           }
         </div>
       </div>
-      <div style={prevW} className={clsx(prvp["panel_preview"],"check here ")}>
+      <div style={prevW} className={clsx(prvp["panel_preview"],"check here")}>
         <div className={prvp["panel_container_inner"]} data-prevpanel="true">
           {/* <HeaderNav /> */}
           {pageDesignState.design?.elements?.length ? (
@@ -2063,13 +2063,14 @@ export default function PreviewPanel() {
                   onDragLeave={removeGuides}
                   data-elposition={i}
                   key={e.elid + "_" + i}
+                  className="bg-white h-full"
                 >
                   <GenerateHTMLComp element={e} datapath={i + ","} />
                 </section>
               );
             })
           ) : (
-            <section>
+            <section className="bg-white h-full">
               <div className="temp_elem">Create a layout</div>
             </section>
           )}

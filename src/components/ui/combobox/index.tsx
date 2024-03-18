@@ -13,7 +13,7 @@ interface ComboboxInputProps {
 
 const ComboboxInput: React.FC<ComboboxInputProps> = ({ onChange, placeholder }) => (
   <Combobox.Input
-    className="w-full py-2 pl-3 pr-10 text-sm leading-5  border-[0.1px]    focus:!ring-0  border-black focus:!border-white rounded-md "
+    className="w-full py-2 pl-3 pr-10 text-sm leading-5  border-[0.1px] bg-ui2   focus:!ring-0  border-black text-white rounded-md "
     displayValue={(option: Option) => option?.label ?? ""}
     onChange={onChange}
     placeholder={placeholder}
@@ -42,7 +42,7 @@ const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, quer
     afterLeave={() => setQuery("")}
   >
     <Combobox.Options
-      className="absolute w-full py-1 overflow-auto text-base rounded-md bg-white max-h-60 ring-1 ring-black focus:outline-none sm:text-sm flex flex-col gap-2"
+      className="absolute w-full py-1 overflow-auto text-base rounded-md bg-white max-h-60 ring-1 ring-black focus:outline-none sm:text-sm flex flex-col "
       style={{ zIndex: 19 }}
     >
       {filteredOptions.length === 0 && query !== "" ? (
@@ -58,7 +58,7 @@ const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, quer
             key={String(option.value)}
             className={({ active }) =>
               `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                active ? "bg-pink-400 text-text" : "text-text"
+                active ? "bg-ui3 text-white" : "bg-ui2 text-white"
               }`
             }
             onClick={() =>{if(onOptionClick) onOptionClick(option)}}

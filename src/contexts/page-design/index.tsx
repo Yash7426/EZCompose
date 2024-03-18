@@ -103,7 +103,8 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
     setTokenTracker(token as string);
   }, [token]);
 
-  const saveWebPage = async (status: number, type: string, ImgUri?: string) => {
+  const saveWebPage = async (status: number,
+     type: string, ImgUri?: string) => {
     // if (status === 200 && design?.elements && design?.elements?.length > 0) {
 
       // await updatePage({
@@ -132,6 +133,8 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       const __design_data = design;
+      console.log('pppppppp',type);
+      console.log('desgigg',design);
       if (__design_data != null) {
         if (type === "publish") {
           __design_data.isPublished = !design?.isPublished;
@@ -140,6 +143,7 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
         delete __design_data["_id"];
         delete __design_data["websiteId"];
         delete __design_data["author"];
+      
 
         __design_data.settingMode = BigInt(-1);
 
@@ -153,6 +157,7 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
           });
       }
     } catch (e) {
+      console.log(e)
       alert("Unable to save the webpage try again!");
     }
   };
@@ -186,18 +191,22 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
           })
 
           .then(function (dataUrl) {
+            console.log("getWebPageImage---->",type);
             saveWebPage(200, type, dataUrl);
           })
           .catch((err) => {
+            console.log("fsdlfjsdkjf---->");
             saveWebPage(500, "");
           });
       }
     } catch (e) {
+      console.log("0",e)
       alert("Unable to save the webpage! Try again!");
     }
   };
 
   const publishWebPage = async () => {
+    console.log("see I publish func")
     if (design?.elements && design?.elements.length < 1) {
       alert("Can not publish blank page. Add elements to publish.");
       return;

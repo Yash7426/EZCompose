@@ -2,6 +2,8 @@
     display: flex;
     box-shadow: 40px 3px 6px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #292929;
+    align-items: center;
 }
 
 .navbar>div {
@@ -39,7 +41,11 @@
 .expanded {
     flex-grow: 1
 }
+.navbar_menu_level_one{
+    display: flex;
+    column-gap: 3px;
 
+}
 .navbar_menu_level_one>li>a {
     color: var(--primary-link);
     text-decoration: none;

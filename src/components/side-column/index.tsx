@@ -38,19 +38,19 @@ export default function SideColumn(props:Allow) {
                         onClick={() => { setPanelMode(0); }}
                         className={panelMode === 0 ? sideStyle["active"] : ""}
                         onMouseEnter={updateMarkerPos}>
-                        <a><i className="las la-th-large"></i></a>
+                        <a><i className="las la-th-large text-white"></i></a>
                     </li>
                     <li
                         onClick={() => { setPanelMode(1); }}
                         className={panelMode === 1 ? sideStyle["active"] : ""}
                         onMouseEnter={updateMarkerPos}>
-                        <a><i className="las la-plus-circle"></i></a>
+                        <a><i className="las la-plus-circle text-white"></i></a>
                     </li>
                     <li
                         onClick={() => { setPanelMode(2); }}
                         className={panelMode === 2 ? sideStyle["active"] : ""}
                         onMouseEnter={updateMarkerPos}>
-                        <a><i className="las la-laptop-code"></i></a>
+                        <a><i className="las la-laptop-code text-white"></i></a>
                     </li>
                 </ul>
 

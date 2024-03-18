@@ -27,6 +27,9 @@ const config: Config = {
         black:"#000",
         current: "currentColor",
         background: "#101014",
+        ui1:"#292929", // gray-1
+        ui2:"#383838", // gray-2
+        ui3:"#00000080"
       },
       keyframes: {
         marquee: {

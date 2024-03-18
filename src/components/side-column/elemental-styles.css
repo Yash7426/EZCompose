@@ -22,9 +22,9 @@
 }
 
 .item_drag:hover {
-    color: #116dff;
-    background-color: var(--primary-link-hover-background);
-    outline: 1px solid #116dff;
+    color: white;
+    background-color: #00000080;
+    outline: 1px solid black;
     cursor: pointer;
 }
 
