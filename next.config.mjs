@@ -26,6 +26,10 @@ const nextConfig = {
                 protocol:"https",
                 hostname:"img.clerk.com"
             },
+            {
+                protocol:"https",
+                hostname:"oceanic-marten-23.convex.cloud"
+            },
         ]
     }
 };

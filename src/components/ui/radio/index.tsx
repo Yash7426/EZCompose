@@ -21,10 +21,10 @@ export default function Radio({ className, onChange, checked, id }: Props) {
       }}
       id={id}
       className={`h-[18px] w-[18px] flex items-center justify-center p-[1px] border-[2px] ${
-        isChecked ? "border-secondary" : "border-user_interface_6"
+        isChecked ? "border-white" : "border-user_interface_6"
       }  bg-transparent rounded-full  ${className}`}
     >
-      {isChecked && <span className="bg-secondary rounded-full w-[8px] h-[8px] m-auto"></span>}
+      {isChecked && <span className="bg-white rounded-full w-[8px] h-[8px] m-auto"></span>}
     </div>
   )
 }

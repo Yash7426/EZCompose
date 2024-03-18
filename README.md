@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Title : [EZCompose](https://ez-compose.vercel.app/)
 
-## Getting Started
+EZCompose is an innovative web design collaboration platform that empowers users to create stunning websites effortlessly.
 
-First, run the development server:
+## Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+EZCompose is a real-time web design collaboration platform that simplifies the process of building responsive websites without code. It addresses the inefficiencies and complexities of traditional web design collaboration by providing an intuitive, no-code editor coupled with robust collaboration features. With EZCompose, individuals and teams can collaborate seamlessly, bringing their website visions to life effortlessly.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuration & Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To get started with EZCompose, ensure you have the following dependencies and tools installed:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Node.js: Make sure you have Node.js installed on your system. You can download and install it from [here](https://nodejs.org/en/download).
+2. Next.js: EZCompose is built using Next.js, a React framework for server-rendered applications . Install it globally using npm :
 
-## Learn More
+   ```
+   npm install -g next
+   ```
+3. Convex Backend as a Service (BaaS): EZCompose leverages Convex BaaS for backend services and real-time database functionality. Sign up for a Convex account and obtain your API key.
 
-To learn more about Next.js, take a look at the following resources:
+Once you have installed the necessary dependencies, follow these steps to set up the development environment:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the EZCompose repository from GitHub:
+   ```
+   git clone https://github.com/Yash7426/EZCompose.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd ezcompose
+   ```
+3. Install project dependencies:
+   ```
+   npm install
+   ```
+4. Create a .env file in the root directory and add all environment variables.
+   ```
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
+    NEXT_PUBLIC_CONVEX_URL=
+    REACT_APP_GOOGLE_API_KEY=
+    NEXT_PUBLIC_PEXELS_API_KEY=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    # Deployment used by `npx convex dev`
+    CONVEX_DEPLOYMENT=
+    NEXT_PUBLIC_CONVEX_URL=
+   ```
+5. Start the development server:
+   ```
+   npm run dev
+   ```
+6. Open your browser and navigate to http://localhost:3000 to access EZCompose.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Details
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+EZCompose is a cutting-edge web design collaboration platform that empowers users to create responsive websites collaboratively, without the need for coding expertise. Let's delve into its key features and functionality:
+
+### 1. Real-Time Collaboration:
+  - EZCompose enables multiple users to collaborate in real-time on website development projects.
+  - Users can see changes made by others instantly, facilitating seamless collaboration and teamwork.
+
+### 2. No-Code Editor:
+  - The intuitive no-code editor allows users to design and customize websites visually, using drag-and-drop functionality.
+  - Users can add elements such as paragraphs, buttons, images, gradients, navigation menus, and more, without writing any code.
+
+### 3. Scheduled Publishing:
+  - Users can schedule the publishing of their websites for a later time, allowing for efficient planning and timing of website launches.
+  - Scheduled publishing can be easily set up through the intuitive user interface.
+
+### 4. Integration with Convex BaaS:
+  - EZCompose seamlessly integrates with Convex Backend as a Service (BaaS) for backend functionalities and real-time database management.
+  - Convex BaaS provides robust backend services, including authentication, data storage, scheduled functions, and real-time updates, enhancing the reliability and performance of EZCompose.
+
+## Contributors
+The following individuals have contributed to the EZCompose project:
+### 1. [Ankit Yadav](https://github.com/ANKITy102)
+ - Role: Frontend Developer
+ - Responsibilities: Implementation of frontend components, user interface design, and user experience optimization.
+### 2. [Akhilesh Jyotishi](https://github.com/AkhileshJyotishi)
+ - Role: Frontend Developer
+ - Responsibilities: Refining frontend components, optimizing performance, ensuring responsive design, maintaining code consistency across the application, and ensuring smooth integration with the backend.
+### 3. [Yash Agarwal](https://github.com/Yash7426)
+ - Role: Backend Developer
+ - Responsibilities: Development of backend functionalities, integration with Convex BaaS, and implementation of real-time collaboration features.
+

@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface SocialLink {
   name: string;
@@ -11,7 +11,7 @@ interface SocialLink {
 interface TeamMember {
   name: string;
   role: string;
-  imageUrl: string;
+  imageUrl: StaticImageData;
   social: SocialLink[];
 }
 
@@ -31,7 +31,7 @@ const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => (
     <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
       <Link href="#">{member.name}</Link>
     </h3>
-    <p className='text-2xl'>{member.role}</p>
+    <p className="text-xl font-600 text-slate-600">{member.role}</p>
     <ul className="flex justify-center mt-4 space-x-4">
       {member.social.map((link, index) => (
         <li key={index}>
@@ -48,10 +48,9 @@ const Team: React.FC<Props> = ({ teamMembers }) => (
   <section className="">
     <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
       <div className="mx-auto mb-8 max-w-screen-sm lg:mb-16">
-        <h2 className="mb-4 text-6xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our team</h2>
-        <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-          Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind
-        </p>
+        <h2 className="mb-4 text-6xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+          Our team
+        </h2>
       </div>
       <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3  p-4 ">
         {teamMembers.map((member, index) => (
