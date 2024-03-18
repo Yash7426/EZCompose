@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import Image from "next/image"
 
 import tickwhiteIcon from "@/assets/svg/tick-white.svg"
+import { FaCheckCircle } from "react-icons/fa";
+import clsx from "clsx";
 interface Props {
   checked?: boolean
   onChange?(value: boolean): void
@@ -24,13 +26,8 @@ export default function CheckBox({ checked: _checked, onChange }: Props) {
           : " border-user_interface_4 bg-user_interface_2 "
       }`}
     >
-      <Image
-        width={140}
-        height={140}
-        alt={""}
-        className={`w-4 ${!checked ? "hidden" : "block "}`}
-        src={tickwhiteIcon}
-      />
+      <FaCheckCircle width={140} height={140} className={clsx("w-4",!checked ? "hidden":"block")}/>
+     
     </div>
   )
 }

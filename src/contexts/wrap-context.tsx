@@ -4,9 +4,11 @@ import { UserDetailsProvider } from './user-details'
 import { PageDesignProvider } from './page-design'
 import { DragElemsProvider } from './DragElems'
 import { ClientProvider } from './client-context'
+import { ModalProvider } from './modal-context'
 export default function WrapContexts({children}:{children: React.ReactNode}) {
     return (
         <>
+        <ModalProvider>
         <ClientProvider>
             <CssSheetPreviewProvider>
                 <UserDetailsProvider>
@@ -18,6 +20,7 @@ export default function WrapContexts({children}:{children: React.ReactNode}) {
                 </UserDetailsProvider>
             </CssSheetPreviewProvider>
             </ClientProvider>
+            </ModalProvider>
         </>
     )
 }

@@ -12,9 +12,11 @@ import FontManager from './font-manager';
 import GoogleAnalytics from './google-analytics';
 import WebsiteSettings from './website-setting';
 import CreateNewPage from './create-new-page';
+import { useModalContext } from '@/contexts/modal-context';
 const SettingPanel=()=> {
 
     let pageDesignState = usePageDesignContext()
+    const {}=useModalContext()
 
     const closeSettingPanel = () => {
         pageDesignState.setDesign({ ...pageDesignState.design, settingMode: BigInt(-1) })

@@ -15,8 +15,8 @@ import { PhoneInput } from "react-international-phone"
 // import RadioFilter from "./radiofilter"
 import "react-international-phone/style.css"
 // import SelectFilter from "./selectfilter"
-import "react-date-picker/dist/DatePicker.css"
-import "react-calendar/dist/Calendar.css"
+// import "react-date-picker/dist/DatePicker.css"
+// import "react-calendar/dist/Calendar.css"
 import { FilterDetail } from "@/interfaces/filter"
 import TextInput from "../ui/text-input"
 // const DatePicker = dynamic(() => import("react-date-picker"), {
@@ -64,6 +64,7 @@ const Filter: React.FC<FilterDetail> = ({
   element,
   viewonlyPdf,
   downloadPDF,
+  onOptionClick
   // hidden
 }) => {
   const handleCheckboxChange = (newValue: string[]) => {
@@ -158,6 +159,7 @@ const Filter: React.FC<FilterDetail> = ({
             // className={className}
             defaultSelected={(selectOptions ?? [])?.filter((item) => item.value == value)[0] ?? []}
             placeholder={placeholder}
+            onOptionClick={onOptionClick}
           />
           {/* <SelectFilter
             onChange={handleSelectChange}

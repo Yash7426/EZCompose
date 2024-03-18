@@ -19,3 +19,7 @@ interface ILinkElement {
   fonts?: FontOption[];
   elements: ILinkElement[]; // This property is occurring recursively
 }
+interface Option {
+  label?: string
+  value?: string | boolean | number
+}

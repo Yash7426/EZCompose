@@ -4,6 +4,7 @@ import * as htmlToImage from 'html-to-image';
 
 import './create-rows-layout.css'
 import { useDragElemContext } from '@/contexts/DragElems';
+import { useModalContext } from '@/contexts/modal-context';
 
 
 
@@ -22,6 +23,8 @@ interface IgenRowLayoutType extends Partial<ILinkElement>{
 export default function CreateRowsLayout(props:Allow) {
 
     let dragEleSt = useDragElemContext();
+   
+
 
     let imageCaptureMode = useRef<HTMLDivElement>(null);
 
@@ -32,9 +35,7 @@ export default function CreateRowsLayout(props:Allow) {
         }]
     })
 
-    useEffect(() => {
-
-    }, [columnData])
+ 
 
   
     const genRowLayout = (imageURI:string):IgenRowLayoutType => {

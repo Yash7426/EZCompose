@@ -32,6 +32,7 @@ import parse from "html-react-parser";
 import { useState } from "react";
 import { useEffect } from "react";
 import { FontOption } from "@/interfaces/design";
+import clsx from "clsx";
 
 export default function PreviewPanel() {
   let pageDesignState = usePageDesignContext();
@@ -2041,7 +2042,7 @@ export default function PreviewPanel() {
           }
         </div>
       </div>
-      <div style={prevW} className={prvp["panel_preview"]}>
+      <div style={prevW} className={clsx(prvp["panel_preview"],"check here ")}>
         <div className={prvp["panel_container_inner"]} data-prevpanel="true">
           {/* <HeaderNav /> */}
           {pageDesignState.design?.elements?.length ? (

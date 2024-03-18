@@ -33,7 +33,7 @@ interface filterprops {
 }
 
 interface FilterDetail<SO = { label: string; value: string | boolean | number }> {
-  title: string
+  title?: string
   inputType:
     | "text"
     | "checkbox"
@@ -59,6 +59,7 @@ interface FilterDetail<SO = { label: string; value: string | boolean | number }>
   hidden?: boolean
   preview?: boolean
   errorMessage?: string | null
+  onOptionClick?:(option:Option)=>void
   // this should be optimised and generalised later  , i have passed dimension from file creatportfolio just for sake of easeness
   dimensionsImage?: {
     height: number | null

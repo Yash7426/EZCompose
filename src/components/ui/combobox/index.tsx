@@ -13,7 +13,7 @@ interface ComboboxInputProps {
 
 const ComboboxInput: React.FC<ComboboxInputProps> = ({ onChange, placeholder }) => (
   <Combobox.Input
-    className="w-full py-2 pl-3 pr-10 text-sm leading-5  border-[0.1px]   bg-[#18181c]  focus:!ring-0  border-black focus:!border-white rounded-md "
+    className="w-full py-2 pl-3 pr-10 text-sm leading-5  border-[0.1px]    focus:!ring-0  border-black focus:!border-white rounded-md "
     displayValue={(option: Option) => option?.label ?? ""}
     onChange={onChange}
     placeholder={placeholder}
@@ -30,9 +30,10 @@ interface ComboboxOptionsProps {
   filteredOptions: Option[]
   query: string
   setQuery: React.Dispatch<React.SetStateAction<string>>
+  onOptionClick?: (option: Option) => void; 
 }
 
-const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, query, setQuery }) => (
+const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, query, setQuery,onOptionClick }) => (
   <Transition
     as={Fragment}
     leave="transition ease-in duration-100"
@@ -41,7 +42,7 @@ const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, quer
     afterLeave={() => setQuery("")}
   >
     <Combobox.Options
-      className="absolute w-full py-1 overflow-auto text-base rounded-md bg-user_interface_2 max-h-60 ring-1 ring-user_interface_4 focus:outline-none sm:text-sm"
+      className="absolute w-full py-1 overflow-auto text-base rounded-md bg-white max-h-60 ring-1 ring-black focus:outline-none sm:text-sm flex flex-col gap-2"
       style={{ zIndex: 19 }}
     >
       {filteredOptions.length === 0 && query !== "" ? (
@@ -57,9 +58,10 @@ const ComboboxOptions: React.FC<ComboboxOptionsProps> = ({ filteredOptions, quer
             key={String(option.value)}
             className={({ active }) =>
               `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                active ? "bg-secondary text-text" : "text-text"
+                active ? "bg-pink-400 text-text" : "text-text"
               }`
             }
+            onClick={() =>{if(onOptionClick) onOptionClick(option)}}
             value={option}
             style={{ zIndex: 19 }}
           >
@@ -93,6 +95,8 @@ interface ComboboxWrapperProps {
   setQuery: React.Dispatch<React.SetStateAction<string>>
   filteredOptions: Option[]
   placeholder?: string
+  onOptionClick?: (option: Option) => void;
+
 }
 
 const ComboboxWrapper: React.FC<ComboboxWrapperProps> = ({
@@ -100,11 +104,12 @@ const ComboboxWrapper: React.FC<ComboboxWrapperProps> = ({
   setQuery,
   filteredOptions,
   placeholder,
+  onOptionClick
 }) => (
   <div className="w-full overflow-hidden text-left  cursor-default sm:text-sm">
     <ComboboxInput onChange={(event) => setQuery(event.target.value)} placeholder={placeholder} />
     <ComboboxButton />
-    <ComboboxOptions filteredOptions={filteredOptions} query={query} setQuery={setQuery} />
+    <ComboboxOptions filteredOptions={filteredOptions} query={query} setQuery={setQuery} onOptionClick={onOptionClick} />
   </div>
 )
 interface Option {
@@ -121,6 +126,7 @@ interface CustomComboboxProps {
   className?: string
   hidden?: boolean
   errorMessage?: string | null
+  onOptionClick?: (option: Option) => void;
 }
 
 const CustomCombobox: React.FC<CustomComboboxProps> = ({
@@ -131,6 +137,8 @@ const CustomCombobox: React.FC<CustomComboboxProps> = ({
   errorMessage,
   placeholder,
   value,
+  onOptionClick,
+
 }) => {
   "use client"
   const [, setSelected] = useState<Option>(
@@ -160,6 +168,7 @@ const CustomCombobox: React.FC<CustomComboboxProps> = ({
           setval(value)
           onChange((value.value as string) || "")
         }}
+        
       >
         <ComboboxWrapper
           selected={val}
@@ -168,6 +177,7 @@ const CustomCombobox: React.FC<CustomComboboxProps> = ({
           setQuery={setQuery}
           filteredOptions={filteredOptions || []}
           placeholder={placeholder}
+          onOptionClick={onOptionClick}
         />
         {errorMessage ? (
           <span className="flex gap-1 p-1 text-red-500 text-[12px] items-center">
