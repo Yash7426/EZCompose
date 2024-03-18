@@ -180,7 +180,6 @@ const words = [
 
 export default function Home() {
   // const userId = useStoreUserEffect();
-  // console.log(userId);
   return (
     <main className="flex  flex-col items-center justify-between   ">
       <Navbar navigation={navigation} userProfile={userProfile} Items={Items} />

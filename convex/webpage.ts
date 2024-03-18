@@ -47,7 +47,7 @@ export const createWebpage = mutation({
     fonts: v.array(
       v.object({
         font: v.string(),
-        weight: v.optional(v.array(v.string())),
+        weights: v.optional(v.array(v.string())),
       })
     ),
     websiteId: v.id("website"),
@@ -93,7 +93,7 @@ export const updateWebpage = mutation({
       v.array(
         v.object({
           font: v.string(),
-          weight: v.optional(v.array(v.string())),
+          weights: v.optional(v.array(v.string())),
         })
       )
     ),

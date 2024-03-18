@@ -15,7 +15,10 @@ import { Id } from "../../../../../convex/_generated/dataModel";
 import Navbar from "@/components/header";
 import { useQuery } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
- function DesignApp({
+import _ from "lodash";
+import { IdesignState } from "@/interfaces/design";
+
+function DesignApp({
   params,
 }: {
   params: { websiteId: Id<"website">; pageId: Id<"webpage"> };
@@ -32,6 +35,7 @@ import { api } from "../../../../../convex/_generated/api";
       ? { id: __webpageParams.pageId as Id<"webpage"> }
       : "skip"
   );
+
   const website = useQuery(
     api.website.getWebSite,
     __webpageParams.websiteId
@@ -40,6 +44,7 @@ import { api } from "../../../../../convex/_generated/api";
   );
 
   let pageDesignState = usePageDesignContext();
+
   const UserDetailsState = useuserDetailsContext();
   // { currentWidth: "300px", isDragStarted: false }
   const resizer = useRef<
@@ -78,7 +83,6 @@ import { api } from "../../../../../convex/_generated/api";
     }
   };
 
-
   useEffect(() => {
     UserDetailsState.setEditorState((prev) => ({
       ...prev,
@@ -103,7 +107,6 @@ import { api } from "../../../../../convex/_generated/api";
       UserDetailsState.editorState?.websiteId &&
       UserDetailsState.editorState.pageId
     ) {
-      console.log("UserDetailsState", UserDetailsState);
       setPageState(
         UserDetailsState.editorState.pageId,
         UserDetailsState.editorState.websiteId
@@ -112,28 +115,43 @@ import { api } from "../../../../../convex/_generated/api";
   }, [
     // UserDetailsState.editorState?.websiteId,
     // UserDetailsState.editorState?.pageId,
-    website, webpage
+    website,
+    webpage,
   ]);
-
-  useEffect(() => {
-    console.log("papa", pageDesignState.webDesignState);
-  }, [pageDesignState.webDesignState]);
 
   const setPageState = async (pid: any, wid: any) => {
     let _pid = pid;
     let _wid = wid;
     if (!_pid || !_wid) return;
     try {
-      if (webpage != undefined) pageDesignState.setDesign(webpage);
+        console.log("Data", {
+        webpage,
+        design: pageDesignState.design,
+        compare: webpage === pageDesignState.design,
+      });
+      if (webpage != undefined) {
+        if (
+          !_.isEqual(webpage?.elements,pageDesignState.design?.elements)
+          // Object(webpage?.elements).toString() !==
+          // Object(pageDesignState.design?.elements).toString()
+        ) {
+          pageDesignState.setDesign(webpage);
+        }
+      }
       if (website != undefined) {
         pageDesignState.setWebDesignState(website);
-        console.log("object", website);
       }
     } catch (err) {
-      console.log("getting error", err);
-        router.push("/my-websites");
+      router.push("/my-websites");
     }
   };
+
+  useEffect(() => {
+    console.log("object");
+    pageDesignState.getWebPageImageAndSavePage(
+      !pageDesignState.design?.isPublished ? "Save" : "Update"
+    );
+  }, [pageDesignState.design]);
 
   return (
     <div className={AppStyles["app"]}>
@@ -160,6 +178,7 @@ import { api } from "../../../../../convex/_generated/api";
             <FaGripLinesVertical />
           </div>
         </aside>
+
         <main className={AppStyles["preview_panel"]}>
           <PreviewPanel />
         </main>

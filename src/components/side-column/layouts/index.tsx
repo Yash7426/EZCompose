@@ -15,7 +15,6 @@ export default function SideColumnLayout() {
     const pageDesignState = usePageDesignContext()
     const dragElOptions = useDragElemContext()
 //  const {__dragElems,__setDragElems}=dragElOptions
-console.log("dragelem=",dragElOptions)
 
     let layout = [
     {
@@ -175,10 +174,8 @@ console.log("dragelem=",dragElOptions)
                 //insert at index
 
                 //e.target.closest("").getAttribute("data-elementindex")
-                console.log("see drop position", pageDesignState.dropPosition.current)
                 // if(pageDesignState.dropPosition.current && __attr) {
                 if(pageDesignState.dropPosition.current!=undefined && pageDesignState.dropPosition.current!=null && __attr) {
-                    console.log("working hrere");
                     
                     _elems.splice(pageDesignState.dropPosition.current, 0, JSON.parse(JSON.stringify(tempOptions[Number(__attr)])));
                 }
@@ -187,7 +184,6 @@ console.log("dragelem=",dragElOptions)
                 //     return;
                 // }
                 // console.log("reached here->",_elems);
-                console.log(__attr);
 
                 pageDesignState.setDesign({ ...pageDesignState.design, elements: _elems });
                 pageDesignState.dropPosition.current = null;
@@ -201,9 +197,6 @@ console.log("dragelem=",dragElOptions)
             }
         }
     }
-    useEffect(()=>{
-        console.log(pageDesignState)
-    },[pageDesignState])
     return (
         <>
             <div className='custom-row'>

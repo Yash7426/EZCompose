@@ -196,7 +196,7 @@ const page = () => {
         isSearch={search}
       />
       <CreateProjectDialog isOpen={showModal} setisOpen={setShowModal} />
-      <div className="relative  w-full h-full overflow-x-hidden overflow-y-hidden bg-[#070A0F]">
+      <div className="relative  w-full min-h-screen overflow-x-hidden overflow-y-hidden bg-[#070A0F]">
         <Meteors />
 
         <div className=" flex justify-between h-full">
@@ -224,6 +224,7 @@ const page = () => {
               {userProj.userProject.map((ele, idx) => (
                 <Card2
                  key={idx}
+                 _id={ele._id}
                   imageUrl={
                     ele.bannerImage
                       ? ele.bannerImage
@@ -238,6 +239,7 @@ const page = () => {
                   initial="notSelected"
                   animate={selectedCard === idx ? "selected" : "notSelected"}
                   variants={cardVariants}
+                  users = {ele.users}
                 />
               ))}
             </div>

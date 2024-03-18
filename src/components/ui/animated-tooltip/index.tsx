@@ -8,18 +8,19 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 export const AnimatedTooltip = ({
   items,
 }: {
   items: {
-    id: number;
+    _id: Id<"users">;
+    profileImage?: string | undefined;
     name: string;
-    designation: string;
-    image: string;
+    email: string;
   }[];
 }) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<Id<"users"> | null>();
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0); // going to set this value on mouse move
   // rotate the tooltip
@@ -43,11 +44,11 @@ export const AnimatedTooltip = ({
         <div
           className="-mr-4  relative group"
           key={item.name}
-          onMouseEnter={() => setHoveredIndex(item.id)}
+          onMouseEnter={() => setHoveredIndex(item._id)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence mode="wait">
-            {hoveredIndex === item.id && (
+            {hoveredIndex === item._id && (
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.6 }}
                 animate={{
@@ -73,18 +74,17 @@ export const AnimatedTooltip = ({
                 <div className="font-bold text-white relative z-30 text-base">
                   {item.name}
                 </div>
-                <div className="text-white text-xs">{item.designation}</div>
               </motion.div>
             )}
           </AnimatePresence>
-          <Image
+         {item.profileImage && <Image
             onMouseMove={handleMouseMove}
             height={100}
             width={100}
-            src={item.image}
+            src={item.profileImage}
             alt={item.name}
             className="object-cover !m-0 !p-0 object-top rounded-full h-14 w-14 border-2 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
-          />
+          />}
         </div>
       ))}
     </>

@@ -14,6 +14,10 @@ export default defineSchema({
       })
     ),
   }),
+  sharedwebsite: defineTable({
+    userId: v.id("users"),
+    websites: v.array(v.id("website"))
+  }),
   webpage: defineTable({
     faviconUri: v.optional(v.string()),
     description: v.optional(v.string()),

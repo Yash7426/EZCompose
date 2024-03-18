@@ -89,7 +89,6 @@ export default function PreviewPanel() {
 
   const enableNewAdding = (e: React.MouseEvent) => {
     // if (e.target.classList.value.indexOf("temp_elem") > -1 && e.target.classList.value.indexOf("temp_infocus") < 0) {
-    console.log("add inside of the div")
     pageDesignState.nodeLevel.current =
       e.currentTarget.getAttribute("data-path");
     const targetPath = e.currentTarget.getAttribute("data-path");
@@ -99,7 +98,6 @@ export default function PreviewPanel() {
   };
 
   const updateInsertPosition = (e: React.DragEvent<HTMLElement>) => {
-    console.log("see now i am triggered222")
     let _msg = document.createElement("div");
 
     if (_msg) {
@@ -145,7 +143,6 @@ export default function PreviewPanel() {
       
       const isdataPath = e.currentTarget.hasAttribute("data-path");
       const dataPath = e.currentTarget.getAttribute("data-path");
-      console.log("inside isdatapaht-->",e.currentTarget)
       if (isdataPath) {
         dpa = dataPath;
       } else {
@@ -154,7 +151,6 @@ export default function PreviewPanel() {
           dpa = e.currentTarget
             .querySelector("[data-path]")
             ?.getAttribute("data-path");
-          console.log("inside dpa--> ",dpa)
       }
       pageDesignState.nodeLevel.current = dpa;
       pageDesignState.dropPosition.current = null;
@@ -1201,7 +1197,6 @@ export default function PreviewPanel() {
     type: string,
     selectText: boolean
   ) => {
-    console.log("showsettingpanel--->", name);
     setPanelSettings({ ...panelSettings, panelTitle: name, panelMode: type });
 
     let scrlTopp = (document.querySelector("[data-panelmain]") as HTMLElement)

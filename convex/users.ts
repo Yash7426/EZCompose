@@ -1,11 +1,31 @@
-import { Doc } from "./_generated/dataModel";
+import { Doc, Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
-
+import { v } from "convex/values";
 /**
  * Get all users data
  */
 export const list = query(async (ctx): Promise<Doc<"users">[]> => {
   return await ctx.db.query("users").collect();
+});
+
+type arrType =  {
+  _id: Id<"users">;
+  profileImage?: string | undefined;
+  name: string;
+  email: string;
+}[]
+export const getUser = query({
+  args: { ids: v.array(v.id("users")) },
+  handler: async (ctx, { ids }) => {
+    let arr: arrType = [];
+    await Promise.all(ids.map(async (ele) => {
+      let user = await ctx.db.get(ele);
+      console.log("ids--->", user);
+      if (user) arr.push(user);
+    }));
+    console.log(arr);
+    return arr;
+  },
 });
 
 /**

@@ -42,7 +42,6 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
       __webName = __webName.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
 
       try {
-        console.log("hitt dfdsfdsfddsdfed", __webName);
 
         const websiteId = await createWebsite({
           user: user1?._id as Id<"users">,
@@ -72,7 +71,6 @@ const CreateNewWebsite: React.FC<CreateNewWebsitetype> = ({ closeModal }) => {
         });
 
         // create a default web page
-        // console.log(`/design/${websiteId}/${indexPageId}`);
         router.push(`/design/${websiteId}/${indexPageId}`);
       } catch (error) {
         // closeModal();

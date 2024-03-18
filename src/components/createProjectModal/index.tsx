@@ -50,7 +50,6 @@ const CreateProjectDialog: React.FC<GeneralDialogProps> = ({
   const getImageUrl = useMutation(api.website.generateServeUrl);
   const saveAfterUpload = async (uploaded: UploadFileResponse[]) => {
     // await saveStorageId({ storageId: (uploaded[0].response as any).storageId });
-    console.log(uploaded[0].response);
     const ss = await getImageUrl({
       storageId: (uploaded[0].response as any).storageId as string,
     });
@@ -91,12 +90,11 @@ const CreateProjectDialog: React.FC<GeneralDialogProps> = ({
       __webName = __webName.toLowerCase().replace(/[^a-zA-Z0-9]+/g, " ");
 
       try {
-
         const websiteId = await createWebsite({
           user: user1?._id as Id<"users">,
           name: __webName,
           bannerImage: s,
-          description: formData.description
+          description: formData.description,
         });
         UserDetailsState.setEditorState((prev) => ({
           ...prev,
@@ -121,13 +119,12 @@ const CreateProjectDialog: React.FC<GeneralDialogProps> = ({
         });
 
         // create a default web page
-        // console.log(`/design/${websiteId}/${indexPageId}`);
         router.push(`/design/${websiteId}/${indexPageId}`);
       } catch (error) {
         // closeModal();
         console.error(error);
       }
-    } catch (err) { }
+    } catch (err) {}
   };
 
   return (
@@ -200,7 +197,7 @@ const CreateProjectDialog: React.FC<GeneralDialogProps> = ({
             variant={"outline"}
             className="flex items-center gap-2 text-lg"
             onClick={() => {
-              createNewWebsite()
+              createNewWebsite();
             }}
           >
             Save changes

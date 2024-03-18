@@ -143,9 +143,6 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
 
         __design_data.settingMode = BigInt(-1);
 
-        // const d=  as  Id<"website">;
-        console.log(editorState?.pageId)
-        console.log(editorState?.websiteId)
         
         if (editorState?.pageId && editorState?.websiteId && user?._id)
           await updatePage({
@@ -154,9 +151,7 @@ const PageDesignProvider = ({ children }: { children: React.ReactNode }) => {
             author: user._id as Id<"users">,
             ...__design_data,
           });
-          console.log("89")
       }
-      console.log("90")
     } catch (e) {
       alert("Unable to save the webpage try again!");
     }

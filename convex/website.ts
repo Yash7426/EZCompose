@@ -5,7 +5,6 @@ import { Doc } from "./_generated/dataModel";
 export const listuserSites = query({
   args: { user: v.id("users") },
   handler: async (ctx, args): Promise<Doc<"website">[]> => {
-    console.log("W");
     const websites = await ctx.db.query("website").collect();
     const userWebsites = (websites ?? []).filter((website) => {
       const u = website.users.some((user) => user === args.user);
@@ -22,17 +21,54 @@ export const getWebSite = query({
   },
 });
 
+
+
+export const addUsertoSite = mutation({
+  args: { websiteId: v.id("website"), email: v.string() },
+  handler: async (ctx, args) => {
+    const users = await ctx.db.query("users").collect();
+    const user = users.filter((user) => {
+      return user.email === args.email;
+    });
+    const website = await ctx.db.get(args.websiteId);
+    const websiteUsers = website?.users || [];
+    websiteUsers.push(user[0]._id);
+    const sharedwebsite = await ctx.db.query("sharedwebsite").collect();
+    const userShared = sharedwebsite.filter((website) => {
+      return website.userId === user[0]._id;
+    });
+    if (userShared.length == 0) {
+      // insert
+      await ctx.db.insert("sharedwebsite", {
+        userId: user[0]._id,
+        websites: [args.websiteId],
+      });
+    } else {
+      // update
+      await ctx.db.patch(userShared[0]._id, {
+        websites: [...userShared[0].websites, args.websiteId],
+      });
+    }
+    return await ctx.db.patch(args.websiteId, { users: websiteUsers });
+  },
+});
+
 export const createWebsite = mutation({
   args: {
     user: v.id("users"),
     name: v.string(),
     bannerImage: v.optional(v.string()),
-    description : v.optional(v.string())
+    description: v.optional(v.string()),
   },
   handler: async (ctx, { name, user, bannerImage, description }) => {
-    const website = { name, bannerImage, users: [user], pages: [] , description};
+    const website = {
+      name,
+      bannerImage,
+      users: [user],
+      pages: [],
+      description,
+    };
     const web = await ctx.db.insert("website", website);
-    console.log(web);
     return web;
   },
 });

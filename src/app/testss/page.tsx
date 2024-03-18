@@ -13,7 +13,6 @@ export default function App() {
   const getImageUrl = useMutation(api.website.generateServeUrl)
   const saveAfterUpload = async (uploaded: UploadFileResponse[]) => {
     // await saveStorageId({ storageId: (uploaded[0].response as any).storageId });
-    console.log(uploaded[0].response);
     const ss= await getImageUrl({
       storageId:(uploaded[0].response as any).storageId  as string
     })

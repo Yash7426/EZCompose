@@ -89,12 +89,9 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
     });
 
   let loadMoreImages = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    console.log("cURI-->", imageSearchSetting.cURI);
-  }, [imageSearchSetting]);
+
   const loadImages = async (type: loadType) => {
     //reset all settings!
-    console.log("this is ", type);
     setImageSearchSetting({
       q: "",
       cURI: "",
@@ -127,7 +124,6 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
             orientation: "landscape",
           })
           .then((photos) => {
-            console.log("ppp-->", photos);
             if ("photos" in photos && loadMoreImages.current) {
               setImageList([...photos.photos]);
 
@@ -136,7 +132,6 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
               } else {
                 loadMoreImages.current.style.display = "none";
               }
-              console.log("got images", photos);
               setImageSearchSetting({
                 ...imageSearchSetting,
                 nextURI: photos.next_page,
@@ -521,7 +516,6 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
     );
   };
 
-  console.log("object", imageSearchSetting);
 
   return (
     <div className="BgImagePanel">
@@ -576,7 +570,6 @@ const BackgroundImageSettings: React.FC<BackgroundImageSettingsProps> = (
             </div>
             <div className="bgImageResults">
               {imageList.map((e) => {
-                console.log(e);
                 return (
                   <div
                     className="BgImageItem"

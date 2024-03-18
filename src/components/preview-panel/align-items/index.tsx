@@ -96,7 +96,6 @@ const AlignItems: React.FC<AlignItemsProps> = ({
     let __current_elem = getNodeData(currentNode, 0);
 
     let __style_prop = { ...__current_elem.styles };
-    console.log("inside applyFlexOptions-->", flexAlignOptions);
     __style_prop = { ...__style_prop, ...flexAlignOptions };
 
     __current_elem.styles = __style_prop;
@@ -151,7 +150,6 @@ const AlignItems: React.FC<AlignItemsProps> = ({
       label: IlabelType.Stretch,
     },
   ];
-  console.log("HorizontalAlign",HorizontalAlign)
   type IVerticalAlignType = {
     justifyContent: IjustifyContentType;
     imgSrc: string;

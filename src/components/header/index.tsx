@@ -27,8 +27,6 @@ const Navbar: React.FC = () => {
     
     const isPageDesign = (params.pageId && params.websiteId) ? true:false 
     const isPageDesignEmpty = (params.pageId && params.websiteId) ? true:false
-    console.log("DE ",isPageDesignEmpty)
-    console.log("DE2 ",isPageDesign)
 
     const {user} = useUserContext();
 
@@ -140,8 +138,6 @@ const Navbar: React.FC = () => {
     useEffect(()=>{},[webDesignState])
 
 
-    console.log("hello",isPageDesign)
-    console.log(webDesignState)
     return (
         <nav className={nvstyle["navbar"]}>
             <div className={nvstyle["navbar_header_logo"]}>WebPage Builder</div>
