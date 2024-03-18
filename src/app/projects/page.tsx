@@ -125,7 +125,6 @@ const page = () => {
   const pathname = usePathname();
   const isSearch = pathname.includes("/projects");
 
-  const [token] = useToken();
   const [showModal, setShowModal] = useState<boolean>(false);
   const user = useStoreUserEffect();
   let [userProj, setUserProj] = useState<IuserProject>({

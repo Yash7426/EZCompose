@@ -29,7 +29,7 @@ import { Variant } from '@samuelmeuli/font-manager';
 
  interface FontOption {
     font: string;
-    weights: Variant[] |string[];
+    weights?: Variant[] |string[];
 }
 
 
@@ -121,7 +121,7 @@ export default function FontManager(props:Allow) {
                                         <span className='fontName' style={{ fontFamily: e.font }}>{e.font}</span>
                                         <span className='fontWeights'>
                                             {
-                                                (e.weights.length > 0) && e.weights.join(", ")
+                                                (e.weights && e.weights.length > 0) && e.weights.join(", ")
                                             }
                                         </span>
                                     </div>

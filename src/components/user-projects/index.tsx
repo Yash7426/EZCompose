@@ -17,15 +17,14 @@ type IuserProject = {
   perPage: number;
   loadFailed: boolean;
   userProject: {
-    _id: Id<'website'>;
+    _id: Id<"website">;
     pages?: Page[];
     bannerImage?: string;
-    description?:string
+    description?: string;
     name: string;
     published?: boolean;
-    users?: Id<'users'>[];
+    users?: Id<"users">[];
   }[];
-
 };
 type UserProjectProps = {
   createNewWeb: () => void;
@@ -49,15 +48,23 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     user?._id ? { user: user._id as Id<"users"> } : "skip"
   );
 
-  useEffect(()=>{
-    if(websites){
-      setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: false, userProject: websites, currentPage: userProj.currentPage + 1 }))
+  useEffect(() => {
+    if (websites) {
+      setUserProj((prev) => ({
+        ...prev,
+        loadingProj: false,
+        loadFailed: false,
+        userProject: websites,
+        currentPage: userProj.currentPage + 1,
+      }));
+    } else {
+      setUserProj((prev) => ({
+        ...prev,
+        loadingProj: false,
+        loadFailed: true,
+      }));
     }
-    else{
-        setUserProj((prev)=>({ ...prev, loadingProj: false, loadFailed: true }))
-    }
-  },[websites])
-
+  }, [websites]);
 
   useEffect(() => {
     loadUserProject();
@@ -76,7 +83,7 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
     }
   };
 
-  return ( 
+  return (
     <div>
       <div className="projects_case_container">
         {userProj.loadingProj && <div className="loading-wrap">Loading...</div>}
@@ -88,7 +95,9 @@ const UserProjects: React.FC<UserProjectProps> = ({ createNewWeb }) => {
             {userProj.userProject.map((e, i) => {
               return (
                 <div key={i} className="projectoption">
-                  <Link href={`/design/${e._id}/${e.pages && e.pages.length>0 && e.pages[0].pageId}/`}>
+                  <Link
+                    href={`/design/${e._id}/${e.pages && e.pages.length > 0 && e.pages[0].pageId}/`}
+                  >
                     <div className="projimgshowcase">
                       <img
                         src={
