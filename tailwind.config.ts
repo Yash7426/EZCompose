@@ -16,6 +16,7 @@ const config: Config = {
     extend: {
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
+        "radar-spin": "radar-spin 10s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -42,6 +43,14 @@ const config: Config = {
           "100%": {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
+          },
+        },
+        "radar-spin": {
+          from: {
+            transform: "rotate(20deg)",
+          },
+          to: {
+            transform: "rotate(380deg)",
           },
         },
       },

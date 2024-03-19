@@ -94,7 +94,7 @@ const Filter: React.FC<FilterDetail> = ({
   }
   return (
     <div className={clsx(Variant)}>
-      <label className="font-medium" htmlFor={title}>
+      <label className="font-medium text-white " htmlFor={title}>
         {title}
       </label>
       {inputType === "text" && (

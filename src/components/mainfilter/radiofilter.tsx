@@ -14,12 +14,12 @@ const RadioFilter: React.FC<RadioFilterProps> = ({ value, options, onChange, err
     <>
       <div className="flex flex-col items-start gap-y-[18px]">
         {options?.map((option, index) => (
-          <span key={index} className="flex flex-row flex-wrap items-center gap-x-2 ">
+          <span key={index} className="flex flex-row flex-wrap items-center gap-x-2 text-white">
             <Radio
               checked={value === option.value}
               onChange={() => onChange(option.value as boolean)}
             />
-            <span className="text-[14px] break-all">{option.label}</span>
+            <span className="text-[14px] break-all text-white">{option.label}</span>
           </span>
         ))}
       </div>

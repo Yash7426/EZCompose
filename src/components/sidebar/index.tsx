@@ -68,11 +68,11 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation, navsFooter }) => {
     { name: 'Get paid', href: 'javascript:void(0)', icon: <></> },
   ];
 
+
   const navigation2 = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: "Home", href: "/", current: true },
+    { name: "Projects", href: "/projects", current: false },
+  
   ];
   
   const userProfile = {

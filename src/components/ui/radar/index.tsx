@@ -54,7 +54,7 @@ export const Circle = ({ className, children, idx, ...rest }: any) => {
         duration: 0.2,
       }}
       className={twMerge(
-        "absolute inset-0 left-1/2 top-1/2 h-10 w-10  -translate-x-1/2 -translate-y-1/2 transform rounded-full border border-neutral-200",
+        "absolute inset-0 left-1/2 top-1/2 h-10 w-10  -translate-x-1/2 -translate-y-1/2 transform rounded-full border !border-purple-800",
         className
       )}
     ></motion.div>

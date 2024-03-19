@@ -12,7 +12,6 @@ import { MdOutlineArrowDropDown } from "react-icons/md";
 import Card from "@/components/preview-project-card";
 import Button from "@/components/ui/button";
 import Navbar from "@/components/navbar";
-import ProjectCard from "@/components/project-card";
 import GradientBackground from "@/components/ui/gradient-background";
 import leftGradient from "@/assets/image/left-gradient.webp";
 import rightGradient from "@/assets/image/right-gradient.webp";
@@ -378,12 +377,11 @@ const page = () => {
             <div className="text-3xl text-white my-4">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
               {userProj.userProject.map((ele, idx) => {
-                console.log("ppppp->",ele._id);
                 return (
                 
                 <Card2
                  key={idx}
-                 _id={ele._id}
+                //  _id={ele._id}
                   imageUrl={
                     ele.bannerImage
                       ? ele.bannerImage
