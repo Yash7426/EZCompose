@@ -377,7 +377,6 @@ const page = () => {
             <div className="text-3xl text-white my-4">Projects</div>
             <div className="my-5 justify-around grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 place-items-center">
               {userProj.userProject.map((ele, idx) => {
-                console.log("ppppp->",ele._id);
                 return (
                 
                 <Card2

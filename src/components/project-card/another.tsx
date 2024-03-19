@@ -80,7 +80,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [people, setPeople] = useState<PeopleType>(initPeople);
   const addSite = async () => {
     if (email == "" || email == null) return;
-    console.log("idsdfsjfls", _id);
     await addUsertoSite({
       email: email,
       websiteId: "jd7c600zmv9wfcp0wrvqhga7v16nh3yn" as Id<"website">,
